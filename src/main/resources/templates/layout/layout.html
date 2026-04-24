@@ -1,0 +1,18 @@
+<!doctype html>
+<html
+  lang="ko"
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+>
+  <head th:replace="~{layout/fragments/config :: configFragment}">
+    <title>스터디 플로우</title>
+  </head>
+
+  <body>
+    <header th:replace="~{layout/fragments/header :: HeaderFragment}"></header>
+
+    <main layout:fragment="content"></main>
+
+    <footer th:replace="~{layout/fragments/footer :: FooterFragment}"></footer>
+  </body>
+</html>
