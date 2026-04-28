@@ -1,11 +1,12 @@
 package com.project.sf.admins;
 
 public class Admins {
-  String id;
-  String pw;
-  String name;
-  String role;
-  String createdAt;
+  private String id;
+  private String pw;
+  private String name;
+  private String role;
+  private boolean isActive;
+  private String createdAt;
 
   public String getId() {
     return id;
@@ -39,6 +40,14 @@ public class Admins {
     this.role = role;
   }
 
+  public boolean isActive() {
+    return isActive;
+  }
+
+  public void setActive(boolean isActive) {
+    this.isActive = isActive;
+  }
+
   public String getCreatedAt() {
     return createdAt;
   }
@@ -46,6 +55,4 @@ public class Admins {
   public void setCreatedAt(String createdAt) {
     this.createdAt = createdAt;
   }
-
-
 }
