@@ -3,16 +3,22 @@
 header,
 main,
 footer {
-  width: 1200px;
+  width: 75rem;
   margin: 0 auto;
 }
 
 header {
-	
+  outline: 1px dotted red;
 }
 
 main {
+  outline: 1px dotted blue;
 }
 
 footer {
+  outline: 1px dotted green;
+}
+
+.flex-box {
+  display: flex;
 }

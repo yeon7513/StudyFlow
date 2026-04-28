@@ -1,0 +1,11 @@
+header {
+  text-align: center;
+}
+
+header nav > ul.gnb {
+  width: 100%;
+  justify-content: center;
+  align-items: center;
+  gap: 3rem;
+  outline: 1px dotted red;
+}

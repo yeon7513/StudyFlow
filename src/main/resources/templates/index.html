@@ -6,7 +6,9 @@
   layout:decorate="~{/layout/layout}"
 >
   <head>
-    <title>메인 페이지</title>
+    <th:block layout:fragment="css">
+      <link rel="stylesheet" href="/css/index/index.css" />
+    </th:block>
   </head>
   <body>
     <div layout:fragment="content">

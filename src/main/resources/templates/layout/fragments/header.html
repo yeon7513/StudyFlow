@@ -1,11 +1,19 @@
 <!doctype html>
-<html
-  lang="ko"
-  xmlns:th="http://www.thymeleaf.org"
-  th:fragment="HeaderFragment"
->
-	<div class="container">
+<html lang="ko" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	th:fragment="Header">
+
+<header>
+	<div class="wrap">
 		<h1>로고</h1>
-	    <nav>GNB</nav>
+		<nav>
+			<ul class="gnb flex-box">
+				<li><a href="#">실시간 트렌드</a></li>
+				<li><a href="#">사전 예약</a></li>
+				<li><a href="#">Q&A</a></li>
+			</ul>
+		</nav>
 	</div>
+</header>
+
 </html>

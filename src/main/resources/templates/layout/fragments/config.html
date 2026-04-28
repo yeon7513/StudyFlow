@@ -2,13 +2,26 @@
 <html
   lang="ko"
   xmlns:th="http://www.thymeleaf.org"
-  th:fragment="configFragment"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  th:fragment="Config"
 >
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>스터디 플로우</title>
+    
+    <!-- 페이지별 타이틀 적용 -->
+    <title layout:fragment="title">스터디 플로우</title>
+    
+    <!-- 리셋 및 기본 스타일 시트 적용 -->
     <link rel="stylesheet" href="/css/common/reset.css" />
     <link rel="stylesheet" href="/css/common/common.css" />
+    
+    <!-- header & footer -->
+    <link rel="stylesheet" href="/css/common/header.css" />
+    <link rel="stylesheet" href="/css/common/footer.css" />
+    
+    <!-- 페이지별 css 및 js 적용 -->
+    <th:block layout:fragment="css"></th:block>
+    <th:block layout:fragment="js"></th:block>
   </head>
 </html>

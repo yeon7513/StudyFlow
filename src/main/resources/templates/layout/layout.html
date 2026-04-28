@@ -4,16 +4,20 @@
   xmlns:th="http://www.thymeleaf.org"
   xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 >
-  <head th:replace="~{layout/fragments/config :: configFragment}"> </head>
+  <head th:replace="~{layout/fragments/config :: Config}">
+  </head>
 
   <body>
-	<header th:insert="~{layout/fragments/header :: HeaderFragment}"></header>
+  	<!-- 헤더 -->
+	<th:block th:replace="~{layout/fragments/header :: Header}"></th:block>
 
+	<!-- 메인 -->
     <main>
     	<th:block layout:fragment="content">
     	</th:block>
     </main>
 
-    <footer th:insert="~{layout/fragments/footer :: FooterFragment}"></footer>
+	<!-- 푸터 -->
+    <th:block th:replace="~{layout/fragments/footer :: Footer}"></th:block>
   </body>
 </html>
