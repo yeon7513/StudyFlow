@@ -1,4 +1,4 @@
-package com.project.sf.reservation;
+package com.project.sf.preorder.reservation;
 
 public class Reservation {
   private String email;

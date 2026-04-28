@@ -1,6 +1,6 @@
-package com.project.sf.qna;
+package com.project.sf.qna.board;
 
-public class Qna {
+public class Board {
   private Long no;
   private String writerIp;
   private String postPw;
