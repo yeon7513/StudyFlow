@@ -1,10 +1,8 @@
-package com.project.sf.interest.keyword;
+package com.project.sf.trend.category;
 
-public class Keyword {
+public class Category {
   private Long no;
-  private Long cateNo;
   private String name;
-  private String description;
   private String adminId;
   private boolean isActive;
   private String createdAt;
@@ -34,28 +32,12 @@ public class Keyword {
     this.no = no;
   }
 
-  public Long getCateNo() {
-    return cateNo;
-  }
-
-  public void setCateNo(Long cateNo) {
-    this.cateNo = cateNo;
-  }
-
   public String getName() {
     return name;
   }
 
   public void setName(String name) {
     this.name = name;
-  }
-
-  public String getDescription() {
-    return description;
-  }
-
-  public void setDescription(String description) {
-    this.description = description;
   }
 
   public String getAdminId() {

@@ -1,4 +1,4 @@
-package com.project.sf.interest.selected;
+package com.project.sf.trend.selected;
 
 public class SelectedKeyword {
   private String rsvEmail;
