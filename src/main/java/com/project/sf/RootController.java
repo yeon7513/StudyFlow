@@ -10,4 +10,10 @@ public class RootController {
   String index() {
     return "index";
   }
+
+  @GetMapping("/test")
+  String test() {
+    return "pages/test/test";
+  }
+
 }

@@ -1,11 +1,11 @@
 @charset "utf-8";
+@import './font.css';
 
-/* reset */
 * {
   margin: 0;
   padding: 0;
   box-sizing: border-box;
-  font-family: 'Pretendard', 'Noto Sans KR', sans-serif;
+  font-family: 'A2z', sans-serif;
 }
 
 a {
