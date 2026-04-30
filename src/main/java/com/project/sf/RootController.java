@@ -11,4 +11,9 @@ public class RootController {
     return "index";
   }
 
+  @GetMapping("/sf-admin-login")
+  String login() {
+    return "admin/login";
+  }
+
 }

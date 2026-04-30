@@ -8,9 +8,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 @RequestMapping("/trend")
 public class TrendController {
 
-  @GetMapping("/")
+  @GetMapping("/main")
   String trend() {
     return "pages/trend/trend";
   }
-
 }
