@@ -1,4 +1,4 @@
-package com.project.sf.preorder;
+package com.project.sf.preorder.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -7,7 +7,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import com.project.sf.preorder.reservation.Reservation;
+import com.project.sf.preorder.Reservation;
+import com.project.sf.preorder.service.PreorderService;
 
 @Controller
 @RequestMapping("/preorder")
@@ -16,7 +17,7 @@ public class PreorderController {
   @Autowired
   PreorderService preorderService;
 
-  @GetMapping("/main")
+  @GetMapping({"", "/", "/list"})
   String preorder() {
     return "pages/preorder/preorder";
   }

@@ -1,4 +1,4 @@
-package com.project.sf.trend.keyword;
+package com.project.sf.trend;
 
 public class Keyword {
   private Long no;

@@ -1,4 +1,4 @@
-package com.project.sf.trend.category;
+package com.project.sf.trend;
 
 public class Category {
   private Long no;

@@ -1,0 +1,12 @@
+package com.project.sf.qna.service;
+
+import java.util.List;
+import com.project.sf.qna.QuestionPost;
+
+public interface QnaService {
+
+  List<QuestionPost> findQnaPosts();
+
+  QuestionPost findQnaPostDetailByNo(Long no);
+
+}

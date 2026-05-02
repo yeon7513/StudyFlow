@@ -1,4 +1,4 @@
-package com.project.sf.preorder;
+package com.project.sf.preorder.dao;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;

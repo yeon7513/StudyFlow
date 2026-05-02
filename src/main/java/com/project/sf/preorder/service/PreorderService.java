@@ -1,4 +1,4 @@
-package com.project.sf.preorder;
+package com.project.sf.preorder.service;
 
 public interface PreorderService {
 

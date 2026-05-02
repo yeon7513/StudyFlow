@@ -1,15 +1,15 @@
-package com.project.sf.qna;
+package com.project.sf.trend.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/qna")
-public class QnaController {
+@RequestMapping("/trend")
+public class TrendController {
 
-  @GetMapping("/main")
-  String qna() {
-    return "pages/qna/qna";
+  @GetMapping({"", "/", "/list"})
+  String trend() {
+    return "pages/trend/trend";
   }
 }

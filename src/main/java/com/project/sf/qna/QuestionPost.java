@@ -1,6 +1,6 @@
-package com.project.sf.qna.board;
+package com.project.sf.qna;
 
-public class Board {
+public class QuestionPost {
   private Long no;
   private String writerIp;
   private String postPw;
@@ -8,10 +8,9 @@ public class Board {
   private String text;
   private boolean isActive;
   private String createdAt;
-  private boolean isAnswered;
-  private String adminId;
-  private String answeredText;
-  private String answeredAt;
+
+  // 답변글 종속
+  private AnswerPost answerPost;
 
   public Long getNo() {
     return no;
@@ -53,14 +52,6 @@ public class Board {
     this.text = text;
   }
 
-  public String getCreatedAt() {
-    return createdAt;
-  }
-
-  public void setCreatedAt(String createdAt) {
-    this.createdAt = createdAt;
-  }
-
   public boolean isActive() {
     return isActive;
   }
@@ -69,35 +60,19 @@ public class Board {
     this.isActive = isActive;
   }
 
-  public boolean isAnswered() {
-    return isAnswered;
+  public String getCreatedAt() {
+    return createdAt;
   }
 
-  public void setAnswered(boolean isAnswered) {
-    this.isAnswered = isAnswered;
+  public void setCreatedAt(String createdAt) {
+    this.createdAt = createdAt;
   }
 
-  public String getAdminId() {
-    return adminId;
+  public AnswerPost getAnswerPost() {
+    return answerPost;
   }
 
-  public void setAdminId(String adminId) {
-    this.adminId = adminId;
-  }
-
-  public String getAnsweredText() {
-    return answeredText;
-  }
-
-  public void setAnsweredText(String answeredText) {
-    this.answeredText = answeredText;
-  }
-
-  public String getAnsweredAt() {
-    return answeredAt;
-  }
-
-  public void setAnsweredAt(String answeredAt) {
-    this.answeredAt = answeredAt;
+  public void setAnswerPost(AnswerPost answerPost) {
+    this.answerPost = answerPost;
   }
 }

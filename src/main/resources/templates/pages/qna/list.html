@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html 
+	lang="ko" 
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{/layout/layout}">
+<head>
+	<title layout:fragment="title">스터디 플로우 - Q&A</title>
+</head>
+  <body>
+    <section layout:fragment="container">
+    	<a href="qna/write">글쓰기</a>
+    	
+    	<h2>게시글 목록</h2>
+    	
+    	<div th:each="qna : ${questionPosts}">
+    		<p th:text="${qna.no}">글번호</p>
+    		<h3>
+    			<a th:href="@{|qna/detail/${qna.no}|}" th:text="${qna.title}">게시글 제목</a>
+    		</h3>
+			<p 
+				th:class="${qna.answerPost == null} ? 'status-waiting' : 'status-complete'"
+				th:text="${qna.answerPost == null} ? '미답변' : '답변완료'">답변 여부</p>
+    		<p th:text="${qna.createdAt}">작성일</p>
+    	</div>
+    </section>
+  </body>
+</html>
