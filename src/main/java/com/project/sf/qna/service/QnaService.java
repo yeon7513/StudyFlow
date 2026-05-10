@@ -5,8 +5,8 @@ import com.project.sf.qna.QuestionPost;
 
 public interface QnaService {
 
-  List<QuestionPost> findQnaPosts();
+  List<QuestionPost> loadQnaPosts();
 
-  QuestionPost findQnaPostDetailByNo(Long no);
+  QuestionPost loadQnaPostDetailByNo(Long no);
 
 }

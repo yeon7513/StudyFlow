@@ -9,7 +9,7 @@ public class QuestionPost {
   private boolean isActive;
   private String createdAt;
 
-  // 답변글 종속
+  // 답변
   private AnswerPost answerPost;
 
   public Long getNo() {

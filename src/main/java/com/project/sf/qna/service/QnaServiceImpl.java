@@ -13,13 +13,13 @@ public class QnaServiceImpl implements QnaService {
   QnaDao qnaDao;
 
   @Override
-  public List<QuestionPost> findQnaPosts() {
-    return qnaDao.findQnaPosts();
+  public List<QuestionPost> loadQnaPosts() {
+    return qnaDao.loadQnaPosts();
   }
 
   @Override
-  public QuestionPost findQnaPostDetailByNo(Long no) {
-    return qnaDao.findQnaPostDetailByNo(no);
+  public QuestionPost loadQnaPostDetailByNo(Long no) {
+    return qnaDao.loadQnaPostDetailByNo(no);
   }
 
 }

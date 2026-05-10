@@ -13,13 +13,13 @@ public class QnaDaoImpl implements QnaDao {
   SqlSession sql;
 
   @Override
-  public List<QuestionPost> findQnaPosts() {
-    return sql.selectList("post.selectAllQnaPosts");
+  public List<QuestionPost> loadQnaPosts() {
+    return sql.selectList("post.loadQnaPosts");
   }
 
   @Override
-  public QuestionPost findQnaPostDetailByNo(Long no) {
-    return sql.selectOne("selectQnaDetail", no);
+  public QuestionPost loadQnaPostDetailByNo(Long no) {
+    return sql.selectOne("loadQnaDetail", no);
   }
 
 }

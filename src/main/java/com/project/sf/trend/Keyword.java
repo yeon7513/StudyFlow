@@ -10,6 +10,10 @@ public class Keyword {
   private String createdAt;
   private String updatedAt;
 
+  // 조인용 필드
+  private String category;
+  private int countKeyword;
+
   public boolean isActive() {
     return isActive;
   }
@@ -72,6 +76,22 @@ public class Keyword {
 
   public void setCreatedAt(String createdAt) {
     this.createdAt = createdAt;
+  }
+
+  public String getCategory() {
+    return category;
+  }
+
+  public void setCategory(String category) {
+    this.category = category;
+  }
+
+  public int getCountKeyword() {
+    return countKeyword;
+  }
+
+  public void setCountKeyword(int countKeyword) {
+    this.countKeyword = countKeyword;
   }
 
 }

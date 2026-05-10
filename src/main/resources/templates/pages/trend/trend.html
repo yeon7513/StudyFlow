@@ -6,11 +6,44 @@
 	layout:decorate="~{/layout/layout}">
 <head>
 	<title layout:fragment="title">스터디 플로우 - 트렌드</title>
+	<th:block layout:fragment="css">
+		<link rel="stylesheet" href="/css/trend/trend.css" />
+	</th:block>
+	<script src="/js/trend/trend.js"></script>
 </head>
   <body>
     <section layout:fragment="container">
-      <h2>trend.html</h2>
-      <p>트렌드 페이지</p>
+    	
+    	<div class="banner">
+    		<div class="flex-box inner">
+      			<h2 class="title">
+      				TREND REPORT: 
+      				<span>지금 가장 뜨거운 학습 키워드</span>
+      			</h2>
+      			<p>기초부터 심화까지! 나와 같은 레벨의 러너들이 가장 많이 찾는 분야</p>		
+    		</div>
+    	</div>
+      
+		<div class="content">
+			<div class="loading">
+      			<p th:if="${topKeywords.isEmpty()}">
+      				데이터를 집계 중입니다.
+      			</p> 
+      		</div>
+      	
+      		<ul class="top-keywords">
+      			<li th:each="keyword : ${topKeywords}">
+      				<div class="icon">
+						<span th:text="${keyword.category}" class="category">카테고리</span>
+						<p th:text="${keyword.name}" class="keyword">키워드</p>
+      				</div>
+	  			</li>
+      		</ul>
+      </div>
+      
+      <div class="select">
+	      <a href="/trend/select_keywords" class="btn">관심 분야 선택</a>
+      </div>
     </section>
   </body>
 </html>

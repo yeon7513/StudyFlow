@@ -20,7 +20,7 @@ public class QnaController {
   @GetMapping("")
   String main(Model model) {
 
-    List<QuestionPost> questionPosts = qnaService.findQnaPosts();
+    List<QuestionPost> questionPosts = qnaService.loadQnaPosts();
 
     model.addAttribute("questionPosts", questionPosts);
 
@@ -30,7 +30,7 @@ public class QnaController {
   @GetMapping("/detail/{no}")
   String detail(@PathVariable Long no, Model model) {
 
-    QuestionPost detailPost = qnaService.findQnaPostDetailByNo(no);
+    QuestionPost detailPost = qnaService.loadQnaPostDetailByNo(no);
 
     model.addAttribute("detail", detailPost);
 
