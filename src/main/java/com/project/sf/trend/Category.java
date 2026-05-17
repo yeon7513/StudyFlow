@@ -1,5 +1,8 @@
 package com.project.sf.trend;
 
+import java.util.List;
+import java.util.Map;
+
 public class Category {
   private Long no;
   private String name;
@@ -7,6 +10,9 @@ public class Category {
   private boolean isActive;
   private String createdAt;
   private String updatedAt;
+
+  // 렌더링용 필드 (키워드명 리스트)
+  private List<Map<String, String>> keywordInfo;
 
   public boolean isActive() {
     return isActive;
@@ -54,6 +60,14 @@ public class Category {
 
   public void setCreatedAt(String createdAt) {
     this.createdAt = createdAt;
+  }
+
+  public List<Map<String, String>> getKeywordInfo() {
+    return keywordInfo;
+  }
+
+  public void setKeywordInfo(List<Map<String, String>> keywordInfo) {
+    this.keywordInfo = keywordInfo;
   }
 
 }

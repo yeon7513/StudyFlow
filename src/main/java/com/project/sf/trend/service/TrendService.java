@@ -8,8 +8,6 @@ public interface TrendService {
 
   List<Category> findCategorys();
 
-  List<Keyword> loadKeywords();
-
   List<Keyword> findTopKeywords();
 
   List<Category> loadCategories();

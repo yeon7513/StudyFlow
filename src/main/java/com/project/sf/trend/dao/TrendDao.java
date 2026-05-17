@@ -6,7 +6,6 @@ import com.project.sf.trend.Keyword;
 
 public interface TrendDao {
 
-  List<Keyword> loadKeywords();
 
   List<Keyword> findTopKeywords();
 

@@ -19,11 +19,6 @@ public class TrendServiceImpl implements TrendService {
   }
 
   @Override
-  public List<Keyword> loadKeywords() {
-    return trendDao.loadKeywords();
-  }
-
-  @Override
   public List<Keyword> findTopKeywords() {
     return trendDao.findTopKeywords();
   }

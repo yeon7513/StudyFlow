@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html 
+	lang="ko" 
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{/layout/layout}">
+<head>
+	<title layout:fragment="title">스터디 플로우 - 사전예약</title>
+	<th:block layout:fragment="js">
+		<script defer src="/js/preorder/save_keywords.js"></script>
+	</th:block>
+</head>
+<body>
+	<section layout:fragment="container">
+		<div class="banner">
+			<div class="flex-box inner">
+				<h2>관심분야 선택</h2>
+			</div>
+		</div>
+		
+		<form id="select-keywords" class="content">
+			<!-- 키워드 선택 -->
+			<ul>
+				<li th:each="keywords : ${keywords}">
+					<p th:text="${keywords.name}">카테고리명</p>
+					<div th:each="keyword : ${keywords.keywordInfo}">
+						<label th:for="${keyword.name}">
+							<input type="checkbox" th:id="${keyword.name}" name="kwdNo" th:value="${keyword.kwdNo}"  />
+							<span th:text="${keyword.name}">키워드명</span>
+						</label>
+						<p th:text="${keyword.description}">키워드 설명</p>
+						
+						<!-- 본인의 실력 선택 -->
+						<div class="select-level">
+							<div>
+								<input th:id="|${keyword.kwdNo}_beginner|" type="radio" th:name="|${keyword.kwdNo}_studyLevel|" value="입문" />
+								<label th:for="|${keyword.kwdNo}_beginner|">입문</label>
+							</div>
+							<div>
+								<input th:id="|${keyword.kwdNo}_novice|" type="radio" th:name="|${keyword.kwdNo}_studyLevel|" value="초급" />
+								<label th:for="|${keyword.kwdNo}_novice|">초급</label>
+							</div>
+							<div>
+								<input th:id="|${keyword.kwdNo}_intermediate|" type="radio" th:name="|${keyword.kwdNo}_studyLevel|" value="중급" />
+								<label th:for="|${keyword.kwdNo}_intermediate|">중급</label>
+							</div>
+							<div>
+								<input th:id="|${keyword.kwdNo}_advanced|" type="radio" th:name="|${keyword.kwdNo}_studyLevel|" value="고급" />
+								<label th:for="|${keyword.kwdNo}_advanced|">고급</label>
+							</div>
+						</div>
+					</div>
+					<hr>
+				</li>
+			</ul>
+			
+			<div>
+				<!-- 이 부분에서 세선에 저장 후 데이터를 넘겨야 할듯함. -->
+				<button id="save-selected-keyword" type="button">다음</button>
+			</div>
+		</form>
+		
+		<div>
+			<a href="/trend">이전</a>
+		</div>
+	</section>
+</body>
+</html>

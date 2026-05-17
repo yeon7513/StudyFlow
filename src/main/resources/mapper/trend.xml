@@ -21,14 +21,9 @@
 		LIMIT 5
 	</select>
 	
-	<select id="loadKeywords" resultType="Keyword">
-		SELECT k.NO, c.name AS category, k.name, k.description
-		FROM interest_keyword k
-		JOIN interest_category c
-			ON k.cate_no = c.no
-		WHERE k.is_active = 1
+	<select id="loadCategories" resultType="Category">
+		SELECT *
+		FROM interest_category
 	</select>
-	
-	<select id="loadCategories" resultType="Category"></select>
 	
 </mapper>

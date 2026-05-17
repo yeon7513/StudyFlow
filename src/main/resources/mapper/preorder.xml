@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="preorder">
+	<resultMap type="Category" id="CategoryMap" autoMapping="true">
+		<id property="no" column="no" />
+		
+		<collection property="keywordInfo" javaType="ArrayList" ofType="Map">
+			<!-- Map 타입은 property 속성값이 Map의 'Key'가 되고, column 속성값이 DB의 'Value'가 된다. -->
+			<result property="kwdNo" column="k_no" />
+			<result property="name" column="k_name" />
+			<result property="description" column="k_description" />
+		</collection>
+	</resultMap>
+
+	<select id="loadKeywords" resultMap="CategoryMap">
+		SELECT 
+			c.no,
+			c.name,
+			k.no AS k_no,
+			k.name AS k_name,
+			k.description AS k_description  
+		FROM interest_category AS c
+		JOIN interest_keyword AS k
+			ON k.cate_no = c.no
+		WHERE c.is_active = 1 AND k.is_active = 1
+	</select>
+	
+</mapper>

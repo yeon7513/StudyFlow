@@ -6,7 +6,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import com.project.sf.trend.Category;
 import com.project.sf.trend.Keyword;
 import com.project.sf.trend.service.TrendService;
 
@@ -26,12 +25,5 @@ public class TrendController {
     return "pages/trend/trend";
   }
 
-  @GetMapping("/select_keywords")
-  String selectKeywords(Model model) {
-    List<Category> categories = trendService.loadCategories();
 
-    model.addAttribute("categories", categories);
-
-    return "pages/trend/select_keywords";
-  }
 }
