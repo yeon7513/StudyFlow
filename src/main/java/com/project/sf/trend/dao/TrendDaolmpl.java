@@ -13,8 +13,6 @@ public class TrendDaolmpl implements TrendDao {
   @Autowired
   SqlSession sql;
 
-
-
   @Override
   public List<Keyword> findTopKeywords() {
     return sql.selectList("trend.findTopKeywords");
@@ -25,6 +23,9 @@ public class TrendDaolmpl implements TrendDao {
     return sql.selectList("trend.loadCategories");
   }
 
-
+  @Override
+  public List<Category> loadKeywords() {
+    return sql.selectList("trend.loadKeywords");
+  }
 
 }

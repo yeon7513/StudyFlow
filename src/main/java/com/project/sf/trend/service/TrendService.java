@@ -12,4 +12,6 @@ public interface TrendService {
 
   List<Category> loadCategories();
 
+  List<Category> loadKeywords();
+
 }

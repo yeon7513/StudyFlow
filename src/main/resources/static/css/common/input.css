@@ -1,0 +1,92 @@
+@charset "UTF-8";
+@import './variables.css';
+
+.input-wrapper {
+  position: relative;
+  width: 180px;
+  margin: 12px 5px;
+}
+
+.input-wrapper:before {
+  transition: border-bottom-color 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+  border-bottom: 1px solid var(--bg-color);
+}
+
+.input-wrapper:before,
+.input-wrapper:after {
+  content: '';
+  left: 0;
+  right: 0;
+  position: absolute;
+  pointer-events: none;
+  bottom: -1px;
+  z-index: 4;
+  width: 100%;
+}
+
+.input-wrapper:focus-within:before {
+  border-bottom: 1px solid var(--primary-color);
+}
+
+.input-wrapper:before {
+  transition: border-bottom-color 200ms cubic-bezier(0.4, 0, 0.2, 1) 0ms;
+  border-bottom: 1px solid var(--bg-color);
+}
+
+.input-wrapper:focus-within:before {
+  border-bottom: 1px solid var(--primary-color);
+  transform: scaleX(1);
+}
+
+.input-wrapper:focus-within:after {
+  border-bottom: 2px solid var(--primary-color);
+  transform: scaleX(1);
+}
+
+.input-wrapper:after {
+  content: '';
+  transform: scaleX(0);
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1) 0ms;
+  will-change: transform;
+  border-bottom: 2px solid var(--primary-color);
+}
+
+.input::placeholder {
+  transition: opacity 250ms cubic-bezier(0, 0, 0.2, 1) 0ms;
+  opacity: 1;
+  user-select: none;
+}
+
+.input-wrapper .input {
+  border-radius: 5px 5px 0px 0px;
+  box-shadow: 0px 2px 5px rgb(35 35 35 / 30%);
+  max-height: 36px;
+  background-color: var(--bg-color);
+  transition-timing-function: cubic-bezier(0.25, 0.8, 0.25, 1);
+  transition-duration: 200ms;
+  transition-property: background-color;
+  font-size: 14px;
+  font-weight: 300;
+  padding: 12px;
+  width: 100%;
+  border-left: none;
+  border-bottom: none;
+  border-right: none;
+}
+
+.input-wrapper .input:focus,
+.input-wrapper .input:active {
+  outline: none;
+}
+
+.input-wrapper:focus-within .input,
+.input-wrapper .input:focus,
+.input-wrapper .input:active {
+  background-color: var(--bg-color);
+  border-bottom: 2px solid var(--bg-color);
+}
+
+.input:not(:placeholder-shown) {
+  border-bottom: 2px solid var(--primary-color);
+  background-color: var(--bg-color);
+}

@@ -1,12 +1,11 @@
 package com.project.sf.preorder.service;
 
-import java.util.List;
-import com.project.sf.trend.Category;
+import com.project.sf.preorder.Reservation;
 
 public interface PreorderService {
 
-  void registerReserve();
+  void registerReserve(Reservation reservation);
 
-  List<Category> loadKeywords();
+  Reservation findReservationDetail(String email, String ip);
 
 }

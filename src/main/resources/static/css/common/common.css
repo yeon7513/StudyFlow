@@ -1,5 +1,7 @@
 @charset "UTF-8";
 @import './variables.css';
+@import './button.css';
+@import './input.css';
 
 header,
 main,
@@ -36,20 +38,6 @@ footer {
   align-items: center;
   gap: 1rem;
   background-color: #ccc;
-}
-
-.btn {
-  display: inline-block;
-  padding: 1rem 1.5rem;
-  background-color: var(--primary-color);
-  color: #fff;
-  font-size: 18px;
-  border-radius: 8px;
-  transition: 0.3s;
-}
-
-.btn:hover {
-  background-color: var(--secondary-color);
 }
 
 .content {

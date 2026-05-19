@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html 
+	lang="ko" 
+	xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+	layout:decorate="~{/layout/layout}">
+<head>
+	<title layout:fragment="title">스터디 플로우 - 사전예약</title>
+	<th:block layout:fragment="css">
+      <link rel="stylesheet" href="/css/preorder/reserve.css" />
+    </th:block>
+    <th:block layout:fragment="js">
+      <script defer src="/js/preorder/reserve.js"></script>
+    </th:block>
+</head>
+  <body>
+    <section layout:fragment="container">
+      <div class="banner">
+        <div class="flex-box inner">
+          <h2>관심분야 선택</h2>
+        </div>
+      </div>
+      <form id="user-info">
+        <div>
+          <label for="email">이메일</label>
+          <input
+            id="email"
+            type="email"
+            name="email"
+            placeholder="이메일 입력"
+            autocomplete="no-email"
+          />
+        </div>
+        <div>
+          <label for="password">비밀번호</label>
+          <input
+            id="password"
+            type="password"
+            name="password"
+            placeholder="비밀번호 입력"
+            autocomplete="off"
+          />
+        </div>
+        <div>
+          <label for="name">예약자명</label>
+          <input
+            id="name"
+            type="text"
+            name="name"
+            placeholder="예약자명 입력"
+            autocomplete="no-name"
+          />
+        </div>
+        <div>
+          <label for="phone">연락처</label>
+          <input
+            id="phone"
+            type="text"
+            name="phone"
+            placeholder="연락처 입력"
+            autocomplete="off"
+          />
+        </div>
+        <div>
+          <button id="save-user-info" type="button" class="btn">
+            관심 분야 선택
+          </button>
+          <div>
+            <a href="/" class="btn cancel">취소</a>
+          </div>
+        </div>
+      </form>
+    </section>
+  </body>
+</html>

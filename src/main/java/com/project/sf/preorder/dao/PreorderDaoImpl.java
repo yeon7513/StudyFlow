@@ -1,10 +1,10 @@
 package com.project.sf.preorder.dao;
 
-import java.util.List;
+import java.util.Map;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import com.project.sf.trend.Category;
+import com.project.sf.preorder.Reservation;
 
 @Repository
 public class PreorderDaoImpl implements PreorderDao {
@@ -13,8 +13,13 @@ public class PreorderDaoImpl implements PreorderDao {
   SqlSession sql;
 
   @Override
-  public List<Category> loadKeywords() {
-    return sql.selectList("preorder.loadKeywords");
+  public void registerReserve(Reservation reservation) {
+    sql.insert("preorder.registerReserve", reservation);
+  }
+
+  @Override
+  public Reservation findReservationDetail(Map<String, String> params) {
+    return sql.selectOne("preorder.findReservationDetail", params);
   }
 
 }

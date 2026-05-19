@@ -1,10 +1,12 @@
 package com.project.sf.preorder.dao;
 
-import java.util.List;
-import com.project.sf.trend.Category;
+import java.util.Map;
+import com.project.sf.preorder.Reservation;
 
 public interface PreorderDao {
 
-  List<Category> loadKeywords();
+  void registerReserve(Reservation reservation);
+
+  Reservation findReservationDetail(Map<String, String> params);
 
 }

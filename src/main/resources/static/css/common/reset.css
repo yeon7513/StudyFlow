@@ -29,6 +29,7 @@ button {
   background: transparent;
   cursor: pointer;
   color: inherit;
+  font-size: 1rem;
 }
 
 input,
@@ -37,6 +38,7 @@ textarea {
   border: none;
   outline: none;
   color: inherit;
+  font-size: 1rem;
 }
 
 p {

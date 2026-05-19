@@ -1,20 +1,63 @@
-<!DOCTYPE html>
-<html 
-	lang="ko" 
-	xmlns:th="http://www.thymeleaf.org"
-	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	layout:decorate="~{/layout/layout}">
-<head>
-	<title layout:fragment="title">스터디 플로우 - 사전예약</title>
-</head>
+<!doctype html>
+<html
+  lang="ko"
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{/layout/layout}"
+>
+  <head>
+    <title layout:fragment="title">스터디 플로우 - 사전예약</title>
+    <th:block layout:fragment="css">
+      <link rel="stylesheet" href="/css/preorder/preorder.css" />
+    </th:block>
+    <th:block layout:fragment="js">
+      <script defer src="/js/preorder/preorder.js"></script>
+    </th:block>
+  </head>
   <body>
-    <div layout:fragment="container">
-      <h2>preorder.html</h2>
-      <p>사전예약 페이지</p>
-      
-	  <div class="select">
-	      <a href="/preorder/select_keywords" class="btn">관심 분야 선택</a>
+    <section layout:fragment="container">
+      <div class="banner">
+        <div class="flex-box inner">
+          <h2>사전 예약</h2>
+        </div>
       </div>
-    </div>
+
+      <!-- 예약 정보 찾기 -->
+      <div>
+        <form>
+          <div class="input-wrapper">
+            <label for="email">이메일</label>
+            <input
+              id="email"
+              class="input"
+              type="email"
+              name="email"
+              placeholder="이메일 입력"
+              autocomplete="no-email"
+            />
+          </div>
+          <div>
+            <label for="password">비밀번호</label>
+            <input
+              id="password"
+              type="password"
+              name="password"
+              placeholder="비밀번호 입력"
+              autocomplete="off"
+            />
+          </div>
+          <div>
+            <button id="search-preorder-info" type="button" class="btn">
+              예약 정보 조회
+            </button>
+          </div>
+        </form>
+      </div>
+
+      <!-- 사전 예약 페이지로 이동 -->
+      <div>
+        <a href="/preorder/reserve" class="btn">사전예약하기</a>
+      </div>
+    </section>
   </body>
 </html>

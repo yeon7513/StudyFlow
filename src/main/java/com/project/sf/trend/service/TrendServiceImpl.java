@@ -28,4 +28,9 @@ public class TrendServiceImpl implements TrendService {
     return trendDao.loadCategories();
   }
 
+  @Override
+  public List<Category> loadKeywords() {
+    return trendDao.loadKeywords();
+  }
+
 }

@@ -4,28 +4,42 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
 <mapper namespace="preorder">
-	<resultMap type="Category" id="CategoryMap" autoMapping="true">
-		<id property="no" column="no" />
+
+	<resultMap type="Reservation" id="ReservationMap" autoMapping="true">
+		<id column="email" property="email" />
+		<id column="user_ip" property="userIp" />
 		
-		<collection property="keywordInfo" javaType="ArrayList" ofType="Map">
-			<!-- Map 타입은 property 속성값이 Map의 'Key'가 되고, column 속성값이 DB의 'Value'가 된다. -->
-			<result property="kwdNo" column="k_no" />
-			<result property="name" column="k_name" />
-			<result property="description" column="k_description" />
+		<collection property="selectedKeywords" javaType="ArrayList" ofType="SelectedKeyword" autoMapping="true">
+			<id column="rsv_email" property="rsvEmail" />
+			<id column="kwd_no" property="kwdNo" />
+			<id column="user_ip" property="userIp" />
 		</collection>
 	</resultMap>
 
-	<select id="loadKeywords" resultMap="CategoryMap">
-		SELECT 
-			c.no,
-			c.name,
-			k.no AS k_no,
-			k.name AS k_name,
-			k.description AS k_description  
-		FROM interest_category AS c
-		JOIN interest_keyword AS k
-			ON k.cate_no = c.no
-		WHERE c.is_active = 1 AND k.is_active = 1
+	<select id="findReservationDetail" resultMap="ReservationMap">
+		SELECT
+			r.*,
+			usk.kwd_no,
+			usk.name,
+			usk.study_level
+		FROM reservation r
+		LEFT JOIN (
+			SELECT 
+				sk.*,
+				ik.name
+			FROM selected_keyword sk 
+			JOIN interest_keyword ik 
+			  ON sk.kwd_no  = ik.no
+		) AS usk
+			ON usk.rsv_email = r.email
+		WHERE r.email = #{email} AND password = #{password}
 	</select>
+
+	<insert id="registerReserve">
+		INSERT INTO reservation
+		(email, user_ip, password, name, phone, created_at)
+		VALUES                          
+		(#{email}, #{userIp}, #{password}, #{name}, #{phone}, now())
+	</insert>
 	
 </mapper>
