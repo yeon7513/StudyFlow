@@ -1,28 +1,50 @@
-<!DOCTYPE html>
-<html 
-	lang="ko" 
-	xmlns:th="http://www.thymeleaf.org"
-	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	layout:decorate="~{/layout/layout}">
-<head>
-	<title layout:fragment="title">스터디 플로우 - Q&A</title>
-</head>
+<!doctype html>
+<html
+  lang="ko"
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{/layout/layout}"
+>
+  <head>
+    <title layout:fragment="title">스터디 플로우 - Q&A</title>
+    <th:block layout:fragment="css">
+      <link rel="stylesheet" href="/css/qna/list.css" />
+    </th:block>
+  </head>
   <body>
     <section layout:fragment="container">
-    	<a href="qna/write">글쓰기</a>
-    	
-    	<h2>게시글 목록</h2>
-    	
-    	<div th:each="qna : ${questionPosts}">
-    		<p th:text="${qna.no}">글번호</p>
-    		<h3>
-    			<a th:href="@{|qna/detail/${qna.no}|}" th:text="${qna.title}">게시글 제목</a>
-    		</h3>
-			<p 
-				th:class="${qna.answerPost == null} ? 'status-waiting' : 'status-complete'"
-				th:text="${qna.answerPost == null} ? '미답변' : '답변완료'">답변 여부</p>
-    		<p th:text="${qna.createdAt}">작성일</p>
-    	</div>
+      <!-- 배너 -->
+      <th:block
+        th:replace="~{layout/fragments/Banner :: Banner('질문과 답변', '질문과 답변 서브 타이틀', '질문과 답변 상세 설명')}"
+      >
+      </th:block>
+
+      <!-- 검색 & 글쓰기 -->
+      <div class="util">
+        <div class="search">
+          <input type="text" placeholder="검색어 입력" />
+        </div>
+        <a href="qna/write" class="btn">글쓰기</a>
+      </div>
+
+      <!-- 게시글 목록 -->
+      <div class="board">
+        <div th:each="qna : ${questionPosts}" class="post">
+          <p th:text="${qna.no}">글번호</p>
+          <div>
+            <a th:href="@{|qna/detail/${qna.no}|}" th:text="${qna.title}"
+              >게시글 제목</a
+            >
+          </div>
+          <p
+            th:class="${qna.answerPost == null} ? 'status-waiting' : 'status-complete'"
+            th:text="${qna.answerPost == null} ? '미답변' : '답변완료'"
+          >
+            답변 여부
+          </p>
+          <p th:text="${qna.createdAt}">작성일</p>
+        </div>
+      </div>
     </section>
   </body>
 </html>

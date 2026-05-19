@@ -16,35 +16,39 @@
   </head>
   <body>
     <section layout:fragment="container">
-      <div class="banner">
-        <div class="flex-box inner">
-          <h2>사전 예약</h2>
-        </div>
-      </div>
+      <th:block
+        th:replace="~{layout/fragments/Banner :: Banner(
+          '사전 예약', 
+          '사전예약 서브 타이틀', 
+          '사전예약 상세 설명'
+        )}"
+      >
+      </th:block>
 
       <!-- 예약 정보 찾기 -->
       <div>
         <form>
-          <div class="input-wrapper">
-            <label for="email">이메일</label>
+          <div class="input-group">
             <input
               id="email"
-              class="input"
+              class="text-field"
               type="email"
               name="email"
               placeholder="이메일 입력"
               autocomplete="no-email"
             />
+            <label for="email" class="text-label">이메일</label>
           </div>
-          <div>
-            <label for="password">비밀번호</label>
+          <div class="input-group">
             <input
               id="password"
+              class="text-field"
               type="password"
               name="password"
               placeholder="비밀번호 입력"
               autocomplete="off"
             />
+            <label for="password" class="text-label">비밀번호</label>
           </div>
           <div>
             <button id="search-preorder-info" type="button" class="btn">

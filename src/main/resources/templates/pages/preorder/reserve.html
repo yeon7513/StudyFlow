@@ -1,73 +1,80 @@
-<!DOCTYPE html>
-<html 
-	lang="ko" 
-	xmlns:th="http://www.thymeleaf.org"
-	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	layout:decorate="~{/layout/layout}">
-<head>
-	<title layout:fragment="title">스터디 플로우 - 사전예약</title>
-	<th:block layout:fragment="css">
+<!doctype html>
+<html
+  lang="ko"
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{/layout/layout}"
+>
+  <head>
+    <title layout:fragment="title">스터디 플로우 - 사전예약</title>
+    <th:block layout:fragment="css">
       <link rel="stylesheet" href="/css/preorder/reserve.css" />
     </th:block>
     <th:block layout:fragment="js">
       <script defer src="/js/preorder/reserve.js"></script>
     </th:block>
-</head>
+  </head>
   <body>
     <section layout:fragment="container">
-      <div class="banner">
-        <div class="flex-box inner">
-          <h2>관심분야 선택</h2>
-        </div>
-      </div>
+      <th:block
+        th:replace="~{layout/fragments/Banner :: Banner(
+          '사전 예약', 
+          '사전예약 서브 타이틀', 
+          '사전예약 상세 설명'
+        )}"
+      >
+      </th:block>
+      <!-- 예약자 정보 입력 -->
       <form id="user-info">
-        <div>
-          <label for="email">이메일</label>
+        <div class="input-group">
           <input
             id="email"
+            class="text-field"
             type="email"
             name="email"
             placeholder="이메일 입력"
             autocomplete="no-email"
           />
+          <label for="email" class="text-label">이메일</label>
         </div>
-        <div>
-          <label for="password">비밀번호</label>
+        <div class="input-group">
           <input
             id="password"
+            class="text-field"
             type="password"
             name="password"
             placeholder="비밀번호 입력"
             autocomplete="off"
           />
+          <label for="password" class="text-label">비밀번호</label>
         </div>
-        <div>
-          <label for="name">예약자명</label>
+        <div class="input-group">
           <input
             id="name"
+            class="text-field"
             type="text"
             name="name"
             placeholder="예약자명 입력"
             autocomplete="no-name"
           />
+          <label for="name" class="text-label">예약자명</label>
         </div>
-        <div>
-          <label for="phone">연락처</label>
+        <div class="input-group">
           <input
             id="phone"
+            class="text-field"
             type="text"
             name="phone"
             placeholder="연락처 입력"
             autocomplete="off"
           />
+          <label for="phone" class="text-label">연락처</label>
         </div>
         <div>
           <button id="save-user-info" type="button" class="btn">
             관심 분야 선택
           </button>
-          <div>
-            <a href="/" class="btn cancel">취소</a>
-          </div>
+          <a href="/preorder" class="btn cancel">취소</a>
         </div>
       </form>
     </section>

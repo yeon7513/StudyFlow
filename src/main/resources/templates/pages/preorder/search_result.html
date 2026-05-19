@@ -1,27 +1,28 @@
-<!DOCTYPE html>
-<html 
-	lang="ko" 
-	xmlns:th="http://www.thymeleaf.org"
-	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-	layout:decorate="~{/layout/layout}">
-<head>
-	<title layout:fragment="title">스터디 플로우 - 사전예약</title>
-</head>
+<!doctype html>
+<html
+  lang="ko"
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  layout:decorate="~{/layout/layout}"
+>
+  <head>
+    <title layout:fragment="title">스터디 플로우 - 사전예약</title>
+  </head>
   <body>
     <div layout:fragment="container">
       <h2>search.html</h2>
-      
+
       <div>
-      	<div th:if="${list.isEmpty()}">
-			<p>사전예약한 이메일이 아닙니다.</p>
-      	</div>
-      	
-      	<div>
-      		<p>이메일</p>
-      		<p>예약자명</p>
-      		<p>연락처</p>
-      		<p>예약일</p>
-      	</div>
+        <div th:if="${list.isEmpty()}">
+          <p>사전예약한 이메일이 아닙니다.</p>
+        </div>
+
+        <div>
+          <p>이메일</p>
+          <p>예약자명</p>
+          <p>연락처</p>
+          <p>예약일</p>
+        </div>
       </div>
     </div>
   </body>

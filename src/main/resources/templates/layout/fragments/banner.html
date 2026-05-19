@@ -1,0 +1,19 @@
+<!-- 파라미터로 서브 타이틑에 대한 내용을 받아옴 -->
+<!-- [[]] : 인라인 표현식 -->
+<!doctype html>
+<html
+  lang="ko"
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  th:fragment="Banner(mainTitle, subTitle, description)"
+>
+  <div class="banner">
+    <div class="flex-box inner">
+      <h2>
+        [[${mainTitle}]]:
+        <span th:text="${subTitle}">SUB TITLE</span>
+      </h2>
+      <p th:text="${description}">DESCRIPTION</p>
+    </div>
+  </div>
+</html>
