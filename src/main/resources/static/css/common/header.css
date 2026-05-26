@@ -1,5 +1,21 @@
+@import "./variables.css";
+
 header {
   text-align: center;
+}
+
+header .logo {
+  padding: 16px;
+}
+
+header .logo > a {
+  display: block;
+  padding: 8px;
+  color: var(--primary-color);
+}
+
+header .logo > a > span {
+  color: var(--secondary-color);
 }
 
 header nav > ul.gnb {
@@ -8,4 +24,14 @@ header nav > ul.gnb {
   align-items: center;
   gap: 3rem;
   outline: 1px dotted red;
+}
+
+header nav > ul.gnb > li:hover a {
+  color: var(--secondary-color);
+}
+
+header nav > ul.gnb > li > a {
+  display: block;
+  padding: 16px 24px;
+  transition: 0.3s;
 }

@@ -1,0 +1,24 @@
+@charset "UTF-8";
+@import "../common/variables.css";
+
+#write {
+}
+
+#write .title {
+  margin-bottom: 16px;
+}
+
+.title > input {
+  padding: 8px;
+  width: 100%;
+  border: 1px solid #d9d9d9;
+  border-radius: 8px;
+}
+
+.text > textarea {
+  resize: none;
+  padding: 8px;
+  width: 100%;
+  border: 1px solid #d9d9d9;
+  border-radius: 8px;
+}

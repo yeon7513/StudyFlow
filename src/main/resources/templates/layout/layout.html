@@ -7,15 +7,12 @@
   <head th:replace="~{layout/fragments/config :: Config}"> </head>
 
   <body>
-    <!-- 헤더 -->
     <th:block th:replace="~{layout/fragments/header :: Header}"></th:block>
 
-    <!-- 메인 -->
     <main>
       <th:block layout:fragment="container"></th:block>
     </main>
 
-    <!-- 푸터 -->
     <th:block th:replace="~{layout/fragments/footer :: Footer}"></th:block>
   </body>
 </html>

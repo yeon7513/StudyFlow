@@ -1,7 +1,7 @@
 @charset "UTF-8";
-@import './variables.css';
-@import './button.css';
-@import './input.css';
+@import "./variables.css";
+@import "./button.css";
+@import "./input.css";
 
 header,
 main,
@@ -42,4 +42,18 @@ footer {
 
 .content {
   padding: 48px 0;
+}
+
+.logo {
+  font-size: 24px;
+}
+
+.logo > a {
+  display: block;
+  padding: 8px;
+  color: var(--primary-color);
+}
+
+.logo > a > span {
+  color: var(--secondary-color);
 }

@@ -1,0 +1,25 @@
+@charset "UTF-8";
+@import "../common/variables.css";
+
+#detail {
+  padding: 24px;
+}
+
+.content {
+  padding: 24px 0;
+}
+
+.content.question {
+  border-bottom: 1px solid #000;
+}
+
+.content.answer {
+}
+
+.content > .title {
+  display: flex;
+  justify-content: space-between;
+  padding-bottom: 16px;
+  margin-bottom: 16px;
+  border-bottom: 1px solid #000;
+}

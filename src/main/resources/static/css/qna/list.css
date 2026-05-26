@@ -1,5 +1,77 @@
 @charset "UTF-8";
+@import "../common/variables.css";
 
-.post {
-  color: blue;
+.utils {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin: 32px 0 16px;
+}
+
+.search {
+  display: flex;
+  align-items: flex-end;
+}
+
+.search > .search-field {
+  display: block;
+  padding: 9px 12px;
+  width: 15rem;
+  height: 100%;
+  border: 1px solid var(--primary-color);
+  border-radius: 8px 0 0 8px;
+}
+
+.search > .search-field::placeholder {
+  color: #808080;
+}
+
+#search-btn {
+  border-radius: 0 8px 8px 0;
+}
+
+#board {
+  outline: 1px dotted red;
+}
+
+#post {
+  border-collapse: collapse;
+  width: 100%;
+  border: 1px solid #d9d9d9;
+}
+
+#post th,
+#post td {
+  padding: 16px;
+  border: 1px solid #d9d9d9;
+  text-align: center;
+}
+
+#post td.title {
+  width: 65%;
+  text-align: left;
+}
+
+#post .num {
+  width: 6%;
+}
+
+#post .status {
+  display: block;
+  padding: 4px 0;
+  width: 80px;
+  margin: 0 auto;
+  font-size: 14px;
+  border-radius: 999px;
+}
+
+#post .status.waiting {
+  background-color: var(--disable-color);
+}
+
+#post .status.complete {
+  background-color: var(--point-color);
+}
+ㅍ #post .date {
+  font-size: 14px;
 }

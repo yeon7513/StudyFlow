@@ -14,7 +14,33 @@
       <p>예약 완료</p>
 
       <div>
-        <div></div>
+        <ul>
+          <li>
+            <span>이메일: </span>
+            <span th:text="${completedReservation.email}">이메일</span>
+          </li>
+          <li>
+            <span>예약자명: </span>
+            <span th:text="${completedReservation.name}">예약자명</span>
+          </li>
+          <li>
+            <span>연락처: </span>
+            <span th:text="${completedReservation.phone}">연락처</span>
+          </li>
+          <li>
+            <span>사전예약일: </span>
+            <span th:text="${completedReservation.createdAt}">사전예약일</span>
+          </li>
+        </ul>
+
+        <div>
+          <ul>
+            <li th:each="keyword : ${completedReservation.selectedKeywords}">
+              <span th:text="${keyword.name}">선택한 키워드명</span>
+              <span th:text="${keyword.studyLevel}">선택한 키워드의 레벨</span>
+            </li>
+          </ul>
+        </div>
       </div>
     </div>
   </body>

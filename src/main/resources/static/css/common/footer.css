@@ -1,1 +1,14 @@
 @charset "UTF-8";
+
+footer {
+  padding: 48px 0;
+  text-align: center;
+}
+
+footer .logo {
+  filter: grayscale(100%);
+}
+
+footer > small {
+  color: #d9d9d9;
+}
