@@ -4,11 +4,12 @@ import java.util.List;
 import com.project.sf.trend.SelectedKeyword;
 
 public class Reservation {
-  private String email;
-  private String userIp;
-  private String name;
-  private String phone;
-  private String createdAt;
+  private String email; // 예약자 이메일
+  private String userIp; // 예약자 IP 주소
+  private String password; // 비밀번호 (예약 조회 시 사용)
+  private String name; // 예약자명
+  private String phone; // 예약자 연락처
+  private String createdAt; // 예약일
 
   // 선택한 키워드용 필드 (INSERT 및 JOIN용)
   private List<SelectedKeyword> selectedKeywords;
@@ -59,6 +60,14 @@ public class Reservation {
 
   public void setSelectedKeywords(List<SelectedKeyword> selectedKeywords) {
     this.selectedKeywords = selectedKeywords;
+  }
+
+  public String getPassword() {
+    return password;
+  }
+
+  public void setPassword(String password) {
+    this.password = password;
   }
 
 }

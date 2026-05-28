@@ -9,4 +9,6 @@ public interface QnaService {
 
   QuestionPost loadQnaPostDetailByNo(Long no);
 
+  boolean checkPassword(Long no, String postPw);
+
 }

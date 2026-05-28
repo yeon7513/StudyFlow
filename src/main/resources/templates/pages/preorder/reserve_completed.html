@@ -36,7 +36,7 @@
         <div>
           <ul>
             <li th:each="keyword : ${completedReservation.selectedKeywords}">
-              <span th:text="${keyword.name}">선택한 키워드명</span>
+              <span th:text="${keyword.keywordName}">선택한 키워드명</span>
               <span th:text="${keyword.studyLevel}">선택한 키워드의 레벨</span>
             </li>
           </ul>

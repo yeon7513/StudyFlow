@@ -9,21 +9,37 @@
     <title layout:fragment="title">스터디 플로우 - 사전예약</title>
   </head>
   <body>
-    <div layout:fragment="container">
-      <h2>search.html</h2>
+    <section layout:fragment="container">
+      <th:block
+        th:replace="~{layout/fragments/Banner :: Banner(
+          '사전 예약 확인', 
+          '사전 예약 확인 서브 타이틀', 
+          '사전 예약 확인 설명'
+        )}"
+      >
+      </th:block>
 
       <div>
-        <div th:if="${list.isEmpty()}">
-          <p>사전예약한 이메일이 아닙니다.</p>
+        <div th:if="${result == null}">
+          <h3>입력하신 정보와 일치하는 예약 내역이 없습니다.</h3>
+          <p>이메일과 비밀번호를 다시 확인해주세요.</p>
+          <a href="/preorder" class="btn">다시 검색하기</a>
         </div>
 
-        <div>
-          <p>이메일</p>
-          <p>예약자명</p>
-          <p>연락처</p>
-          <p>예약일</p>
+        <div th:if="${result != null}">
+          <p th:text="${result.email}">이메일</p>
+          <p th:text="${result.name}">예약자명</p>
+          <p th:text="${result.phone}">연락처</p>
+          <p th:text="${result.createdAt}">예약일</p>
+          <ul th:if="${!result.selectedKeywords.isEmpty()}">
+            <li th:each="keyword : ${result.selectedKeywords}">
+              <span th:text="${keyword.keywordName}">키워드명</span>
+              <span th:text="${keyword.studyLevel}">레벨</span>
+              <span></span>
+            </li>
+          </ul>
         </div>
       </div>
-    </div>
+    </section>
   </body>
 </html>

@@ -47,5 +47,11 @@
 		WHERE q.no = #{no}
 	</select>
 	
+	<!-- 게시글 작성자인지 판별 -->
+	<select id="checkPassword" resultType="Integer">
+		SELECT count(*)
+		FROM question_post
+		WHERE NO = #{no} AND post_pw = #{postPw}
+	</select>
 	
 </mapper>

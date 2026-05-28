@@ -26,7 +26,7 @@
 				ON ik.cate_no = ic.NO
 			WHERE ik.is_active = 1 AND ic.is_active = 1
 		) k ON sk.kwd_no = k.NO
-		WHERE sk.created_at >= DATE_SUB(now(), interval 1 month)
+		WHERE sk.created_at >= DATE_SUB(now(), interval 2 month)
 		GROUP BY k.no
 		ORDER BY count_keyword DESC
 		LIMIT 5

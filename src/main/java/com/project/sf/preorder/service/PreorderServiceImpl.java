@@ -19,11 +19,11 @@ public class PreorderServiceImpl implements PreorderService {
   }
 
   @Override
-  public Reservation findReservationDetail(String email, String ip) {
+  public Reservation findReservationDetail(String email, String password) {
     Map<String, String> params = new HashMap<>();
 
     params.put("email", email);
-    params.put("ip", ip);
+    params.put("password", password);
 
     return preorderDao.findReservationDetail(params);
   }

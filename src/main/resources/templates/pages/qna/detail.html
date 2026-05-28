@@ -10,9 +10,13 @@
     <th:block layout:fragment="css">
       <link rel="stylesheet" href="/css/qna/detail.css" />
     </th:block>
+    <th:block layout:fragment="js">
+      <script defer src="/js/qna/detail.js"></script>
+    </th:block>
   </head>
   <body>
     <section layout:fragment="container" id="detail">
+      <!-- 질문 본문 내용 -->
       <div class="content question">
         <div class="title">
           <h3 th:text="${detail.title}">게시글 제목</h3>
@@ -20,8 +24,13 @@
         </div>
         <p th:text="${detail.text}">본문내용</p>
         <p th:text="${detail.postPw}">비밀번호</p>
+        <div>
+          <button id="edit" type="button">수정</button>
+          <button id="delete" type="button">삭제</button>
+        </div>
       </div>
 
+      <!-- 답글 내용 -->
       <div th:if="${detail.answerPost == null}" class="content answer">
         <p>아직 답글이 작성되지 않았습니다.</p>
       </div>
@@ -35,6 +44,8 @@
       <div class="utils">
         <a href="/qna" class="btn">목록으로</a>
       </div>
+
+      <div th:replace="~{/layout/fragments/verify :: Modal}"></div>
     </section>
   </body>
 </html>

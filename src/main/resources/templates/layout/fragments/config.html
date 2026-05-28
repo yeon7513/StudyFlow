@@ -12,16 +12,25 @@
     <!-- 페이지별 타이틀 적용 -->
     <title layout:fragment="title">스터디 플로우</title>
 
+    <!-- 폰트어썸 아이콘 CDN -->
+    <link
+      rel="stylesheet"
+      href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.7.2/css/all.min.css"
+    />
+
     <!-- 리셋 및 기본 스타일 시트 적용 -->
     <link rel="stylesheet" href="/css/common/reset.css" />
     <link rel="stylesheet" href="/css/common/common.css" />
+
+    <!-- 모달용 스타일 시트 -->
+    <link rel="stylesheet" href="/css/common/verify.css" />
 
     <!-- header & footer -->
     <link rel="stylesheet" href="/css/common/header.css" />
     <link rel="stylesheet" href="/css/common/footer.css" />
 
     <!-- 공통 js 적용 -->
-    <script src="/js/common.js"></script>
+    <script defer src="/js/common.js"></script>
 
     <!-- 페이지별 css 및 js 적용 -->
     <th:block layout:fragment="css"></th:block>

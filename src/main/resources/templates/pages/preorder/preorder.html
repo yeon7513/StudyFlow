@@ -27,7 +27,11 @@
 
       <!-- 예약 정보 찾기 -->
       <div>
-        <form>
+        <form
+          id="search-preorder-info"
+          method="post"
+          action="/preorder/search_result"
+        >
           <div class="input-group">
             <input
               id="email"
@@ -36,6 +40,7 @@
               name="email"
               placeholder="이메일 입력"
               autocomplete="no-email"
+              required
             />
             <label for="email" class="text-label">이메일</label>
           </div>
@@ -47,13 +52,12 @@
               name="password"
               placeholder="비밀번호 입력"
               autocomplete="off"
+              required
             />
             <label for="password" class="text-label">비밀번호</label>
           </div>
           <div>
-            <button id="search-preorder-info" type="button" class="btn">
-              예약 정보 조회
-            </button>
+            <button type="submit" class="btn">예약 정보 조회</button>
           </div>
         </form>
       </div>

@@ -1,10 +1,13 @@
 package com.project.sf.trend;
 
 public class SelectedKeyword {
-  private String rsvEmail;
   private Long kwdNo;
+  private String rsvEmail;
+  private String userIp;
   private String studyLevel;
   private String createdAt;
+
+  private String keywordName;
 
   public String getRsvEmail() {
     return rsvEmail;
@@ -36,6 +39,22 @@ public class SelectedKeyword {
 
   public void setCreatedAt(String createdAt) {
     this.createdAt = createdAt;
+  }
+
+  public String getUserIp() {
+    return userIp;
+  }
+
+  public void setUserIp(String userIp) {
+    this.userIp = userIp;
+  }
+
+  public String getKeywordName() {
+    return keywordName;
+  }
+
+  public void setKeywordName(String keywordName) {
+    this.keywordName = keywordName;
   }
 
 }

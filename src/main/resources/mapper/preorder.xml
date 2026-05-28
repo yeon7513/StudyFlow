@@ -20,7 +20,7 @@
 		SELECT
 			r.*,
 			usk.kwd_no,
-			usk.name,
+			usk.name AS keyword_name,
 			usk.study_level
 		FROM reservation r
 		LEFT JOIN (

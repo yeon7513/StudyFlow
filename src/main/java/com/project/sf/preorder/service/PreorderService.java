@@ -6,6 +6,6 @@ public interface PreorderService {
 
   void registerReserve(Reservation reservation);
 
-  Reservation findReservationDetail(String email, String ip);
+  Reservation findReservationDetail(String email, String password);
 
 }

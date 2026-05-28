@@ -2,6 +2,7 @@ package com.project.sf;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 
 @Controller
 public class RootController {
@@ -11,7 +12,12 @@ public class RootController {
     return "index";
   }
 
-  @GetMapping("/sf-admin-login")
+  @PostMapping("/verify")
+  boolean verify() {
+    return false;
+  }
+
+  @GetMapping("/sf_admin_login")
   String login() {
     return "admin/login";
   }
