@@ -13,6 +13,23 @@
 		</association>
 	</resultMap>
 	
+	<!-- 검색용 WHERE -->
+	<sql id="search">
+		<where>
+			<if test="searchKeyword != null and searchKeyword != ''">
+				q.title LIKE CONCAT('%', #{searchKeyword}, '%')
+			</if>
+		</where>
+	</sql>
+	
+	<!-- 게시글 전체 개수 조회 -->
+	<select id="totalCountPost" resultType="Integer">
+		SELECT count(*)
+		FROM QUESTION_POST q
+		
+		<include refid="search"></include>
+	</select>
+	
 	<!-- 게시글 목록 조회 -->
 	<select id="loadQnaPosts" resultMap="QnaResult">
 		SELECT
@@ -21,11 +38,14 @@
 			q.is_active,
 			q.created_at,
 			a.post_no
-		FROM question_post q
-		LEFT JOIN answer_post a ON a.post_no = q.no
-		ORDER BY q.created_at desc
+		FROM QUESTION_POST q
+		LEFT JOIN ANSWER_POST a ON a.post_no = q.no
+
+		<include refid="search"></include>
+
+		ORDER BY q.created_at desc, q.no desc
+		LIMIT #{offset}, #{perPage}
 	</select>
-	
 	
 	<!-- 게시글 상세 조회 -->
 	<select id="loadQnaDetail" resultMap="QnaResult">
@@ -35,23 +55,75 @@
 			q.post_pw,
 			q.title,
 			q.text,
+			q.is_answered,
 			q.is_active,
 			q.created_at,
+			q.updated_at,
 			
 			a.post_no,
 			a.admin_id,
 			a.answered_text,
 			a.answered_at
-		FROM question_post q
-		LEFT JOIN answer_post a ON a.post_no = q.no
+		FROM QUESTION_POST q
+		LEFT JOIN ANSWER_POST a ON a.post_no = q.no
 		WHERE q.no = #{no}
+	</select>
+	
+	<select id="findQnaPostByNo" resultType="QuestionPost">
+		SELECT
+			no,
+			post_pw,
+			title,
+			text
+		FROM QUESTION_POST
+		WHERE no = #{no}
 	</select>
 	
 	<!-- 게시글 작성자인지 판별 -->
 	<select id="checkPassword" resultType="Integer">
 		SELECT count(*)
-		FROM question_post
-		WHERE NO = #{no} AND post_pw = #{postPw}
+		FROM QUESTION_POST
+		WHERE NO = #{no} 
+			AND post_pw = #{postPw};
 	</select>
+	
+	<!-- 게시글 등록 -->
+	<insert id="registerPost">
+		INSERT INTO QUESTION_POST 
+		(writer_ip, post_pw, title, text, is_answered, is_active, created_at, updated_at)
+		VALUES
+		(#{writerIp}, #{postPw}, #{title}, #{text}, 0, 1, now(), null)
+		
+		<selectKey keyProperty="no" resultType="long" order="AFTER">
+    		SELECT LAST_INSERT_ID()
+  		</selectKey>
+	</insert>
+	
+	<!-- 게시글 수정 -->
+	<update id="modifyPost">
+		UPDATE QUESTION_POST
+		<set>
+			<if test="title != null and title != ''">
+				title = #{title},				
+			</if>
+			<if test="text != null and text != ''">
+				text = #{text},				
+			</if>
+			<if test="postPw != null and postPw != ''">
+				post_pw = #{postPw},				
+			</if>
+			updated_at = now()
+		</set>
+		WHERE no = #{no}
+	</update>
+	
+	<!-- 게시글 삭제 -->
+	<update id="deletePost">
+		UPDATE QUESTION_POST
+		SET is_active = 0,
+			updated_at = now()
+		WHERE no = #{no}
+	</update>
+
 	
 </mapper>

@@ -22,13 +22,13 @@
 			usk.kwd_no,
 			usk.name AS keyword_name,
 			usk.study_level
-		FROM reservation r
+		FROM RESERVATION r
 		LEFT JOIN (
 			SELECT 
 				sk.*,
 				ik.name
-			FROM selected_keyword sk 
-			JOIN interest_keyword ik 
+			FROM SELECTED_KEYWORD sk 
+			JOIN INTEREST_KEYWORD ik 
 			  ON sk.kwd_no  = ik.no
 		) AS usk
 			ON usk.rsv_email = r.email
@@ -36,7 +36,7 @@
 	</select>
 
 	<insert id="registerReserve">
-		INSERT INTO reservation
+		INSERT INTO RESERVATION
 		(email, user_ip, password, name, phone, created_at)
 		VALUES                          
 		(#{email}, #{userIp}, #{password}, #{name}, #{phone}, now())

@@ -10,8 +10,10 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import com.project.sf.common.pager.Pager;
 import com.project.sf.qna.QuestionPost;
 import com.project.sf.qna.service.QnaService;
+import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
 @Controller
@@ -21,10 +23,11 @@ public class QnaController {
   @Autowired
   QnaService qnaService;
 
+  // 전체 리스트 조회
   @GetMapping("")
-  String main(Model model) {
+  String main(Model model, Pager pager) {
 
-    List<QuestionPost> questionPosts = qnaService.loadQnaPosts();
+    List<QuestionPost> questionPosts = qnaService.loadQnaPosts(pager);
 
     model.addAttribute("questionPosts", questionPosts);
 
@@ -35,6 +38,16 @@ public class QnaController {
   @GetMapping("/write")
   String writePost() {
     return "pages/qna/write";
+  }
+
+  @PostMapping("/register")
+  String registerPost(HttpServletRequest request, QuestionPost questionPost) {
+    String ip = request.getRemoteAddr();
+    questionPost.setWriterIp(ip);
+
+    Long newPostNo = qnaService.registerPost(questionPost);
+
+    return "redirect:/qna/detail/" + newPostNo;
   }
 
   // 게시글 상세 정보 조회
@@ -57,21 +70,44 @@ public class QnaController {
     boolean isMatch = qnaService.checkPassword(no, postPw);
 
     if (isMatch) {
-      session.setAttribute("validatedPostNo", no);
+      session.setAttribute("validated_post_no", no);
     }
 
     return isMatch;
   }
 
   // 게시글 수정 페이지 이동
-  @GetMapping("/edit/{no}")
-  String editPost() {
-    return "pages/qna/edit";
+  @GetMapping("/modify/{no}")
+  String modifyPost(@PathVariable Long no, Model model) {
+    QuestionPost prevPost = qnaService.findQnaPostByNo(no);
+
+    model.addAttribute("prevPost", prevPost);
+
+    return "pages/qna/modify";
   }
 
+  // 수정된 게시글 적용
+  @PostMapping("/modify/{no}")
+  String modifyPost(@PathVariable Long no, QuestionPost questionPost, HttpSession session) {
+
+    questionPost.setNo(no);
+
+    qnaService.modifyPost(questionPost);
+
+    session.removeAttribute("validated_post_no");
+
+    return "redirect:/qna/detail/{no}";
+  }
+
+  // 게시글 삭제
   @GetMapping("/delete/{no}")
-  String deletePost() {
-    return "redirect:../../qna";
+  String deletePost(@PathVariable Long no, HttpSession session) {
+
+    qnaService.deletePost(no);
+
+    session.removeAttribute("validated_post_no");
+
+    return "redirect:/qna";
   }
 
 }

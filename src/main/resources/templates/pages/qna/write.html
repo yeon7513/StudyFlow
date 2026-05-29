@@ -8,22 +8,36 @@
   <head>
     <title layout:fragment="title">스터디 플로우 - 문의글 작성</title>
     <th:block layout:fragment="css">
-      <link rel="stylesheet" href="/css/qna/write.css" />
+      <link rel="stylesheet" href="/css/qna/editor.css" />
+    </th:block>
+    <th:block layout:fragment="js">
+      <script defer src="/js/qna/editor.js"></script>
     </th:block>
   </head>
   <body>
     <section layout:fragment="container" id="write">
       <h3>게시글 등록</h3>
-      <form>
+      <form method="post" id="write-form" action="/qna/register">
         <div class="title">
-          <input type="text" name="title" />
+          <input type="text" name="title" placeholder="제목을 입력해주세요." />
+          <input
+            type="password"
+            name="postPw"
+            placeholder="비밀번호를 입력해주세요."
+          />
         </div>
         <div class="text">
-          <textarea rows="20" name="content"></textarea>
+          <textarea
+            rows="20"
+            name="text"
+            placeholder="내용을 입력해주세요."
+          ></textarea>
         </div>
         <div>
           <button type="submit" class="btn">등록</button>
-          <button type="button" class="btn cancel">취소</button>
+          <button id="cancel-button" type="button" class="btn cancel">
+            취소
+          </button>
         </div>
       </form>
     </section>

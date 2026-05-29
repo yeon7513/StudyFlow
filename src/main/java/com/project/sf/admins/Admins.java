@@ -7,6 +7,7 @@ public class Admins {
   private String role;
   private boolean isActive;
   private String createdAt;
+  private String updatedAt;
 
   public String getId() {
     return id;
@@ -54,5 +55,13 @@ public class Admins {
 
   public void setCreatedAt(String createdAt) {
     this.createdAt = createdAt;
+  }
+
+  public String getUpdatedAt() {
+    return updatedAt;
+  }
+
+  public void setUpdatedAt(String updatedAt) {
+    this.updatedAt = updatedAt;
   }
 }

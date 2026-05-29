@@ -23,6 +23,7 @@ const handleShowModal = (action) => {
   modal.style.display = "block";
 };
 
+// 모달 닫기
 const handleHideModal = () => {
   modal.style.display = "none";
 };
@@ -75,13 +76,15 @@ passwordField.addEventListener("input", handleClearError);
 // -----------------------------------------------------
 
 // 게시글 수정용 모달
-const editButton = document.getElementById("edit");
+const modifyButton = document.getElementById("modify");
 
-const handleEditPost = () => {
-  handleShowModal("edit");
+const handleModifyPost = () => {
+  handleShowModal("modify");
 };
 
-editButton.addEventListener("click", handleEditPost);
+if (modifyButton) {
+  modifyButton.addEventListener("click", handleModifyPost);
+}
 
 // -----------------------------------------------------
 
@@ -124,12 +127,13 @@ const handleSubmitVerify = (e) => {
     })
       .then((res) => res.text())
       .then((result) => {
-        console.log(result);
         if (result === "true") {
-          if (action === "edit") {
-            location.href = `/qna/edit/${no}`;
+          // 수정
+          if (action === "modify") {
+            handleHideModal();
+            location.href = `/qna/modify/${no}`;
 
-            console.log(no);
+            // 삭제
           } else if (action === "delete") {
             if (confirm("정말 이 게시글을 삭제하시겠습니까?")) {
               location.href = `/qna/delete/${no}`;

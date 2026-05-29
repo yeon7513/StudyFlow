@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import com.project.sf.common.pager.Pager;
 import com.project.sf.qna.QuestionPost;
 import com.project.sf.qna.dao.QnaDao;
 
@@ -15,8 +16,12 @@ public class QnaServiceImpl implements QnaService {
   QnaDao qnaDao;
 
   @Override
-  public List<QuestionPost> loadQnaPosts() {
-    return qnaDao.loadQnaPosts();
+  public List<QuestionPost> loadQnaPosts(Pager pager) {
+    int totalCountPost = qnaDao.totalCountPost(pager);
+
+    pager.setTotal(totalCountPost);
+
+    return qnaDao.loadQnaPosts(pager);
   }
 
   @Override
@@ -38,6 +43,26 @@ public class QnaServiceImpl implements QnaService {
     }
 
     return false;
+  }
+
+  @Override
+  public void modifyPost(QuestionPost questionPost) {
+    qnaDao.modifyPost(questionPost);
+  }
+
+  @Override
+  public void deletePost(Long no) {
+    qnaDao.deletePost(no);
+  }
+
+  @Override
+  public QuestionPost findQnaPostByNo(Long no) {
+    return qnaDao.findQnaPostByNo(no);
+  }
+
+  @Override
+  public Long registerPost(QuestionPost questionPost) {
+    return qnaDao.registerPost(questionPost);
   }
 
 }

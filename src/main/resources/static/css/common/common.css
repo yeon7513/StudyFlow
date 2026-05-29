@@ -16,6 +16,7 @@ header {
 }
 
 main {
+  padding-bottom: 48px;
   outline: 1px dotted blue;
 }
 
@@ -29,6 +30,10 @@ footer {
 
 .banner {
   height: 15rem;
+}
+
+.banner h2 {
+  text-transform: uppercase;
 }
 
 .inner {
@@ -56,4 +61,20 @@ footer {
 
 .logo > a > span {
   color: var(--secondary-color);
+}
+
+.form-wrap {
+  padding: 48px 0;
+}
+
+.form-wrap > form {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  gap: 24px;
+  margin: 0 auto;
+  padding: 32px 48px 48px;
+  width: 360px;
+  border: 1px solid #d9d9d9;
 }

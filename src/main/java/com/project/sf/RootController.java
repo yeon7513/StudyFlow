@@ -19,7 +19,7 @@ public class RootController {
 
   @GetMapping("/sf_admin_login")
   String login() {
-    return "admin/login";
+    return "pages/admin/login";
   }
 
 }

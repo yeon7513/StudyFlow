@@ -18,11 +18,11 @@
 
 	<select id="findTopKeywords" resultType="Keyword">
 		SELECT k.category, k.name, count(sk.kwd_no) AS count_keyword
-		FROM selected_keyword sk 
+		FROM SELECTED_KEYWORD sk 
 		JOIN (
 			SELECT ik.NO, ik.name, ic.name AS category
-			FROM interest_keyword ik 
-			JOIN interest_category ic 
+			FROM INTEREST_KEYWORD ik 
+			JOIN INTEREST_CATEGORY ic 
 				ON ik.cate_no = ic.NO
 			WHERE ik.is_active = 1 AND ic.is_active = 1
 		) k ON sk.kwd_no = k.NO
@@ -39,8 +39,8 @@
 			k.no AS k_no,
 			k.name AS k_name,
 			k.description AS k_description  
-		FROM interest_category AS c
-		JOIN interest_keyword AS k
+		FROM INTEREST_CATEGORY AS c
+		JOIN INTEREST_KEYWORD AS k
 			ON k.cate_no = c.no
 		WHERE c.is_active = 1 AND k.is_active = 1
 	</select>

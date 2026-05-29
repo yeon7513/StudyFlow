@@ -6,8 +6,10 @@ public class QuestionPost {
   private String postPw;
   private String title;
   private String text;
+  private boolean isAnswered;
   private boolean isActive;
   private String createdAt;
+  private String updatedAt;
 
   // 답변
   private AnswerPost answerPost;
@@ -74,5 +76,21 @@ public class QuestionPost {
 
   public void setAnswerPost(AnswerPost answerPost) {
     this.answerPost = answerPost;
+  }
+
+  public boolean isAnswered() {
+    return isAnswered;
+  }
+
+  public void setAnswered(boolean isAnswered) {
+    this.isAnswered = isAnswered;
+  }
+
+  public String getUpdatedAt() {
+    return updatedAt;
+  }
+
+  public void setUpdatedAt(String updatedAt) {
+    this.updatedAt = updatedAt;
   }
 }

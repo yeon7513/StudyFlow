@@ -25,7 +25,13 @@
         <p th:text="${detail.text}">본문내용</p>
         <p th:text="${detail.postPw}">비밀번호</p>
         <div>
-          <button id="edit" type="button">수정</button>
+          <button
+            id="modify"
+            type="button"
+            th:if="${detail.isAnswered == false}"
+          >
+            수정
+          </button>
           <button id="delete" type="button">삭제</button>
         </div>
       </div>

@@ -1,0 +1,51 @@
+<!doctype html>
+<html
+  lang="ko"
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  th:fragment="Header"
+>
+  <header>
+    <ul class="bread-crumb">
+      <li>
+        <a href="/admins">
+          <i class="fa-solid fa-house"></i>
+        </a>
+      </li>
+
+      <!--
+        타임리프 반복의 상태변수 -> 변수명+Stat
+        참고 : https://jddng.tistory.com/233
+      -->
+      <th:block th:if="${breadCrumbs != null}">
+        <li th:each="menu, menuStat : ${breadCrumbs}">
+          <i class="fa-solid fa-chevron-right"></i>
+          <a
+            th:if="${menu.path != null and menu.path != ''}"
+            th:href="${menu.path}"
+            th:text="${menu.label}"
+          >
+            브레드크럼명
+          </a>
+
+          <!-- 마지막 브레드크럼일 경우, 링크 X -->
+          <span
+            th:if="${menu.path == null and menu.path == ''}"
+            th:text="${menu.label}"
+            th:class="${menuStat.last} ? 'active-page' : ''"
+          >
+            현재 보고 있는 페이지
+          </span>
+        </li>
+      </th:block>
+    </ul>
+    <ul class="utils">
+      <li>
+        <a href="/" class="btn">사용자 모드 전환</a>
+      </li>
+      <li>
+        <a href="/logout" class="btn cancel">로그아웃</a>
+      </li>
+    </ul>
+  </header>
+</html>

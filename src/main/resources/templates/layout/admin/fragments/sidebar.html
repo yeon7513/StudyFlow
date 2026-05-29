@@ -1,0 +1,72 @@
+<!doctype html>
+<html
+  lang="ko"
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  th:fragment="Sidebar"
+>
+  <div id="sidebar">
+    <!-- 현재 접속한 운영자 정보 -->
+    <div class="profile">
+      <h1 class="logo">
+        <a href="/">
+          <span>S</span>TUDY <span>F</span>LOW
+          <small>관리자 모드</small>
+        </a>
+      </h1>
+      <div class="admin-info">
+        <p>관리자 아이디</p>
+        <div class="name">
+          <span>이름</span>
+          <span>권한(직급)</span>
+        </div>
+      </div>
+      <div class="profile-util">
+        <ul>
+          <li>
+            <a href="">새알림</a>
+          </li>
+          <li>
+            <a href="">정보수정</a>
+          </li>
+          <li>
+            <a href="">사이드바 숨기기</a>
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <!-- 사이드바 메뉴 -->
+    <nav>
+      <ul class="main-menu">
+        <li>
+          <a href="#">운영현황</a>
+        </li>
+        <li>
+          <ul class="sub-menu">
+            <li>
+              <a href="#">예약자 관리</a>
+            </li>
+            <li>
+              <a href="#">문의 관리</a>
+            </li>
+            <li>
+              <a href="#">관심 분야 관리</a>
+            </li>
+            <li>
+              <a href="#">블랙리스트</a>
+            </li>
+          </ul>
+        </li>
+        <!-- ROLE이 SUPER인 관리자만 -->
+        <li>
+          <ul class="sub-menu">
+            <li>
+              <a href="#">관리자 관리</a>
+            </li>
+          </ul>
+        </li>
+      </ul>
+    </nav>
+  </div>
+</html>

@@ -1,0 +1,26 @@
+<!doctype html>
+<html
+  lang="ko"
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+>
+  <head>
+    <th:block th:replace="~{layout/fragments/config :: Config}"> </th:block>
+    <title layout:fragment="title">스터디 플로우 - 관리자</title>
+    <link rel="stylesheet" href="/css/admin/dashboard.css" />
+  </head>
+
+  <body>
+    <div id="dashboard-wrap">
+      <div th:replace="~{layout/admin/fragments/sidebar :: Sidebar}"></div>
+      <div class="container">
+        <div
+          th:replace="~{layout/admin/fragments/header :: Header(breadCrumb=${breadCrumbs})}"
+        ></div>
+        <main>
+          <th:block layout:fragment="container"></th:block>
+        </main>
+      </div>
+    </div>
+  </body>
+</html>

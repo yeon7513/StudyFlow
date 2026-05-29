@@ -1,1 +1,18 @@
 @charset "UTF-8";
+
+.contents {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 48px;
+}
+
+.reserve-intro {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  padding: 48px;
+  width: 360px;
+  border: 1px solid #d9d9d9;
+}
