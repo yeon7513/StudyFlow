@@ -15,25 +15,26 @@
         </a>
       </h1>
       <div class="admin-info">
-        <p>관리자 아이디</p>
+        <p th:text="${session.admin.id}">관리자 아이디</p>
         <div class="name">
-          <span>이름</span>
-          <span>권한(직급)</span>
+          <span th:text="${session.admin.name}">이름</span>
+          <span th:text="${session.admin.role}">권한(직급)</span>
         </div>
       </div>
-      <div class="profile-util">
-        <ul>
-          <li>
-            <a href="">새알림</a>
-          </li>
-          <li>
-            <a href="">정보수정</a>
-          </li>
-          <li>
-            <a href="">사이드바 숨기기</a>
-          </li>
-        </ul>
-      </div>
+      <ul class="profile-util">
+        <li>
+          <!-- 새알림 -->
+          <a href=""><i class="fa-solid fa-bell"></i></a>
+        </li>
+        <li>
+          <!-- 정보수정 -->
+          <a href=""><i class="fa-solid fa-gear"></i></a>
+        </li>
+        <li>
+          <!-- 사이드바 숨기기 -->
+          <button type="button"><i class="fa-solid fa-bars"></i></button>
+        </li>
+      </ul>
     </div>
 
     <!-- 사이드바 메뉴 -->

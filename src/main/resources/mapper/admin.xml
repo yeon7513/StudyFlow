@@ -8,5 +8,11 @@
 		SELECT *
 		FROM ADMINS
 	</select>
+	
+	<select id="login">
+		SELECT *
+		FROM AMDINS
+		WHERE id = #{id} AND pw = #{pw}
+	</select>
 
 </mapper>
