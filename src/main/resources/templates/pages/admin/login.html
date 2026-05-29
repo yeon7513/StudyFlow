@@ -14,22 +14,22 @@
       <p>관리자 로그인 페이지</p>
 
       <div class="form-wrap">
-        <form id="login-form" method="post">
+        <form id="login-form" method="post" action="/admins/login">
           <div class="input-group">
             <input
-              id="email"
+              id="id"
               class="text-field"
-              type="email"
+              type="text"
               name="id"
               placeholder="아이디 입력"
-              autocomplete="no-email"
+              autocomplete="no-id"
               required
             />
-            <label for="email" class="text-label">아이디</label>
+            <label for="id" class="text-label">아이디</label>
           </div>
           <div class="input-group">
             <input
-              id="password"
+              id="pw"
               class="text-field"
               type="password"
               name="pw"
@@ -37,7 +37,7 @@
               autocomplete="off"
               required
             />
-            <label for="password" class="text-label">비밀번호</label>
+            <label for="pw" class="text-label">비밀번호</label>
           </div>
           <div>
             <button type="submit" class="btn">관리자 로그인</button>

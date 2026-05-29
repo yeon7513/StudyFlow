@@ -31,6 +31,6 @@ public class AdminsController {
       session.setAttribute("logined_admin", logined);
     }
 
-    return "";
+    return "pages/admin/home";
   }
 }

@@ -15,10 +15,10 @@
         </a>
       </h1>
       <div class="admin-info">
-        <p th:text="${session.admin.id}">관리자 아이디</p>
+        <p th:text="${session.logined_admin.id}">관리자 아이디</p>
         <div class="name">
-          <span th:text="${session.admin.name}">이름</span>
-          <span th:text="${session.admin.role}">권한(직급)</span>
+          <span th:text="${session.logined_admin.name}">이름</span>
+          <span th:text="${session.logined_admin.role}">권한(직급)</span>
         </div>
       </div>
       <ul class="profile-util">

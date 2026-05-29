@@ -9,9 +9,9 @@
 		FROM ADMINS
 	</select>
 	
-	<select id="login">
+	<select id="login" resultType="Admins">
 		SELECT *
-		FROM AMDINS
+		FROM ADMINS
 		WHERE id = #{id} AND pw = #{pw}
 	</select>
 
