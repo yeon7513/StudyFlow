@@ -14,7 +14,7 @@
           <small>관리자 모드</small>
         </a>
       </h1>
-      <div class="admin-info">
+      <div class="admin-info" th:if="${!session.isEmpty()}">
         <p th:text="${session.logined_admin.id}">관리자 아이디</p>
         <div class="name">
           <span th:text="${session.logined_admin.name}">이름</span>
@@ -41,21 +41,21 @@
     <nav>
       <ul class="main-menu">
         <li>
-          <a href="#">운영현황</a>
+          <a href="/admins/operational_status">운영현황</a>
         </li>
         <li>
           <ul class="sub-menu">
             <li>
-              <a href="#">예약자 관리</a>
+              <a href="/admins/management/reservation/list">예약자 관리</a>
             </li>
             <li>
-              <a href="#">문의 관리</a>
+              <a href="/admins/management/qna/list">문의 관리</a>
             </li>
             <li>
-              <a href="#">관심 분야 관리</a>
+              <a href="/admins/management/interest/list">관심 분야 관리</a>
             </li>
             <li>
-              <a href="#">블랙리스트</a>
+              <a href="/admins/management/blacklist/list">블랙리스트</a>
             </li>
           </ul>
         </li>
@@ -63,7 +63,7 @@
         <li>
           <ul class="sub-menu">
             <li>
-              <a href="#">관리자 관리</a>
+              <a href="/admins/management/operator/list">운영자 관리</a>
             </li>
           </ul>
         </li>

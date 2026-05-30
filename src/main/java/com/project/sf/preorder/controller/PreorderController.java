@@ -33,7 +33,7 @@ public class PreorderController {
     return "pages/preorder/preorder";
   }
 
-  // 키워드 선택
+  // 키워드 선택 페이지 렌더링
   @GetMapping("/select_keywords")
   String reserve(Model model) {
     List<Category> keywords = trendService.loadKeywords();
@@ -43,6 +43,7 @@ public class PreorderController {
     return "pages/preorder/select_keywords";
   }
 
+  // 사전 예약 페이지 렌더링
   @GetMapping("/reserve")
   String reserve() {
     return "pages/preorder/reserve";

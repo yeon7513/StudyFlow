@@ -1,5 +1,6 @@
 package com.project.sf.preorder.dao;
 
+import java.util.List;
 import java.util.Map;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,6 +21,11 @@ public class PreorderDaoImpl implements PreorderDao {
   @Override
   public Reservation findReservationDetail(Map<String, String> params) {
     return sql.selectOne("preorder.findReservationDetail", params);
+  }
+
+  @Override
+  public List<Reservation> loadAllReservations() {
+    return sql.selectList("preorder.loadAllReservations");
   }
 
 }

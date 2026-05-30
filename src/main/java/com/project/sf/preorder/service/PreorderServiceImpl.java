@@ -1,6 +1,7 @@
 package com.project.sf.preorder.service;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -26,6 +27,12 @@ public class PreorderServiceImpl implements PreorderService {
     params.put("password", password);
 
     return preorderDao.findReservationDetail(params);
+  }
+
+  // 전체 사전예약 데이터 조회 (관리자용)
+  @Override
+  public List<Reservation> loadAllReservations() {
+    return preorderDao.loadAllReservations();
   }
 
 }

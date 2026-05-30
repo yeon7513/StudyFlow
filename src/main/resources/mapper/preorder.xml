@@ -5,6 +5,7 @@
   
 <mapper namespace="preorder">
 
+
 	<resultMap type="Reservation" id="ReservationMap" autoMapping="true">
 		<id column="email" property="email" />
 		<id column="user_ip" property="userIp" />
@@ -15,6 +16,26 @@
 			<id column="user_ip" property="userIp" />
 		</collection>
 	</resultMap>
+
+
+	<select id="loadAllReservations" resultMap="ReservationMap">
+		SELECT
+			r.*,
+			usk.kwd_no,
+			usk.name AS keyword_name,
+			usk.study_level
+		FROM RESERVATION r
+		LEFT JOIN (
+			SELECT 
+				sk.*,
+				ik.name
+			FROM SELECTED_KEYWORD sk 
+			JOIN INTEREST_KEYWORD ik 
+			  ON sk.kwd_no  = ik.no
+		) AS usk
+			ON usk.rsv_email = r.email
+		ORDER BY r.created_at DESC;
+	</select>
 
 	<select id="findReservationDetail" resultMap="ReservationMap">
 		SELECT
