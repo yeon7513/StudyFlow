@@ -1,0 +1,35 @@
+@charset "UTF-8";
+@import "../common/variables.css";
+
+#wrap {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  background: url("../../images/error_notice.png") no-repeat top/contain;
+}
+
+#wrap::before {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: -50;
+  width: 100vw;
+  height: 100vh;
+  outline: 1px dotted red;
+  background: linear-gradient(#fff 0%, #ebf3ee 100%);
+}
+
+#wrap > .content {
+  position: absolute;
+  top: 40%;
+  left: 50%;
+  transform: translateX(-50%);
+  text-align: center;
+}
+
+#wrap > .content > .btn {
+  margin-top: 24px;
+}

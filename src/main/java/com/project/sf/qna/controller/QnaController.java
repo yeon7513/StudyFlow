@@ -78,7 +78,12 @@ public class QnaController {
 
   // 게시글 수정 페이지 이동
   @GetMapping("/modify/{no}")
-  String modifyPost(@PathVariable Long no, Model model) {
+  String modifyPost(@PathVariable Long no, Model model, HttpSession session) {
+
+    if (session.getAttribute("validated_post_no") == null) {
+      return "redirect:/qna/detail/" + no;
+    }
+
     QuestionPost prevPost = qnaService.findQnaPostByNo(no);
 
     model.addAttribute("prevPost", prevPost);
@@ -96,7 +101,7 @@ public class QnaController {
 
     session.removeAttribute("validated_post_no");
 
-    return "redirect:/qna/detail/{no}";
+    return "redirect:/qna/detail/" + no;
   }
 
   // 게시글 삭제

@@ -131,12 +131,12 @@ const handleSubmitVerify = (e) => {
           // 수정
           if (action === "modify") {
             handleHideModal();
-            location.href = `/qna/modify/${no}`;
+            location.replace(`/qna/modify/${no}`);
 
             // 삭제
           } else if (action === "delete") {
             if (confirm("정말 이 게시글을 삭제하시겠습니까?")) {
-              location.href = `/qna/delete/${no}`;
+              location.replace(`/qna/delete/${no}`);
             }
           }
         } else {

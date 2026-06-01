@@ -5,15 +5,12 @@
   
 <mapper namespace="preorder">
 
-
 	<resultMap type="Reservation" id="ReservationMap" autoMapping="true">
-		<id column="email" property="email" />
-		<id column="user_ip" property="userIp" />
+		<id column="no" property="no" />
 		
 		<collection property="selectedKeywords" javaType="ArrayList" ofType="SelectedKeyword" autoMapping="true">
-			<id column="rsv_email" property="rsvEmail" />
+			<id column="rsv_no" property="rsvNo" />
 			<id column="kwd_no" property="kwdNo" />
-			<id column="user_ip" property="userIp" />
 		</collection>
 	</resultMap>
 
@@ -33,7 +30,7 @@
 			JOIN INTEREST_KEYWORD ik 
 			  ON sk.kwd_no  = ik.no
 		) AS usk
-			ON usk.rsv_email = r.email
+			ON usk.rsv_no = r.no
 		ORDER BY r.created_at DESC;
 	</select>
 
@@ -52,15 +49,24 @@
 			JOIN INTEREST_KEYWORD ik 
 			  ON sk.kwd_no  = ik.no
 		) AS usk
-			ON usk.rsv_email = r.email
+			ON usk.rsv_no = r.no
 		WHERE r.email = #{email} AND password = #{password}
 	</select>
 
 	<insert id="registerReserve">
 		INSERT INTO RESERVATION
-		(email, user_ip, password, name, phone, created_at)
+		(email, user_ip, password, name, phone, region, inflow, created_at, is_canceled)
 		VALUES                          
-		(#{email}, #{userIp}, #{password}, #{name}, #{phone}, now())
+		(#{email}, #{userIp}, #{password}, #{name}, #{phone}, #{region}, #{inflow}, now(), 0)
+	</insert>
+	
+	<insert id="registerSelectedKeywords">
+		INSERT INTO SELECTED_KEYWORD
+		(kwd_no, rsv_no, study_level, created_at)
+		VALUES
+		<foreach collection="selectedKeywords" item="item" separator=", ">
+			(#{item.kwdNo}, #{rsvNo}, #{item.studyLevel}, now())
+		</foreach>
 	</insert>
 	
 </mapper>

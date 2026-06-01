@@ -60,7 +60,7 @@
           </ul>
         </li>
         <!-- ROLE이 SUPER인 관리자만 -->
-        <li>
+        <li th:if="${session.logined_admin.role == 'SUPER'}">
           <ul class="sub-menu">
             <li>
               <a href="/admins/management/operator/list">운영자 관리</a>

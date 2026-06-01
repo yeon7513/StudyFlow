@@ -9,9 +9,11 @@ const saveSelectedKeywords = () => {
   const name = form.name.value.trim().replace(/\s+/g, "");
   const password = form.password.value.trim().replace(/\s+/g, "");
   const phone = form.phone.value.trim().replace(/\s+/g, "");
+  const region = form.region.value;
+  const inflow = form.inflow.value;
 
   // 전체 값이 다 들어왔는지 검증
-  if (!email || !name || !password || !phone) {
+  if (!email || !name || !password || !phone || !region || !inflow) {
     alert("모든 항목을 올바르게 입력해주세요. 공백은 포함될 수 없습니다.");
     return;
   }
@@ -44,11 +46,13 @@ const saveSelectedKeywords = () => {
     password: password,
     name: name,
     phone: phone,
+    region: region,
+    inflow: inflow,
   };
 
   // 모든 검증을 통과 후 세션에 입력 정보 저장
   sessionStorage.setItem("user-info", JSON.stringify(userData));
-  location.href = "/preorder/select_keywords";
+  location.replace("/preorder/select_keywords");
 };
 
 saveButton.addEventListener("click", saveSelectedKeywords);

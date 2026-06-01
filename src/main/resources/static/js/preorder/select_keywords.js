@@ -72,10 +72,10 @@ const registerReservation = (e) => {
           sessionStorage.removeItem("user-info");
 
           alert("사전 예약에 성공했습니다.");
-          location.href = "/preorder/reserve_completed";
+          location.replace("/preorder/reserve_completed");
         } else {
           alert("사전 예약에 실패했습니다.");
-          location.href = "/preorder/reserve";
+          location.replace("/preorder/reserve");
         }
       });
   } catch (error) {
@@ -94,7 +94,7 @@ cancelButton.addEventListener("click", () => {
     confirm("사전 예약을 취소하시겠습니까? 취소 시 입력한 내용이 초기화됩니다.")
   ) {
     sessionStorage.removeItem("user-info");
-    location.href = "/";
+    location.replace("/");
   } else {
     return;
   }
