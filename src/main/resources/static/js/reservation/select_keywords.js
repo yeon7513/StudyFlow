@@ -60,27 +60,23 @@ const registerReservation = (e) => {
     selectedKeywords: selectedKeywords,
   };
 
-  try {
-    fetch("/preorder/reserve", {
-      method: "POST",
-      headers: { "Content-Type": "application/json" },
-      body: JSON.stringify(resultData),
-    })
-      .then((res) => res.text())
-      .then((result) => {
-        if (result === "true") {
-          sessionStorage.removeItem("user-info");
+  fetch("/reservation/reserve", {
+    method: "POST",
+    headers: { "Content-Type": "application/json" },
+    body: JSON.stringify(resultData),
+  })
+    .then((res) => res.text())
+    .then((result) => {
+      if (result === "true") {
+        sessionStorage.removeItem("user-info");
 
-          alert("사전 예약에 성공했습니다.");
-          location.replace("/preorder/reserve_completed");
-        } else {
-          alert("사전 예약에 실패했습니다.");
-          location.replace("/preorder/reserve");
-        }
-      });
-  } catch (error) {
-    console.error("error: ", error);
-  }
+        alert("사전 예약에 성공했습니다.");
+        location.replace("/reservation/reserve_completed");
+      } else {
+        alert("사전 예약에 실패했습니다.");
+        location.replace("/reservation/reserve");
+      }
+    });
 };
 
 reserveForm.addEventListener("submit", registerReservation);

@@ -3,7 +3,7 @@
   lang="ko"
   xmlns:th="http://www.thymeleaf.org"
   xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-  layout:decorate="~{/layout/layout}"
+  layout:decorate="~{/layout/common/layout}"
 >
   <head>
     <title layout:fragment="title">스터디 플로우 - 트렌드</title>
@@ -16,7 +16,7 @@
     <section layout:fragment="container">
       <!-- 배너 -->
       <th:block
-        th:replace="~{layout/fragments/Banner :: Banner(
+        th:replace="~{layout/common/fragments/Banner :: Banner(
 					'TREND REPORT', 
 					'지금 가장 뜨거운 학습 키워드', 
 					'기초부터 심화까지! 나와 같은 레벨의 러너들이 가장 많이 찾는 분야'

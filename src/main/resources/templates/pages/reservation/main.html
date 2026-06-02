@@ -3,28 +3,29 @@
   lang="ko"
   xmlns:th="http://www.thymeleaf.org"
   xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-  layout:decorate="~{/layout/layout}"
+  layout:decorate="~{/layout/common/layout}"
 >
   <head>
     <title layout:fragment="title">스터디 플로우 - 사전예약</title>
-    <link rel="stylesheet" href="/css/preorder/preorder.css" />
-    <script defer src="/js/preorder/preorder.js"></script>
+    <link rel="stylesheet" href="/css/reservation/main.css" />
+    <script defer src="/js/reservation/main.js"></script>
   </head>
   <body>
     <section layout:fragment="container">
+      <!-- 배너 -->
       <th:block
-        th:replace="~{layout/fragments/Banner :: Banner(
-          'Customized Report', 
-          '내 커리어를 레벨업 할 맞춤형 리포트', 
-          '지금 어떤 분야의 성장을 원하시나요?<br>관심 분야를 설정하시면, 나의 다음 스텝에 딱 맞는 학습 로드맵과 사전예약 특별 혜택을 안내해 드립니다.'
-        )}"
+        th:replace="~{layout/common/fragments/Banner :: Banner(
+					'Customized Report', 
+					'내 커리어를 레벨업 할 맞춤형 리포트', 
+					'지금 어떤 분야의 성장을 원하시나요?<br>관심 분야를 설정하시면, 나의 다음 스텝에 딱 맞는 학습 로드맵과 사전예약 특별 혜택을 안내해 드립니다.'
+				)}"
       >
       </th:block>
 
       <div class="contents">
         <!-- 사전 예약 페이지로 이동 -->
         <div class="reserve-intro">
-          <a href="/preorder/reserve" class="btn">사전예약하기</a>
+          <a href="/reservation/reserve" class="btn">사전예약하기</a>
         </div>
 
         <!-- 예약 정보 찾기 -->
@@ -32,7 +33,7 @@
           <form
             id="search-preorder-info"
             method="post"
-            action="/preorder/search_result"
+            action="/reservation/search_result"
           >
             <div class="input-group">
               <input

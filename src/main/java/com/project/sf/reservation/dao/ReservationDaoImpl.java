@@ -14,18 +14,26 @@ public class ReservationDaoImpl implements ReservationDao {
   SqlSession sql;
 
   @Override
-  public void registerReserve(Reservation reservation) {
-    sql.insert("preorder.registerReserve", reservation);
+  public Long registerReserve(Reservation reservation) {
+    sql.insert("reservation.registerReserve", reservation);
+
+    return reservation.getNo();
   }
 
   @Override
   public Reservation findReservationDetail(Map<String, String> params) {
-    return sql.selectOne("preorder.findReservationDetail", params);
+    return sql.selectOne("reservation.findReservationDetail", params);
   }
 
   @Override
   public List<Reservation> loadAllReservations() {
-    return sql.selectList("preorder.loadAllReservations");
+    return sql.selectList("reservation.loadAllReservations");
   }
+
+  @Override
+  public void registerSelectedKeywords(Map<String, Object> params) {
+    sql.insert("reservation.registerSelectedKeywords", params);
+  }
+
 
 }

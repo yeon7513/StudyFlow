@@ -3,17 +3,17 @@
   lang="ko"
   xmlns:th="http://www.thymeleaf.org"
   xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-  layout:decorate="~{/layout/layout}"
+  layout:decorate="~{/layout/common/layout}"
 >
   <head>
     <title layout:fragment="title">스터디 플로우 - 사전예약</title>
-    <link rel="stylesheet" href="/css/preorder/reserve.css" />
-    <script defer src="/js/preorder/reserve.js"></script>
+    <link rel="stylesheet" href="/css/reservation/reserve.css" />
+    <script defer src="/js/reservation/reserve.js"></script>
   </head>
   <body>
     <section layout:fragment="container">
       <th:block
-        th:replace="~{layout/fragments/Banner :: Banner(
+        th:replace="~{layout/common/fragments/Banner :: Banner(
           '사전 예약', 
           '내 커리어를 레벨업 할 맞춤형 리포트', 
           '지금 어떤 분야의 성장을 원하시나요?<br>관심 분야를 설정하시면, 나의 다음 스텝에 딱 맞는 학습 로드맵과 사전예약 특별 혜택을 안내해 드립니다.'

@@ -3,7 +3,7 @@
   PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
-<mapper namespace="preorder">
+<mapper namespace="reservation">
 
 	<resultMap type="Reservation" id="ReservationMap" autoMapping="true">
 		<id column="no" property="no" />
@@ -58,6 +58,11 @@
 		(email, user_ip, password, name, phone, region, inflow, created_at, is_canceled)
 		VALUES                          
 		(#{email}, #{userIp}, #{password}, #{name}, #{phone}, #{region}, #{inflow}, now(), 0)
+		
+		<selectKey keyProperty="no" resultType="long" order="AFTER">
+    		SELECT LAST_INSERT_ID()
+  		</selectKey>
+	
 	</insert>
 	
 	<insert id="registerSelectedKeywords">

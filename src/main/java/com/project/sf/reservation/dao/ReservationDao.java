@@ -6,10 +6,12 @@ import com.project.sf.reservation.Reservation;
 
 public interface ReservationDao {
 
-  void registerReserve(Reservation reservation);
+  Long registerReserve(Reservation reservation);
 
   Reservation findReservationDetail(Map<String, String> params);
 
   List<Reservation> loadAllReservations();
+
+  void registerSelectedKeywords(Map<String, Object> params);
 
 }

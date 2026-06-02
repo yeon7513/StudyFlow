@@ -3,44 +3,67 @@
   lang="ko"
   xmlns:th="http://www.thymeleaf.org"
   xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-  layout:decorate="~{/layout/layout}"
+  layout:decorate="~{/layout/common/layout}"
 >
   <head>
     <title layout:fragment="title">스터디 플로우 - 사전예약</title>
   </head>
   <body>
     <div layout:fragment="container">
-      <h2>reserved.html</h2>
-      <p>예약 완료</p>
+      <!-- 배너 -->
+      <th:block
+        th:replace="~{layout/common/fragments/Banner :: Banner(
+					'Ready to Run', 
+					'성공적인 커리어 점프를 위한 준비 완료', 
+					'성공적으로 사전예약이 완료되었습니다.<br>나만의 맞춤형 학습 로드맵과 특별 혜택이 준비되는 대로 가장 먼저 알려드릴게요.'
+				)}"
+      >
+      </th:block>
 
       <div>
         <ul>
           <li>
             <span>이메일: </span>
-            <span th:text="${completedReservation.email}">이메일</span>
+            <span>이메일</span>
           </li>
           <li>
             <span>예약자명: </span>
-            <span th:text="${completedReservation.name}">예약자명</span>
+            <span>예약자명</span>
           </li>
           <li>
             <span>연락처: </span>
-            <span th:text="${completedReservation.phone}">연락처</span>
+            <span>연락처</span>
           </li>
           <li>
             <span>사전예약일: </span>
-            <span th:text="${completedReservation.createdAt}">사전예약일</span>
+            <span>사전예약일</span>
           </li>
         </ul>
 
         <div>
           <ul>
-            <li th:each="keyword : ${completedReservation.selectedKeywords}">
-              <span th:text="${keyword.keywordName}">선택한 키워드명</span>
-              <span th:text="${keyword.studyLevel}">선택한 키워드의 레벨</span>
+            <li>
+              <span>선택한 키워드명</span>
+              <span>선택한 키워드의 레벨</span>
+            </li>
+            <li>
+              <span>선택한 키워드명</span>
+              <span>선택한 키워드의 레벨</span>
+            </li>
+            <li>
+              <span>선택한 키워드명</span>
+              <span>선택한 키워드의 레벨</span>
+            </li>
+            <li>
+              <span>선택한 키워드명</span>
+              <span>선택한 키워드의 레벨</span>
             </li>
           </ul>
         </div>
+      </div>
+
+      <div>
+        <a href="/">메인페이지로 이동</a>
       </div>
     </div>
   </body>

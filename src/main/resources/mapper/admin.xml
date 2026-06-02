@@ -4,12 +4,12 @@
   "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
   
 <mapper namespace="admin">
-	<select id="loadAdmins" resultType="Admins">
+	<select id="loadAdmins" resultType="Admin">
 		SELECT *
 		FROM ADMINS
 	</select>
 	
-	<select id="login" resultType="Admins">
+	<select id="login" resultType="Admin">
 		SELECT *
 		FROM ADMINS
 		WHERE id = #{id} AND pw = #{pw}

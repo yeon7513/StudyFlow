@@ -52,7 +52,7 @@ const saveSelectedKeywords = () => {
 
   // 모든 검증을 통과 후 세션에 입력 정보 저장
   sessionStorage.setItem("user-info", JSON.stringify(userData));
-  location.replace("/preorder/select_keywords");
+  location.replace("/reservation/select_keywords");
 };
 
 saveButton.addEventListener("click", saveSelectedKeywords);
