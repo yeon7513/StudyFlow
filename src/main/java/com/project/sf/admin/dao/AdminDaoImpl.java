@@ -1,10 +1,10 @@
-package com.project.sf.admins.dao;
+package com.project.sf.admin.dao;
 
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import com.project.sf.admins.AdminLogin;
-import com.project.sf.admins.Admins;
+import com.project.sf.admin.AdminLogin;
+import com.project.sf.admin.Admin;
 
 @Repository
 public class AdminDaoImpl implements AdminDao {
@@ -13,7 +13,7 @@ public class AdminDaoImpl implements AdminDao {
   SqlSession sql;
 
   @Override
-  public Admins login(AdminLogin adminLogin) {
+  public Admin login(AdminLogin adminLogin) {
     return sql.selectOne("admin.login", adminLogin);
   }
 

@@ -1,4 +1,4 @@
-package com.project.sf.trend;
+package com.project.sf.reservation;
 
 public class SelectedKeyword {
   private Long kwdNo; // 키워드 고유 번호

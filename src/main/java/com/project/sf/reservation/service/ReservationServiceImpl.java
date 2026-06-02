@@ -1,18 +1,18 @@
-package com.project.sf.preorder.service;
+package com.project.sf.reservation.service;
 
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.project.sf.preorder.Reservation;
-import com.project.sf.preorder.dao.PreorderDao;
+import com.project.sf.reservation.Reservation;
+import com.project.sf.reservation.dao.ReservationDao;
 
 @Service
-public class PreorderServiceImpl implements PreorderService {
+public class ReservationServiceImpl implements ReservationService {
 
   @Autowired
-  PreorderDao preorderDao;
+  ReservationDao preorderDao;
 
   @Override
   public void registerReserve(Reservation reservation) {

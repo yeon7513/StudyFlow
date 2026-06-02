@@ -1,24 +1,24 @@
-package com.project.sf.admins.controller;
+package com.project.sf.admin.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import com.project.sf.admins.service.AdminService;
-import com.project.sf.preorder.service.PreorderService;
+import com.project.sf.admin.service.AdminService;
 import com.project.sf.qna.service.QnaService;
+import com.project.sf.reservation.service.ReservationService;
 import com.project.sf.trend.service.TrendService;
 
 @Controller
 @RequestMapping("/admins")
-public class AdminsController {
+public class AdminController {
 
   @Autowired
   AdminService adminService;
 
   @Autowired
-  PreorderService preorderService;
+  ReservationService preorderService;
 
   @Autowired
   TrendService trendService;

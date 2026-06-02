@@ -1,6 +1,6 @@
-package com.project.sf.admins;
+package com.project.sf.admin;
 
-public class Admins {
+public class Admin {
   private String id;
   private String pw;
   private String name;

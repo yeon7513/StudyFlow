@@ -1,4 +1,4 @@
-package com.project.sf.admins;
+package com.project.sf.admin;
 
 public class AdminLogin {
   private String id;

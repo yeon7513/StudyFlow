@@ -1,9 +1,9 @@
-package com.project.sf.preorder.service;
+package com.project.sf.reservation.service;
 
 import java.util.List;
-import com.project.sf.preorder.Reservation;
+import com.project.sf.reservation.Reservation;
 
-public interface PreorderService {
+public interface ReservationService {
 
   List<Reservation> loadAllReservations();
 

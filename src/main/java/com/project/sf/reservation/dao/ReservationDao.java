@@ -1,10 +1,10 @@
-package com.project.sf.preorder.dao;
+package com.project.sf.reservation.dao;
 
 import java.util.List;
 import java.util.Map;
-import com.project.sf.preorder.Reservation;
+import com.project.sf.reservation.Reservation;
 
-public interface PreorderDao {
+public interface ReservationDao {
 
   void registerReserve(Reservation reservation);
 

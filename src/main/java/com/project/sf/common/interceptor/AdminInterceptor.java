@@ -1,7 +1,7 @@
 package com.project.sf.common.interceptor;
 
 import org.springframework.web.servlet.HandlerInterceptor;
-import com.project.sf.admins.Admins;
+import com.project.sf.admin.Admin;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
@@ -14,7 +14,7 @@ public class AdminInterceptor implements HandlerInterceptor {
 
     // 세션에 로그인한 관리자가 있는지 먼저 판별
     HttpSession session = request.getSession();
-    Admins admin = (Admins) session.getAttribute("logined_admin");
+    Admin admin = (Admin) session.getAttribute("logined_admin");
 
     // 관리자가 아닌 일반 사용자라면?
     if (admin == null) {

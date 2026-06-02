@@ -1,4 +1,4 @@
-package com.project.sf.preorder.controller;
+package com.project.sf.reservation.controller;
 
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -10,43 +10,43 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
-import com.project.sf.preorder.Reservation;
-import com.project.sf.preorder.service.PreorderService;
+import com.project.sf.reservation.Reservation;
+import com.project.sf.reservation.service.ReservationService;
 import com.project.sf.trend.Category;
 import com.project.sf.trend.service.TrendService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 
 @Controller
-@RequestMapping("/preorder")
-public class PreorderController {
+@RequestMapping("/reservation")
+public class ReservationController {
 
   @Autowired
   TrendService trendService;
 
   @Autowired
-  PreorderService preorderService;
+  ReservationService reservationService;
 
 
-  @GetMapping({"", "/", "/list"})
-  String preorder() {
-    return "pages/preorder/preorder";
+  @GetMapping("")
+  String reservationMain() {
+    return "pages/reservation/index";
   }
 
   // 키워드 선택 페이지 렌더링
   @GetMapping("/select_keywords")
-  String reserve(Model model) {
+  String selectKeywords(Model model) {
     List<Category> keywords = trendService.loadKeywords();
 
     model.addAttribute("keywords", keywords);
 
-    return "pages/preorder/select_keywords";
+    return "pages/reservation/select_keywords";
   }
 
   // 사전 예약 페이지 렌더링
   @GetMapping("/reserve")
   String reserve() {
-    return "pages/preorder/reserve";
+    return "pages/reservation/reserve";
   }
 
   // 사전 예약 등록
@@ -59,7 +59,7 @@ public class PreorderController {
       String ip = request.getRemoteAddr();
       reservation.setUserIp(ip);
 
-      preorderService.registerReserve(reservation);
+      reservationService.registerReserve(reservation);
 
       String email = reservation.getEmail();
       String password = reservation.getPassword();
@@ -87,7 +87,7 @@ public class PreorderController {
       return "redirect:/";
     }
 
-    Reservation completedReservation = preorderService.findReservationDetail(email, password);
+    Reservation completedReservation = reservationService.findReservationDetail(email, password);
 
     model.addAttribute("completedReservation", completedReservation);
 
@@ -95,18 +95,18 @@ public class PreorderController {
     session.removeAttribute("email");
     session.removeAttribute("password");
 
-    return "pages/preorder/reserve_completed";
+    return "pages/reservation/reserve_completed";
   }
 
   // 사전 예약 검색 결과
   @PostMapping("/search_result")
-  String searchReserved(@RequestParam String email, @RequestParam String password, Model model) {
+  String searchResult(@RequestParam String email, @RequestParam String password, Model model) {
 
-    Reservation result = preorderService.findReservationDetail(email, password);
+    Reservation result = reservationService.findReservationDetail(email, password);
 
     model.addAttribute("result", result);
 
-    return "pages/preorder/search_result";
+    return "pages/reservation/search_result";
   }
 
 }

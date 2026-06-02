@@ -1,14 +1,14 @@
-package com.project.sf.preorder.dao;
+package com.project.sf.reservation.dao;
 
 import java.util.List;
 import java.util.Map;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import com.project.sf.preorder.Reservation;
+import com.project.sf.reservation.Reservation;
 
 @Repository
-public class PreorderDaoImpl implements PreorderDao {
+public class ReservationDaoImpl implements ReservationDao {
 
   @Autowired
   SqlSession sql;

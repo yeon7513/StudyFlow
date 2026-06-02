@@ -1,7 +1,6 @@
-package com.project.sf.preorder;
+package com.project.sf.reservation;
 
 import java.util.List;
-import com.project.sf.trend.SelectedKeyword;
 
 public class Reservation {
   private Long no; // 예약 고유 번호
