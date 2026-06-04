@@ -19,7 +19,7 @@ const handleSubmitLogin = (e) => {
     .then((result) => {
       console.log(result);
       if (result === "true") {
-        location.href = "/admins";
+        location.href = "/admin";
       } else {
         alert("아이디와 비밀번호가 일치하지 않습니다.");
         return;

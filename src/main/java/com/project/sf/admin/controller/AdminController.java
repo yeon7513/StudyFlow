@@ -1,5 +1,6 @@
 package com.project.sf.admin.controller;
 
+import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -7,18 +8,19 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import com.project.sf.admin.service.AdminService;
 import com.project.sf.qna.service.QnaService;
+import com.project.sf.reservation.Reservation;
 import com.project.sf.reservation.service.ReservationService;
 import com.project.sf.trend.service.TrendService;
 
 @Controller
-@RequestMapping("/admins")
+@RequestMapping("/admin")
 public class AdminController {
 
   @Autowired
   AdminService adminService;
 
   @Autowired
-  ReservationService preorderService;
+  ReservationService reservationService;
 
   @Autowired
   TrendService trendService;
@@ -41,20 +43,18 @@ public class AdminController {
   // 예약자 관리
   @GetMapping("/management/reservation/list")
   String managementReservations(Model model) {
+    List<Reservation> reservations = reservationService.loadAllReservations();
 
-    // Reservation reservations = preorderService.
-
+    model.addAttribute("reservations", reservations);
 
     return "pages/admin/management/reservation/list";
   }
-
 
   // 문의 관리
   @GetMapping("/management/qna/list")
   String managementQnas() {
     return "pages/admin/management/qna/list";
   }
-
 
   // 관심 분야 관리
   @GetMapping("/management/interest/list")
