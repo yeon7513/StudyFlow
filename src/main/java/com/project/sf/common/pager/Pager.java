@@ -6,19 +6,27 @@ import java.util.List;
 public class Pager {
   private float total;
   private int page = 1;
-  private int perPage = 10;
+  private int perPage;
   private int perGroup = 5;
 
   // 검색용 키워드
+  private int search;
   private String searchKeyword;
 
   // 쿼리스트링 설정
   public String getQuery() {
     String query = "";
 
-    if (searchKeyword != "" && searchKeyword != null) {
+    // 필터가 있을 경우
+    if (search > 0 && searchKeyword != null && searchKeyword != "") {
+      query = "&search=" + search + "&searchKeyword=" + searchKeyword;
+    }
+
+    // 필터가 없을 경우
+    if (search < 0 && searchKeyword != null && searchKeyword != "") {
       query = "&searchKeyword=" + searchKeyword;
     }
+
 
     return query;
   }
@@ -117,6 +125,14 @@ public class Pager {
 
   public void setSearchKeyword(String searchKeyword) {
     this.searchKeyword = searchKeyword;
+  }
+
+  public int getSearch() {
+    return search;
+  }
+
+  public void setSearch(int search) {
+    this.search = search;
   }
 
 }

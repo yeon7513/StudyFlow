@@ -13,11 +13,55 @@
 			<id column="kwd_no" property="kwdNo" />
 		</collection>
 	</resultMap>
+	
+	<!-- 검색용 WHERE -->
+	<sql id="search">
+		<where>
+			<!-- 이메일 검색 -->
+			<if test="search == 1">
+				r.email LIKE CONCAT('%', #{searchKeyword}, '%')
+			</if>
+			
+			<!-- 지역 -->
+			<if test="search == 2">
+				r.region = #{searchKeyword}
+			</if>
+			
+			<!-- 유입경로 -->
+			<if test="search == 3">
+				r.inflow = #{searchKeyword}
+			</if>
+			
+			<!-- 취소 여부 -->
+			<if test="search == 4">
+				r.is_canceled = #{searchKeyword}
+			</if>
+		</where>
+	</sql>
 
+	<select id="totalCountReservation" resultType="Integer">
+		SELECT count(*)
+		FROM RESERVATION AS r
+		
+		<include refid="search"></include>
+	</select>
 
-	<select id="loadAllReservations" resultMap="ReservationMap">
+	<!-- 관리자용 전체 조회 -->
+	<select id="loadAllReservations" resultType="Reservation">
+		SELECT *
+		FROM RESERVATION AS r
+		
+		<include refid="search"></include>
+		
+		ORDER BY r.created_at DESC, r.no DESC
+		LIMIT #{offset}, #{perPage}
+	</select>
+	
+	<!-- 관리자용 상세 조회 -->
+	<select id="findReservationDetailByEmail" resultMap="ReservationMap">
 		SELECT
 			r.*,
+			usk.rsv_no,
 			usk.kwd_no,
 			usk.name AS keyword_name,
 			usk.study_level
@@ -31,9 +75,10 @@
 			  ON sk.kwd_no  = ik.no
 		) AS usk
 			ON usk.rsv_no = r.no
-		ORDER BY r.created_at DESC;
+		WHERE r.no = #{no}
 	</select>
 
+	<!-- 사용자용 상세 조회 -->
 	<select id="findReservationDetail" resultMap="ReservationMap">
 		SELECT
 			r.*,

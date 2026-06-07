@@ -76,25 +76,3 @@
 #post .date {
   font-size: 14px;
 }
-
-#pagination {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  gap: 24px;
-}
-
-#pagination a {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  width: 24px;
-  height: 24px;
-  font-size: 14px;
-}
-
-#pagination .page-active {
-  background-color: var(--primary-color);
-  border-radius: 50%;
-  color: #fff;
-}

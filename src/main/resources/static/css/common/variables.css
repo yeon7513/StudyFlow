@@ -2,8 +2,10 @@
   --primary-color: #56dfcf;
   --secondary-color: #0abab5;
   --point-color: #adeed9;
-  --bg-color: #ffedf3;
+  --bg-color: #e8f3f1;
   --disable-color: #eaeaea;
   --cancel-color: #d9d9d9;
   --warn-color: #ea5252;
+
+  --box-shadow: 0 0 4px 0 rgba(10, 186, 181, 0.2);
 }

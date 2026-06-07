@@ -21,7 +21,7 @@
         <li th:each="menu, menuStat : ${breadCrumbs}">
           <i class="fa-solid fa-chevron-right"></i>
           <a
-            th:if="${menu.path != null and menu.path != ''}"
+            th:if="${menu.path != null}"
             th:href="${menu.path}"
             th:text="${menu.label}"
           >
@@ -30,7 +30,7 @@
 
           <!-- 마지막 브레드크럼일 경우, 링크 X -->
           <span
-            th:if="${menu.path == null and menu.path == ''}"
+            th:if="${menu.path == null or menu.path == ''}"
             th:text="${menu.label}"
             th:class="${menuStat.last} ? 'active-page' : ''"
           >

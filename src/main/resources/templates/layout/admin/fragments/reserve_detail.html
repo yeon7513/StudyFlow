@@ -1,0 +1,76 @@
+<!doctype html>
+<html
+  lang="ko"
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+>
+  <div th:fragment="Modal" id="modal">
+    <div class="container">
+      <!-- 모달 타이틀 -->
+      <div class="detail-title">
+        <h3>예약 상세 조회<span id="status" class="active">예약중</span></h3>
+        <button id="cancel-modal" type="button" class="btn cancel">
+          <i class="fa-solid fa-xmark"></i>
+        </button>
+      </div>
+
+      <!-- 예약자 기본 정보 -->
+      <div class="basic-info">
+        <h4>예약자 기본 정보</h4>
+        <ul>
+          <li>
+            <span class="label">예약번호</span>
+            <span id="no">예약번호</span>
+          </li>
+          <li>
+            <span class="label">예약자명</span>
+            <span id="name">예약자명</span>
+          </li>
+          <li>
+            <span class="label">이메일</span>
+            <span id="email">이메일</span>
+          </li>
+          <li>
+            <span class="label">연락처</span>
+            <span id="phone">연락처</span>
+          </li>
+          <li>
+            <span class="label">지역</span>
+            <span id="region">지역</span>
+          </li>
+          <li>
+            <span class="label">유입경로</span>
+            <span id="inflow">유입경로</span>
+          </li>
+          <li>
+            <span class="label">예약일</span>
+            <span id="created-at">예약일</span>
+          </li>
+        </ul>
+      </div>
+      <!-- 선택한 키워드 -->
+      <div class="select-keywords">
+        <h4>선택한 관심 분야</h4>
+        <ul id="keywords">
+          <li>
+            <span>키워드</span>
+          </li>
+        </ul>
+      </div>
+
+      <div class="canceled-info">
+        <h4>취소 정보</h4>
+        <ul>
+          <li>
+            <span class="label"> 취소일 </span>
+            <span id="canceled-at">취소일</span>
+          </li>
+          <li>
+            <span class="label"> 취소사유 </span>
+            <span id="canceled-reason">취소사유</span>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</html>

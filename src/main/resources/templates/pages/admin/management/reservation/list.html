@@ -4,13 +4,83 @@
   xmlns:th="http://www.thymeleaf.org"
   xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
   layout:decorate="~{/layout/admin/dashboard}"
+  th:with="breadCrumbs=${ { {label: '예약자 관리', path: null} } }"
 >
   <head>
     <link rel="stylesheet" href="/css/admin/reservation/reservation.css" />
+    <link
+      rel="stylesheet"
+      href="/css/admin/reservation/reservation-detail-modal.css"
+    />
+    <script defer src="/js/admin/reservation/list.js"></script>
   </head>
   <body>
     <section layout:fragment="container">
       <h2>예약자 관리</h2>
+
+      <div class="content">
+        <div th:if="${reservations.isEmpty()}">
+          <p>검색된 예약자 내역이 없습니다.</p>
+        </div>
+
+        <ul class="reservations">
+          <li
+            th:each="reservation : ${reservations}"
+            th:data-no="${reservation.no}"
+          >
+            <span th:text="${reservation.no}">예약 고유 번호</span>
+            <div>
+              <p th:text="${reservation.email}">이메일</p>
+              <p th:text="${reservation.name}">예약자명</p>
+            </div>
+            <div>
+              <p th:text="${reservation.region}">지역</p>
+              <p th:text="${reservation.inflow}">유입경로</p>
+              <p th:text="${reservation.createdAt}">예약일</p>
+            </div>
+            <div>
+              <span th:text="${reservation.isCanceled ? 'Y' : 'N'}"
+                >취소여부</span
+              >
+            </div>
+          </li>
+        </ul>
+
+        <ul class="pagination">
+          <li>
+            <a th:href="@{|?page=1${pager.query}|}">
+              <i class="fa-solid fa-angles-left"></i>
+            </a>
+          </li>
+          <li>
+            <a th:href="@{|?page=${pager.prev}${pager.query}|}">
+              <i class="fa-solid fa-angle-left"></i>
+            </a>
+          </li>
+          <li th:each="page : ${pager.list}">
+            <a
+              th:href="@{|?page=${page}${pager.query}|}"
+              th:text="${page}"
+              th:class="${page == pager.page ? 'page-active' : ''}"
+              >0</a
+            >
+          </li>
+          <li>
+            <a th:href="@{|?page=${pager.next}${pager.query}|}">
+              <i class="fa-solid fa-angle-right"></i>
+            </a>
+          </li>
+          <li>
+            <a th:href="@{|?page=${pager.last}${pager.query}|}">
+              <i class="fa-solid fa-angles-right"></i>
+            </a>
+          </li>
+        </ul>
+      </div>
+
+      <div
+        th:replace="~{/layout/admin/fragments/reserve_detail :: Modal}"
+      ></div>
     </section>
   </body>
 </html>

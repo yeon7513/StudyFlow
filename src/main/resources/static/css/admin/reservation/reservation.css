@@ -1,2 +1,38 @@
 @charset "UTF-8";
 @import "../../common/variables.css";
+
+.reservations {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  grid-template-rows: 2;
+  gap: 1.5rem;
+}
+
+.reservations li {
+  position: relative;
+  top: 0;
+  padding: 1.5rem;
+  background-color: rgba(232, 243, 241, 0.2);
+  box-shadow: var(--box-shadow);
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+.reservations li:hover {
+  top: -0.5rem;
+}
+
+/* media - tablet */
+@media screen and (max-width: 1023px) {
+  .reservations {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* media - mobile */
+@media screen and (max-width: 767px) {
+  .reservations {
+    display: block;
+  }
+}

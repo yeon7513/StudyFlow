@@ -2,6 +2,7 @@ package com.project.sf.reservation.dao;
 
 import java.util.List;
 import java.util.Map;
+import com.project.sf.common.pager.Pager;
 import com.project.sf.reservation.Reservation;
 
 public interface ReservationDao {
@@ -10,8 +11,12 @@ public interface ReservationDao {
 
   Reservation findReservationDetail(Map<String, String> params);
 
-  List<Reservation> loadAllReservations();
+  List<Reservation> loadAllReservations(Pager pager);
 
   void registerSelectedKeywords(Map<String, Object> params);
+
+  int totalCountReservation(Pager pager);
+
+  Reservation findReservationDetailByEmail(Long no);
 
 }
