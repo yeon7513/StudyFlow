@@ -23,6 +23,70 @@
           <p>검색된 예약자 내역이 없습니다.</p>
         </div>
 
+        <form id="search-form">
+          <!-- 필터 초기화 버튼 -->
+          <button type="button" class="btn cancel">
+            <i class="fa-solid fa-arrow-rotate-left"></i>
+          </button>
+
+          <!-- 예약 날짜별 -->
+          <div class="filter date-group">
+            <label>예약일자</label>
+            <input type="date" name="startDate" />
+            <span>~</span>
+            <input type="date" name="endDate" />
+          </div>
+
+          <!-- 지역 및 유입경로 선택 -->
+          <div class="filter select-group">
+            <select name="region" id="region">
+              <option value="">지역 선택</option>
+              <option value="서울/인천">서울/인천</option>
+              <option value="경기">경기</option>
+              <option value="강원">강원</option>
+              <option value="충북">충북</option>
+              <option value="충남">충남</option>
+              <option value="대전/세종">대전/세종</option>
+              <option value="전북">전북</option>
+              <option value="전남">전남</option>
+              <option value="광주">광주</option>
+              <option value="경북">경북</option>
+              <option value="경남">경남</option>
+              <option value="대구/부산">대구/부산</option>
+              <option value="제주">제주</option>
+            </select>
+
+            <select name="inflow">
+              <option value="">유입경로 전체</option>
+              <option value="커뮤니티">커뮤니티</option>
+              <option value="페이스북">페이스북</option>
+              <option value="인스타그램">인스타그램</option>
+              <option value="지인 추천">지인 추천</option>
+              <option value="블로그 검색">블로그 검색</option>
+              <option value="기타">기타</option>
+            </select>
+          </div>
+
+          <!-- 검색어 -->
+          <div class="filter text-group">
+            <select name="searchKey">
+              <option value="code">예약 코드</option>
+              <option value="email">이메일</option>
+              <option value="name">예약자명</option>
+            </select>
+            <input
+              type="text"
+              name="keyword"
+              placeholder="검색어를 입력하세요."
+              autocomplete="off"
+            />
+          </div>
+
+          <button type="submit" class="btn">
+            <i class="fa-solid fa-magnifying-glass"></i>
+          </button>
+        </form>
+
         <ul class="reservations">
           <li
             th:each="reservation : ${reservations}"

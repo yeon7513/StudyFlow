@@ -4,6 +4,7 @@
   xmlns:th="http://www.thymeleaf.org"
   xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
   layout:decorate="~{/layout/admin/dashboard}"
+  th:with="breadCrumbs=${ { {label: '관심 분야 관리', path: null} } }"
 >
   <head>
     <link rel="stylesheet" href="/css/admin/home.css" />

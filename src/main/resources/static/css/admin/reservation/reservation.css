@@ -1,6 +1,25 @@
 @charset "UTF-8";
 @import "../../common/variables.css";
 
+#search-form {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  gap: 1rem;
+}
+
+#search-form .filter {
+  display: flex;
+  gap: 8px;
+}
+
+#search-form > .btn.cancel {
+  padding: 0;
+  width: 32px;
+  height: 32px;
+  font-size: 14px;
+}
+
 .reservations {
   display: grid;
   grid-template-columns: repeat(3, 1fr);

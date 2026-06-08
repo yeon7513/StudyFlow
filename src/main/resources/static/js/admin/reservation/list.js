@@ -1,5 +1,6 @@
 const modal = document.getElementById("modal");
 const cancelModalButton = document.getElementById("cancel-modal");
+const reserveCancel = modal.querySelector(".reserve-cancel");
 
 const handleShowModal = () => {
   modal.style.display = "block";
@@ -7,6 +8,9 @@ const handleShowModal = () => {
 
 // 모달 닫기
 const handleHideModal = () => {
+  const keywords = modal.querySelector("#keywords");
+  keywords.innerHTML = "";
+
   modal.style.display = "none";
 };
 
@@ -37,15 +41,13 @@ reservationCards.forEach((card) => {
 
 // 받아온 데이터를 모달에 띄우기
 const handleRenderDetail = (data) => {
-  console.log(data);
-
   const basicInfoList = document.querySelector(".basic-info ul");
 
   const status = modal.querySelector("#status");
-
   status.textContent = data.canceled ? "예약취소" : "예약중";
   status.className = data.canceled ? "canceled" : "active";
 
+  // 예약자 기본정보 렌더링
   const fieldMap = {
     no: "#no",
     name: "#name",
@@ -64,11 +66,27 @@ const handleRenderDetail = (data) => {
     }
   });
 
+  // 선택한 키워드 렌더링
+  const keywords = modal.querySelector("#keywords");
+
+  data.selectedKeywords.forEach((keyword) => {
+    const li = document.createElement("li");
+
+    if (keyword.keywordName !== null) {
+      li.textContent = `${keyword.keywordName} - ${keyword.studyLevel}`;
+    } else {
+      li.classList.add("not-selected");
+      li.textContent = "선택한 관심 분야가 없습니다.";
+    }
+
+    keywords.append(li);
+  });
+
+  // 예약 취소 정보가 있을 경우
+  const isCanceled = data.canceled;
   const canceledInfo = modal.querySelector(".canceled-info");
 
-  if (data.canceled) {
-    canceledInfo.style.display = "block";
-
+  if (isCanceled) {
     const canceledAt = canceledInfo.querySelector("#canceled-at");
     const canceledReason = canceledInfo.querySelector("#canceled-reason");
 
@@ -78,9 +96,22 @@ const handleRenderDetail = (data) => {
     if (canceledReason) {
       canceledReason.textContent = data.canceledReason;
     }
+
+    canceledInfo.style.display = "block";
+    reserveCancel.style.display = "none";
   } else {
     canceledInfo.style.display = "none";
+    reserveCancel.style.display = "block";
   }
 
   handleShowModal();
 };
+
+// -------------------------------------------------------------
+
+// 예약 취소
+const reserveCancelBtn = reserveCancel.querySelector(".reserve-cancel-btn");
+
+const handleCancelReserve = () => {};
+
+reserveCancelBtn.addEventListener("click", handleCancelReserve);

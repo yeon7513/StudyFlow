@@ -2,7 +2,7 @@
 @import "../../common/variables.css";
 
 #modal {
-  display: block;
+  display: none;
 }
 
 #modal h4 {
@@ -34,6 +34,7 @@
   display: flex;
   justify-content: center;
   align-items: center;
+  padding: 8px 0 8px 8px;
   width: 24px;
   height: 24px;
   border-radius: 50%;
@@ -75,6 +76,14 @@
 #modal .basic-info ul > li {
   display: flex;
   align-items: center;
+}
+
+#modal #keywords li.not-selected {
+  color: #808080;
+}
+
+#modal .reserve-cancel {
+  text-align: right;
 }
 
 #modal .canceled-info {

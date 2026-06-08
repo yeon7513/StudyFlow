@@ -4,6 +4,7 @@
   xmlns:th="http://www.thymeleaf.org"
   xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
   layout:decorate="~{/layout/admin/dashboard}"
+  th:with="breadCrumbs=${ { {label: '블랙리스트', path: null} } }"
 >
   <head>
     <link rel="stylesheet" href="/css/admin/home.css" />
