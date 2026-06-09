@@ -1,0 +1,38 @@
+<!doctype html>
+<html
+  lang="ko"
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  th:fragment="Pagination(pager)"
+>
+  <ul class="pagination">
+    <li>
+      <a th:href="@{|?page=1${pager.query}|}">
+        <i class="fa-solid fa-angles-left"></i>
+      </a>
+    </li>
+    <li>
+      <a th:href="@{|?page=${pager.prev}${pager.query}|}">
+        <i class="fa-solid fa-angle-left"></i>
+      </a>
+    </li>
+    <li th:each="page : ${pager.list}">
+      <a
+        th:href="@{|?page=${page}${pager.query}|}"
+        th:text="${page}"
+        th:class="${page == pager.page ? 'page-active' : ''}"
+        >0</a
+      >
+    </li>
+    <li>
+      <a th:href="@{|?page=${pager.next}${pager.query}|}">
+        <i class="fa-solid fa-angle-right"></i>
+      </a>
+    </li>
+    <li>
+      <a th:href="@{|?page=${pager.last}${pager.query}|}">
+        <i class="fa-solid fa-angles-right"></i>
+      </a>
+    </li>
+  </ul>
+</html>

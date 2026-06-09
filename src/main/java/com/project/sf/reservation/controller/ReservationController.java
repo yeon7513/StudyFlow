@@ -5,6 +5,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -89,9 +90,9 @@ public class ReservationController {
     String password = (String) session.getAttribute("password");
 
     // 세션에 저장된 내용이 없을 경우 메인으로 이동
-    // if (email == null || password == null) {
-    // return "redirect:/";
-    // }
+    if (email == null || password == null) {
+      return "redirect:/";
+    }
 
     Reservation completedReservation = reservationService.findReservationDetail(email, password);
 
@@ -113,6 +114,13 @@ public class ReservationController {
     model.addAttribute("result", result);
 
     return "pages/reservation/search_result";
+  }
+
+
+  // 사전 예약 취소
+  @GetMapping("/{no}")
+  String cancelReservation(@PathVariable Long no) {
+    return "";
   }
 
 }

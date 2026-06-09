@@ -20,7 +20,6 @@ public class QnaServiceImpl implements QnaService {
     int totalCountPost = qnaDao.totalCountPost(pager);
 
     pager.setTotal(totalCountPost);
-    pager.setPerPage(10);
 
     return qnaDao.loadQnaPosts(pager);
   }

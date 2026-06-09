@@ -7,11 +7,65 @@
   th:with="breadCrumbs=${ { {label: '문의 관리', path: null} } }"
 >
   <head>
-    <link rel="stylesheet" href="/css/admin/home.css" />
+    <link rel="stylesheet" href="/css/admin/qna/list.css" />
   </head>
   <body>
     <section layout:fragment="container">
       <h2>문의 관리</h2>
+
+      <div class="posts">
+        <table border="1">
+          <thead>
+            <tr>
+              <th>No.</th>
+              <th>제목</th>
+              <th>답변여부</th>
+              <th>작성일</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr th:if="${questionPosts.isEmpty()}">
+              <td colspan="4">
+                <p>작성된 문의글이 없습니다.</p>
+              </td>
+            </tr>
+
+            <tr
+              th:each="qna : ${questionPosts}"
+              th:if="${qna.isActive == true}"
+            >
+              <td class="num" th:text="${qna.no}">글번호</td>
+              <td class="title">
+                <a th:href="@{|./detail/${qna.no}|}" th:text="${qna.title}">
+                  게시글 제목
+                </a>
+              </td>
+              <td>
+                <span
+                  th:class="${qna.answerPost == null} ? 'status waiting' : 'status complete'"
+                  th:text="${qna.answerPost == null} ? '미답변' : '답변완료'"
+                  >답변 여부</span
+                >
+              </td>
+              <td class="date" th:text="${qna.createdAt}">작성일</td>
+            </tr>
+          </tbody>
+
+          <tfoot>
+            <tr>
+              <td colspan="4">
+                <div
+                  th:replace="~{/layout/common/fragments/pagination :: Pagination(${pager})}"
+                ></div>
+              </td>
+            </tr>
+          </tfoot>
+        </table>
+      </div>
+
+      <div
+        th:replace="~{/layout/admin/fragments/qna_detail :: QnaDetail}"
+      ></div>
     </section>
   </body>
 </html>

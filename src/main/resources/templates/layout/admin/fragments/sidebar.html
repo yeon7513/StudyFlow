@@ -41,7 +41,7 @@
     <nav>
       <ul class="main-menu">
         <li>
-          <a href="/admin/operational_status">운영현황</a>
+          <a href="/admin/overview">운영현황</a>
         </li>
         <li>
           <ul class="sub-menu">
@@ -60,13 +60,20 @@
           </ul>
         </li>
         <!-- ROLE이 SUPER인 관리자만 -->
-        <li th:if="${session.logined_admin.role == 'SUPER'}">
+        <li>
           <ul class="sub-menu">
             <li>
               <a href="/admin/management/operator/list">운영자 관리</a>
             </li>
           </ul>
         </li>
+        <!-- <li th:if="${session.logined_admin.role == 'SUPER'}">
+          <ul class="sub-menu">
+            <li>
+              <a href="/admin/management/operator/list">운영자 관리</a>
+            </li>
+          </ul>
+        </li> -->
       </ul>
     </nav>
   </div>

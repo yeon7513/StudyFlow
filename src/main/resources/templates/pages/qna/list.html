@@ -70,42 +70,12 @@
             </tr>
           </tbody>
 
-          <!-- 페이지네이션 
-            th:if="${!questionPosts.isEmpty()}"
-          -->
           <tfoot>
             <tr>
               <td colspan="4">
-                <ul class="pagination">
-                  <li>
-                    <a th:href="@{|?page=1${pager.query}|}">
-                      <i class="fa-solid fa-angles-left"></i>
-                    </a>
-                  </li>
-                  <li>
-                    <a th:href="@{|?page=${pager.prev}${pager.query}|}">
-                      <i class="fa-solid fa-angle-left"></i>
-                    </a>
-                  </li>
-                  <li th:each="page : ${pager.list}">
-                    <a
-                      th:href="@{|?page=${page}${pager.query}|}"
-                      th:text="${page}"
-                      th:class="${page == pager.page ? 'page-active' : ''}"
-                      >0</a
-                    >
-                  </li>
-                  <li>
-                    <a th:href="@{|?page=${pager.next}${pager.query}|}">
-                      <i class="fa-solid fa-angle-right"></i>
-                    </a>
-                  </li>
-                  <li>
-                    <a th:href="@{|?page=${pager.last}${pager.query}|}">
-                      <i class="fa-solid fa-angles-right"></i>
-                    </a>
-                  </li>
-                </ul>
+                <div
+                  th:replace="~{/layout/common/fragments/pagination :: Pagination(${pager})}"
+                ></div>
               </td>
             </tr>
           </tfoot>

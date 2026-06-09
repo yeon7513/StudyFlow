@@ -1,0 +1,45 @@
+@charset "UTF-8";
+@import "../common/variables.css";
+
+.posts table {
+  border-collapse: collapse;
+  width: 100%;
+  border: 1px solid #d9d9d9;
+}
+
+.posts th,
+.posts td {
+  padding: 16px;
+  border: 1px solid #d9d9d9;
+  text-align: center;
+}
+
+.posts td.title {
+  width: 65%;
+  text-align: left;
+}
+
+.posts .num {
+  width: 6%;
+}
+
+.posts .status {
+  display: block;
+  padding: 4px 0;
+  width: 80px;
+  margin: 0 auto;
+  font-size: 14px;
+  border-radius: 999px;
+}
+
+.posts .status.waiting {
+  background-color: var(--disable-color);
+}
+
+.posts .status.complete {
+  background-color: var(--point-color);
+}
+
+.posts .date {
+  font-size: 14px;
+}

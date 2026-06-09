@@ -27,6 +27,8 @@ public class QnaController {
   @GetMapping("")
   String main(Model model, Pager pager) {
 
+    pager.setPerPage(10);
+
     List<QuestionPost> questionPosts = qnaService.loadQnaPosts(pager);
 
     model.addAttribute("questionPosts", questionPosts);
@@ -55,6 +57,9 @@ public class QnaController {
   String detail(@PathVariable Long no, Model model) {
 
     QuestionPost detailPost = qnaService.loadQnaPostDetailByNo(no);
+
+    // 비밀번호 제외
+    // detailPost.setPostPw(null);
 
     model.addAttribute("detail", detailPost);
 

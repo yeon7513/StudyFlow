@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="adminPost">
+	<resultMap type="QuestionPost" id="QnaResult" autoMapping="true">
+		<id property="no" column="no" />
+	
+		<association property="answerPost" column="post_no" javaType="AnswerPost" autoMapping="true">
+			<id property="postNo" column="post_no" />
+		</association>
+	</resultMap>
+	
+	<!-- 검색용 WHERE -->
+	<sql id="search">
+		<where>
+			<if test="searchKeyword != null and searchKeyword != ''">
+				q.title LIKE CONCAT('%', #{searchKeyword}, '%')
+			</if>
+			
+			<if test="answerStatus == 'true'">
+				AND is_answered = 1
+			</if>
+		
+			<if test="answerStatus == 'false'">
+				AND is_answered = 0
+			</if>
+		</where>
+	</sql>
+
+	<select id="loadNotAnsweredPost" resultMap="QuestionPost">
+		SELECT *
+		FROM QUESTION_POST q
+		WHERE is_answered = 0
+		
+		<include refid="search"></include>
+		
+		ORDER BY created_at DESC, no DESC
+    	LIMIT #{offset}, #{perPage}
+	</select>
+	
+	<select id="loadAnsweredPost" resultMap="QnaResult">
+		SELECT *
+		FROM QUESTION_POST q
+		JOIN ANSWER_POST a ON a.post_no = q.no
+		WHERE is_answered = 0
+		
+		<include refid="search"></include>
+		
+		ORDER BY created_at DESC, no DESC
+    	LIMIT #{offset}, #{perPage}
+	</select>
+	
+	
+	<!-- 답변글 등록 -->
+	<insert id="registerAnswerPost">
+		INSERT INTO ANSWER_POST
+		(post_no, admin_id, answered_text, answered_at)
+		VALUES
+		(#{postNo}, #{adminId}, #{answeredText}, #{answeredAt})
+	</insert>
+</mapper>

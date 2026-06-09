@@ -125,5 +125,4 @@
 		WHERE no = #{no}
 	</update>
 
-	
 </mapper>

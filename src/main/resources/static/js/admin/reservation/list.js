@@ -23,7 +23,7 @@ const handleLoadReservationDetailByEmail = (rsvNo) => {
   // 각 정보를 모달로 각각 띄우기
   // 모달과 전체 목록 리스트가 같은 html에 있기 때문에
   // 데이터는 json으로 받아온다.
-  fetch(`/admin/management/reservation/list/${rsvNo}`)
+  fetch(`/admin/management/reservation/detail/${rsvNo}`)
     .then((res) => res.json())
     .then((result) => handleRenderDetail(result))
     .catch((error) => console.log(error));
