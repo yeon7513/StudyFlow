@@ -8,122 +8,130 @@
 >
   <head>
     <link rel="stylesheet" href="/css/admin/qna/list.css" />
+    <script defer src="/js/admin/qna/list.js"></script>
   </head>
   <body>
     <section layout:fragment="container">
       <h2>문의 관리</h2>
 
-      <div class="posts">
-        <form id="search-form">
-          <h3>검색 필터</h3>
-          <!-- 필터 선택 -->
-          <div class="filters">
-            <div class="select-group">
-              <div class="filter select-group">
-                <!-- 취소 여부 -->
-                <h4>답변 상태</h4>
-                <select name="answerState">
-                  <option value="waiting" selected>미답변</option>
-                  <option value="answered">답변완료</option>
-                  <option value="all">전체</option>
-                </select>
-              </div>
-            </div>
-          </div>
-
-          <div class="filters">
-            <!-- 날짜별 -->
-            <div class="filter date-group">
-              <h4>작성일자</h4>
-              <label>시작일</label>
-              <input type="date" name="startDate" />
-              <label>종료일</label>
-              <input type="date" name="endDate" />
-            </div>
-
-            <!-- 검색어 -->
-            <div class="filter text-group">
-              <h4>상세 검색</h4>
-              <select name="search">
-                <option value="1">제목+내용</option>
-                <option value="2">문의 코드</option>
-                <option value="3">아이피</option>
+      <form id="search-form">
+        <h3>검색 필터</h3>
+        <!-- 필터 선택 -->
+        <div class="filters">
+          <div class="select-group">
+            <div class="filter select-group">
+              <!-- 취소 여부 -->
+              <h4>답변 상태</h4>
+              <select name="answerState">
+                <option value="waiting" selected>미답변</option>
+                <option value="answered">답변완료</option>
+                <option value="all">전체</option>
               </select>
-              <input
-                type="text"
-                name="keyword"
-                placeholder="검색어를 입력하세요."
-                autocomplete="off"
-              />
             </div>
           </div>
+        </div>
 
-          <div class="active-filter">
-            <!-- 필터 초기화 버튼 -->
-            <button type="button" class="btn cancel">
-              <i class="fa-solid fa-arrow-rotate-left"></i>
-            </button>
-
-            <div>
-              <ul>
-                <li>선택된 필터</li>
-              </ul>
-            </div>
+        <div class="filters">
+          <!-- 날짜별 -->
+          <div class="filter date-group">
+            <h4>작성일자</h4>
+            <label>시작일</label>
+            <input type="date" name="startDate" />
+            <label>종료일</label>
+            <input type="date" name="endDate" />
           </div>
-        </form>
 
-        <table border="1">
-          <thead>
-            <tr>
-              <th>No.</th>
-              <th>제목</th>
-              <th>답변여부</th>
-              <th>작성일</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr th:if="${questionPosts.isEmpty()}">
-              <td colspan="4">
-                <p>작성된 문의글이 없습니다.</p>
-              </td>
-            </tr>
+          <!-- 검색어 -->
+          <div class="filter text-group">
+            <h4>상세 검색</h4>
+            <select name="search">
+              <option value="1">제목+내용</option>
+              <option value="2">문의 코드</option>
+              <option value="3">아이피</option>
+            </select>
+            <input
+              type="text"
+              name="keyword"
+              placeholder="검색어를 입력하세요."
+              autocomplete="off"
+            />
+          </div>
+        </div>
 
-            <tr
-              th:each="qna : ${questionPosts}"
-              th:if="${qna.isActive == true}"
-            >
-              <td class="num" th:text="${qna.no}">글번호</td>
-              <td class="title">
-                <a th:href="@{|./detail/${qna.no}|}" th:text="${qna.title}">
-                  게시글 제목
-                </a>
-              </td>
-              <td>
-                <span
-                  th:class="${qna.answered == false} ? 'status waiting' : 'status complete'"
-                  th:text="${qna.answered == false} ? '미답변' : '답변완료'"
-                  >답변 여부</span
-                >
-              </td>
-              <td class="date" th:text="${qna.createdAt}">작성일</td>
-            </tr>
-          </tbody>
+        <div class="active-filter">
+          <!-- 필터 초기화 버튼 -->
+          <button type="button" class="btn cancel">
+            <i class="fa-solid fa-arrow-rotate-left"></i>
+          </button>
 
-          <tfoot>
-            <tr>
-              <td colspan="4">
-                <div
-                  th:replace="~{/layout/common/fragments/pagination :: Pagination(${pager})}"
-                ></div>
-              </td>
-            </tr>
-          </tfoot>
-        </table>
+          <div>
+            <ul>
+              <li>선택된 필터</li>
+            </ul>
+          </div>
+        </div>
+      </form>
+
+      <div class="flex-box contents">
+        <div class="posts">
+          <table border="1">
+            <thead>
+              <tr>
+                <th>No.</th>
+                <th>제목</th>
+                <th>답변여부</th>
+                <th>작성일</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr th:if="${questionPosts.isEmpty()}">
+                <td colspan="4">
+                  <p>작성된 문의글이 없습니다.</p>
+                </td>
+              </tr>
+
+              <tr
+                th:each="qna : ${questionPosts}"
+                th:if="${qna.isActive == true}"
+              >
+                <td class="num" th:text="${qna.no}">글번호</td>
+                <td class="title">
+                  <button
+                    type="button"
+                    class="load-detail-btn"
+                    th:data-post-no="${qna.no}"
+                    th:text="${qna.title}"
+                  >
+                    게시글 제목
+                  </button>
+                </td>
+                <td>
+                  <span
+                    th:class="${qna.answered == false} ? 'status waiting' : 'status complete'"
+                    th:text="${qna.answered == false} ? '미답변' : '답변완료'"
+                    >답변 여부</span
+                  >
+                </td>
+                <td class="date" th:text="${qna.createdAt}">작성일</td>
+              </tr>
+            </tbody>
+
+            <tfoot>
+              <tr>
+                <td colspan="4">
+                  <div
+                    th:replace="~{/layout/common/fragments/pagination :: Pagination(${pager})}"
+                  ></div>
+                </td>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+
+        <div
+          th:replace="~{/layout/admin/fragments/qna_detail :: QnaDetail}"
+        ></div>
       </div>
-
-      <div
-        th:replace="~{/layout/admin/fragments/qna_detail :: QnaDetail}"
-      ></div>
     </section>
   </body>
 </html>

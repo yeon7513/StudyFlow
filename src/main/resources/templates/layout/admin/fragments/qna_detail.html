@@ -5,5 +5,32 @@
   xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
   th:fragment="QnaDetail"
 >
-  <article>d</article>
+  <article id="qna-detail">
+    <div class="contents question">
+      <div class="title">
+        <h3>게시글 제목</h3>
+        <p class="created-at">날짜</p>
+      </div>
+      <p class="text">본문내용</p>
+    </div>
+    <!-- 등록된 답변이 있을 시 -->
+    <div class="contents answer">
+      <div>
+        <div>답변을 작성한 관리자</div>
+        <div>작성날짜</div>
+      </div>
+      <div>
+        <p>답변 작성 내용</p>
+      </div>
+    </div>
+    <form class="contents form-answer">
+      <div>
+        <div>현재 로그인 한 관리자 아이디</div>
+      </div>
+      <div>
+        <textarea name="answeredText" id=""></textarea>
+        <button type="button">등록</button>
+      </div>
+    </form>
+  </article>
 </html>

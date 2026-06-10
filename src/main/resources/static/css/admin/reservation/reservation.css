@@ -1,40 +1,7 @@
 @charset "UTF-8";
 @import "../../common/variables.css";
-
-#search-form {
-  padding: 24px;
-  background-color: #f7f7f7;
-  border-radius: 8px;
-  margin-bottom: 24px;
-}
-
-#search-form .filters {
-  display: flex;
-  flex-wrap: wrap;
-  gap: 8px;
-}
-
-#search-form .filter {
-  display: flex;
-  align-items: center;
-  gap: 8px;
-}
-
-#search-form .active-filter {
-  display: flex;
-  align-items: center;
-  gap: 1rem;
-  margin-top: 24px;
-  padding-top: 24px;
-  border-top: 1px solid #d9d9d9;
-}
-
-#search-form .active-filter .btn.cancel {
-  padding: 0;
-  width: 32px;
-  height: 32px;
-  font-size: 14px;
-}
+@import "../admin_search_form.css";
+@import "./reservation_detail_modal.css";
 
 .reservations {
   display: grid;

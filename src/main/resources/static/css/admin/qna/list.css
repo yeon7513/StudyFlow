@@ -1,5 +1,15 @@
 @charset "UTF-8";
-@import "../common/variables.css";
+@import "../../common/variables.css";
+@import "../admin_search_form.css";
+@import "./qna_detail.css";
+
+.contents {
+  gap: 24px;
+}
+
+.posts {
+  width: 40%;
+}
 
 .posts table {
   border-collapse: collapse;
@@ -9,13 +19,13 @@
 
 .posts th,
 .posts td {
-  padding: 16px;
+  padding: 8px;
   border: 1px solid #d9d9d9;
   text-align: center;
 }
 
 .posts td.title {
-  width: 65%;
+  width: 50%;
   text-align: left;
 }
 
