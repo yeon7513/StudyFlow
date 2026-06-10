@@ -17,24 +17,54 @@
 	<!-- 검색용 WHERE -->
 	<sql id="search">
 		<where>
-			<!-- 이메일 검색 -->
-			<if test="search == 1">
-				r.email LIKE CONCAT('%', #{searchKeyword}, '%')
+			<!-- 예약 상태 -->
+			<if test="reserveState == 'canceled' and reserveState != 'all'">
+				r.is_canceled = 1
 			</if>
 			
-			<!-- 지역 -->
-			<if test="search == 2">
-				r.region = #{searchKeyword}
+			<if test="reserveState == 'active' and reserveState != 'all'">
+				r.is_canceled = 0
 			</if>
 			
-			<!-- 유입경로 -->
-			<if test="search == 3">
-				r.inflow = #{searchKeyword}
+			<if test="region != null and region != ''">
+				r.region = #{region}
 			</if>
 			
-			<!-- 취소 여부 -->
-			<if test="search == 4">
-				r.is_canceled = #{searchKeyword}
+			<if test="inflow != null and inflow != ''">
+				r.inflow = #{inflow}
+			</if>
+			
+			<if test="canceledReason != null and canceledReason != ''">
+				r.canceled_reason = #{canceledReason}
+			</if>
+		
+			<!-- 날짜 검색 -->
+			<if test="startDate != null and startDate != ''">
+				<![CDATA[
+					r.created_at >= #{startDate}
+				]]>
+			</if>
+			
+			<if test="endDate != null and endDate != ''">
+				<![CDATA[
+					r.created_at <= #{endDate}
+				]]>
+			</if>
+		
+			<!-- 기본 검색 -->
+			<if test="keyword != null and keyword != ''">
+				<if test="search == 1">
+					r.no = #{keyword}
+				</if>
+				<if test="search == 2">
+					r.email LIKE CONCAT('%', #{keyword}, '%')
+				</if>
+				<if test="search == 3">
+					r.name LIKE CONCAT('%', #{keyword}, '%')
+				</if>
+				<if test="search == 4">
+					r.user_ip = #{keyword}
+				</if>
 			</if>
 		</where>
 	</sql>

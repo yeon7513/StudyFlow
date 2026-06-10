@@ -29,10 +29,10 @@
               <div class="filter select-group">
                 <!-- 취소 여부 -->
                 <h4>예약 상태</h4>
-                <select name="isCanceled" id="is-canceled">
-                  <option value="0" selected>예약중</option>
-                  <option value="1">예약취소</option>
-                  <option value="">전체</option>
+                <select name="reserveState" id="is-canceled">
+                  <option value="active" selected>예약중</option>
+                  <option value="canceled">예약취소</option>
+                  <option value="all">전체</option>
                 </select>
 
                 <!-- 지역 및 유입경로 선택 -->
@@ -81,10 +81,11 @@
             <!-- 검색어 -->
             <div class="filter text-group">
               <h4>상세 검색</h4>
-              <select name="searchKey">
-                <option value="code">예약 코드</option>
-                <option value="email">이메일</option>
-                <option value="name">예약자명</option>
+              <select name="search">
+                <option value="1">예약 코드</option>
+                <option value="2">이메일</option>
+                <option value="3">예약자명</option>
+                <option value="4">아이피</option>
               </select>
               <input
                 type="text"

@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import com.project.sf.admin.Admin;
-import com.project.sf.common.pager.Pager;
+import com.project.sf.common.pager.AdminQnaPostSearch;
 import com.project.sf.qna.AnswerPost;
 import com.project.sf.qna.QuestionPost;
 import com.project.sf.qna.service.AnswerPostService;
@@ -29,13 +29,20 @@ public class AdminQnaController {
 
   // 문의 관리 - 미답변
   @GetMapping("/list")
-  String main(Model model, Pager pager) {
+  String main(Model model, AdminQnaPostSearch adminQnaPostSearch) {
 
-    pager.setPerPage(10);
+    // 보여질 개수 설정
+    adminQnaPostSearch.setPerPage(10);
 
-    List<QuestionPost> questionPosts = answerPostService.loadNotAnsweredPost(pager);
+    // 최초 접근 시 기본값을 '미답변'으로 설정
+    if (adminQnaPostSearch.getAnswerState() == null) {
+      adminQnaPostSearch.setAnswerState("waiting");
+    }
+
+    List<QuestionPost> questionPosts = answerPostService.loadAllPosts(adminQnaPostSearch);
 
     model.addAttribute("questionPosts", questionPosts);
+    model.addAttribute("pager", adminQnaPostSearch);
 
     return "pages/admin/management/qna/list";
   }

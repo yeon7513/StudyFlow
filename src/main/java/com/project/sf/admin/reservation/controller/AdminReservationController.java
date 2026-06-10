@@ -9,7 +9,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import com.project.sf.common.pager.Pager;
+import com.project.sf.common.pager.AdminReservationSearch;
 import com.project.sf.reservation.Reservation;
 import com.project.sf.reservation.service.ReservationService;
 
@@ -22,10 +22,10 @@ public class AdminReservationController {
 
   // 예약자 관리
   @GetMapping("/list")
-  String main(Model model, Pager pager) {
+  String main(Model model, AdminReservationSearch adminReservationSearch) {
 
     // 예약자 전체 조회
-    List<Reservation> reservations = reservationService.loadAllReservations(pager);
+    List<Reservation> reservations = reservationService.loadAllReservations(adminReservationSearch);
 
     // 비밀번호 제외
     for (Reservation reservation : reservations) {
@@ -33,6 +33,8 @@ public class AdminReservationController {
     }
 
     model.addAttribute("reservations", reservations);
+    model.addAttribute("pager", adminReservationSearch);
+
 
     return "pages/admin/management/reservation/list";
   }

@@ -15,36 +15,60 @@
 	<!-- 검색용 WHERE -->
 	<sql id="search">
 		<where>
-			<if test="searchKeyword != null and searchKeyword != ''">
-				q.title LIKE CONCAT('%', #{searchKeyword}, '%')
+			<!-- 답변이 없는 경우 -->
+			<if test="answerState == 'waiting' and answerState != 'all'">
+				q.is_answered = 0
 			</if>
 			
-			<if test="answerStatus == 'true'">
-				AND is_answered = 1
+			<!-- 답변이 있는 경우 -->
+			<if test="answerState == 'answered' and answerState != 'all'">
+				q.is_answered = 1
 			</if>
-		
-			<if test="answerStatus == 'false'">
-				AND is_answered = 0
+			
+			<!-- 날짜 검색 -->
+			<if test="startDate != null and startDate != ''">
+				<![CDATA[
+					q.created_at >= #{startDate}
+				]]>
+			</if>
+			
+			<if test="endDate != null and endDate != ''">
+				<![CDATA[
+					q.created_at <= #{endDate}
+				]]>
+			</if>
+			
+			<!-- 기본 검색 -->
+			<if test="keyword != null and keyword != ''">
+				<if test="search == 1">
+					AND (
+						q.title LIKE CONCAT('%', #{keyword}, '%')
+						OR q.text LIKE CONCAT('%', #{keyword}, '%')
+					)
+				</if>
+				
+				<if test="search == 2">
+					q.no = #{keyword}
+				</if>
+				
+				<if test="search == 3">
+					q.writerIp = #{keyword}
+				</if>
 			</if>
 		</where>
 	</sql>
-
-	<select id="loadNotAnsweredPost" resultMap="QuestionPost">
-		SELECT *
+	
+	<select id="totalCountPost" resultType="Integer">
+		SELECT count(*)
 		FROM QUESTION_POST q
-		WHERE is_answered = 0
 		
 		<include refid="search"></include>
-		
-		ORDER BY created_at DESC, no DESC
-    	LIMIT #{offset}, #{perPage}
 	</select>
 	
-	<select id="loadAnsweredPost" resultMap="QnaResult">
+	<select id="loadAllPosts" resultMap="QnaResult">
 		SELECT *
 		FROM QUESTION_POST q
-		JOIN ANSWER_POST a ON a.post_no = q.no
-		WHERE is_answered = 0
+		LEFT JOIN ANSWER_POST a ON a.post_no = q.no
 		
 		<include refid="search"></include>
 		

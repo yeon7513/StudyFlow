@@ -16,8 +16,8 @@
 	<!-- 검색용 WHERE -->
 	<sql id="search">
 		<where>
-			<if test="searchKeyword != null and searchKeyword != ''">
-				q.title LIKE CONCAT('%', #{searchKeyword}, '%')
+			<if test="keyword != null and keyword != ''">
+				q.title LIKE CONCAT('%', #{keyword}, '%')
 			</if>
 		</where>
 	</sql>

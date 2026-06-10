@@ -4,7 +4,7 @@ import java.util.List;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import com.project.sf.common.pager.Pager;
+import com.project.sf.common.pager.AdminQnaPostSearch;
 import com.project.sf.qna.AnswerPost;
 import com.project.sf.qna.QuestionPost;
 
@@ -20,8 +20,13 @@ public class AnswerPostDaoImpl implements AnswerPostDao {
   }
 
   @Override
-  public List<QuestionPost> loadNotAnsweredPost(Pager pager) {
-    return sql.selectList("adminPost.loadNotAnsweredPost", pager);
+  public List<QuestionPost> loadAllPosts(AdminQnaPostSearch pager) {
+    return sql.selectList("adminPost.loadAllPosts", pager);
+  }
+
+  @Override
+  public int totalCountPost(AdminQnaPostSearch pager) {
+    return sql.selectOne("adminPost.totalCountPost", pager);
   }
 
 }

@@ -3,7 +3,7 @@ package com.project.sf.qna.service;
 import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
-import com.project.sf.common.pager.Pager;
+import com.project.sf.common.pager.AdminQnaPostSearch;
 import com.project.sf.qna.AnswerPost;
 import com.project.sf.qna.QuestionPost;
 import com.project.sf.qna.dao.AnswerPostDao;
@@ -20,8 +20,14 @@ public class AnswerPostServiceImpl implements AnswerPostService {
   }
 
   @Override
-  public List<QuestionPost> loadNotAnsweredPost(Pager pager) {
-    return answerPostDao.loadNotAnsweredPost(pager);
+  public List<QuestionPost> loadAllPosts(AdminQnaPostSearch pager) {
+    pager.setSearch(1);
+
+    int totalCountPost = answerPostDao.totalCountPost(pager);
+
+    pager.setTotal(totalCountPost);
+
+    return answerPostDao.loadAllPosts(pager);
   }
 
 }
