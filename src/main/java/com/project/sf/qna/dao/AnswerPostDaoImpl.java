@@ -29,4 +29,9 @@ public class AnswerPostDaoImpl implements AnswerPostDao {
     return sql.selectOne("adminPost.totalCountPost", pager);
   }
 
+  @Override
+  public QuestionPost loadOldestNoAnswerPost() {
+    return sql.selectOne("adminPost.loadOldestNoAnswerPost");
+  }
+
 }

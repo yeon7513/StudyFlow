@@ -1,5 +1,9 @@
 // 상세 조회용 핸들러
-const handleRenderDetail = (data) => {};
+const qnaDetail = document.getElementById("qna-detail");
+
+const handleRenderDetail = (data) => {
+  qnaDetail.innerHTML = data;
+};
 
 // ---------------------------------------------------------------------
 
@@ -8,7 +12,7 @@ const loadDetailButtons = document.querySelectorAll(".load-detail-btn");
 
 const handleLoadDetail = (postNo) => {
   fetch(`/admin/management/qna/detail/${postNo}`)
-    .then((res) => res.json())
+    .then((res) => res.text())
     .then((result) => handleRenderDetail(result))
     .catch((err) => console.log(err));
 };

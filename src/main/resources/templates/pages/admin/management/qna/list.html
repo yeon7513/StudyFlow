@@ -128,9 +128,16 @@
           </table>
         </div>
 
-        <div
-          th:replace="~{/layout/admin/fragments/qna_detail :: QnaDetail}"
-        ></div>
+        <article id="qna-detail">
+          <div th:if="${detailPost == null}">
+            <p>현재 대기 중인 문의글이 없습니다.</p>
+          </div>
+
+          <div
+            th:if="${detailPost != null}"
+            th:insert="~{/layout/admin/fragments/qna_detail :: QnaDetail}"
+          ></div>
+        </article>
       </div>
     </section>
   </body>

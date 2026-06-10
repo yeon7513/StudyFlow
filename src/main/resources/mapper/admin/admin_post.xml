@@ -65,6 +65,7 @@
 		<include refid="search"></include>
 	</select>
 	
+	<!-- 전체 문의글 조회 -->
 	<select id="loadAllPosts" resultMap="QnaResult">
 		SELECT *
 		FROM QUESTION_POST q
@@ -72,10 +73,18 @@
 		
 		<include refid="search"></include>
 		
-		ORDER BY created_at DESC, no DESC
+		ORDER BY created_at, no
     	LIMIT #{offset}, #{perPage}
 	</select>
 	
+	<!-- 초기 렌더링용 오래된 문의글 먼저 조회 -->
+	<select id="loadOldestNoAnswerPost" resultType="QuestionPost">
+		SELECT *
+		FROM QUESTION_POST
+		WHERE is_answered = 0
+		ORDER BY created_at
+		LIMIT 1
+	</select>
 	
 	<!-- 답변글 등록 -->
 	<insert id="registerAnswerPost">

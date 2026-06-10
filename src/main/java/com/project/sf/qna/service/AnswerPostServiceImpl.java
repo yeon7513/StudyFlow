@@ -30,4 +30,9 @@ public class AnswerPostServiceImpl implements AnswerPostService {
     return answerPostDao.loadAllPosts(pager);
   }
 
+  @Override
+  public QuestionPost loadOldestNoAnswerPost() {
+    return answerPostDao.loadOldestNoAnswerPost();
+  }
+
 }

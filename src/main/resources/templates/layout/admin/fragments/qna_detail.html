@@ -3,34 +3,44 @@
   lang="ko"
   xmlns:th="http://www.thymeleaf.org"
   xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-  th:fragment="QnaDetail"
 >
-  <article id="qna-detail">
+  <th:block th:fragment="QnaDetail">
     <div class="contents question">
       <div class="title">
-        <h3>게시글 제목</h3>
-        <p class="created-at">날짜</p>
+        <h3 th:text="${detailPost.title}">게시글 제목</h3>
+        <p th:text="${detailPost.createdAt}">날짜</p>
       </div>
-      <p class="text">본문내용</p>
+      <p th:text="${detailPost.text}">본문내용</p>
     </div>
+
     <!-- 등록된 답변이 있을 시 -->
-    <div class="contents answer">
+    <div class="contents answer" th:if="${detailPost.isAnswered == true}">
       <div>
-        <div>답변을 작성한 관리자</div>
-        <div>작성날짜</div>
+        <div th:text="${detailPost.adminId}">답변을 작성한 관리자</div>
+        <div th:text="${detailPost.answeredAt}">작성날짜</div>
       </div>
       <div>
-        <p>답변 작성 내용</p>
+        <p th:text="${detailPost.answeredText}">답변 작성 내용</p>
       </div>
     </div>
-    <form class="contents form-answer">
+
+    <!-- 등록된 답변이 없을 시 -->
+    <form
+      class="contents form-answer"
+      th:if="${detailPost.isAnswered == false}"
+    >
       <div>
-        <div>현재 로그인 한 관리자 아이디</div>
+        <div
+          th:if="${!session.isEmpty()}"
+          th:text="${session.logined_admin.id}"
+        >
+          현재 로그인 한 관리자 아이디
+        </div>
       </div>
       <div>
         <textarea name="answeredText" id=""></textarea>
         <button type="button">등록</button>
       </div>
     </form>
-  </article>
+  </th:block>
 </html>

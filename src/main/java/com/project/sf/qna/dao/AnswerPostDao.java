@@ -13,4 +13,6 @@ public interface AnswerPostDao {
 
   int totalCountPost(AdminQnaPostSearch pager);
 
+  QuestionPost loadOldestNoAnswerPost();
+
 }

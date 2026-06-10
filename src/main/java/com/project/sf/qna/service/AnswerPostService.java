@@ -11,4 +11,6 @@ public interface AnswerPostService {
 
   List<QuestionPost> loadAllPosts(AdminQnaPostSearch pager);
 
+  QuestionPost loadOldestNoAnswerPost();
+
 }
