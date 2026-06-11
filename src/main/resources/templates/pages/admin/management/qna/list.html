@@ -14,63 +14,53 @@
     <section layout:fragment="container">
       <h2>문의 관리</h2>
 
-      <form id="search-form">
-        <h3>검색 필터</h3>
-        <!-- 필터 선택 -->
-        <div class="filters">
-          <div class="select-group">
-            <div class="filter select-group">
-              <!-- 취소 여부 -->
-              <h4>답변 상태</h4>
-              <select name="answerState">
-                <option value="waiting" selected>미답변</option>
-                <option value="answered">답변완료</option>
-                <option value="all">전체</option>
+      <div
+        th:replace="~{layout/admin/fragments/search_form :: SearchForm(~{:: #filters})}"
+      >
+        <div id="filters">
+          <!-- 필터 선택 -->
+          <div class="filters">
+            <div class="select-group">
+              <div class="filter select-group">
+                <!-- 취소 여부 -->
+                <h4>답변 상태</h4>
+                <select name="answerState">
+                  <option value="waiting" selected>미답변</option>
+                  <option value="answered">답변완료</option>
+                  <option value="all">전체</option>
+                </select>
+              </div>
+            </div>
+          </div>
+
+          <div class="filters">
+            <!-- 날짜별 -->
+            <div class="filter date-group">
+              <h4>작성일자</h4>
+              <label>시작일</label>
+              <input type="date" name="startDate" />
+              <label>종료일</label>
+              <input type="date" name="endDate" />
+            </div>
+
+            <!-- 검색어 -->
+            <div class="filter text-group">
+              <h4>상세 검색</h4>
+              <select name="search">
+                <option value="1">제목+내용</option>
+                <option value="2">문의 코드</option>
+                <option value="3">아이피</option>
               </select>
+              <input
+                type="text"
+                name="keyword"
+                placeholder="검색어를 입력하세요."
+                autocomplete="off"
+              />
             </div>
           </div>
         </div>
-
-        <div class="filters">
-          <!-- 날짜별 -->
-          <div class="filter date-group">
-            <h4>작성일자</h4>
-            <label>시작일</label>
-            <input type="date" name="startDate" />
-            <label>종료일</label>
-            <input type="date" name="endDate" />
-          </div>
-
-          <!-- 검색어 -->
-          <div class="filter text-group">
-            <h4>상세 검색</h4>
-            <select name="search">
-              <option value="1">제목+내용</option>
-              <option value="2">문의 코드</option>
-              <option value="3">아이피</option>
-            </select>
-            <input
-              type="text"
-              name="keyword"
-              placeholder="검색어를 입력하세요."
-              autocomplete="off"
-            />
-          </div>
-        </div>
-
-        <div class="active-filter">
-          <!-- 필터 초기화 버튼 -->
-          <button type="button" class="btn cancel">
-            <i class="fa-solid fa-arrow-rotate-left"></i>
-          </button>
-
-          <div>
-            <ul>
-              <li>선택된 필터</li>
-            </ul>
-          </div>
-        </div>
-      </form>
+      </div>
 
       <div class="flex-box contents">
         <div class="posts">

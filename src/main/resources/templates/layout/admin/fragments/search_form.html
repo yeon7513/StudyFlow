@@ -1,0 +1,22 @@
+<!doctype html>
+<html
+  lang="ko"
+  xmlns:th="http://www.thymeleaf.org"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+>
+  <form id="search-form" th:fragment="SearchForm(filters)">
+    <h3>검색 필터</h3>
+
+    <th:block th:replace="${filters}"></th:block>
+
+    <div class="active-filter">
+      <!-- 필터 초기화 버튼 -->
+      <button type="button" class="btn cancel">
+        <i class="fa-solid fa-arrow-rotate-left"></i>
+      </button>
+      <ul id="selected-filter">
+        <li>선택된 필터</li>
+      </ul>
+    </div>
+  </form>
+</html>
