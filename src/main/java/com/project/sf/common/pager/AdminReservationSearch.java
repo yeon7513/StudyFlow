@@ -38,5 +38,4 @@ public class AdminReservationSearch extends AdminBaseSearch {
     this.canceledReason = canceledReason;
   }
 
-
 }

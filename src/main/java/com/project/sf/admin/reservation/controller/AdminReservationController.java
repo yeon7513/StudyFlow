@@ -1,6 +1,9 @@
 package com.project.sf.admin.reservation.controller;
 
-import java.util.List;
+import com.project.sf.common.pager.AdminReservationSearch;
+import com.project.sf.common.searchFilter.AdminReservationSearchFilter;
+import com.project.sf.reservation.Reservation;
+import com.project.sf.reservation.service.ReservationService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
@@ -9,9 +12,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import com.project.sf.common.pager.AdminReservationSearch;
-import com.project.sf.reservation.Reservation;
-import com.project.sf.reservation.service.ReservationService;
+
+import java.util.List;
 
 @Controller
 @RequestMapping("/admin/management/reservation")
@@ -22,7 +24,7 @@ public class AdminReservationController {
 
   // 예약자 관리
   @GetMapping("/list")
-  String main(Model model, AdminReservationSearch adminReservationSearch) {
+  String displayReservations(Model model, AdminReservationSearch adminReservationSearch) {
 
     // 예약자 전체 조회
     List<Reservation> reservations = reservationService.loadAllReservations(adminReservationSearch);
@@ -35,6 +37,8 @@ public class AdminReservationController {
     model.addAttribute("reservations", reservations);
     model.addAttribute("pager", adminReservationSearch);
 
+    // 검색용 필터 추가
+    model.addAttribute("searchOptions", new AdminReservationSearchFilter());
 
     return "pages/admin/management/reservation/list";
   }

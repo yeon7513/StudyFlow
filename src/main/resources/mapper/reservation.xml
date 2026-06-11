@@ -1,152 +1,152 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper
-  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
-  "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
-  
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
 <mapper namespace="reservation">
 
-	<resultMap type="Reservation" id="ReservationMap" autoMapping="true">
-		<id column="no" property="no" />
-		
-		<collection property="selectedKeywords" javaType="ArrayList" ofType="SelectedKeyword" autoMapping="true">
-			<id column="rsv_no" property="rsvNo" />
-			<id column="kwd_no" property="kwdNo" />
-		</collection>
-	</resultMap>
-	
-	<!-- 검색용 WHERE -->
-	<sql id="search">
-		<where>
-			<!-- 예약 상태 -->
-			<if test="reserveState == 'canceled' and reserveState != 'all'">
-				r.is_canceled = 1
-			</if>
-			
-			<if test="reserveState == 'active' and reserveState != 'all'">
-				r.is_canceled = 0
-			</if>
-			
-			<if test="region != null and region != ''">
-				r.region = #{region}
-			</if>
-			
-			<if test="inflow != null and inflow != ''">
-				r.inflow = #{inflow}
-			</if>
-			
-			<if test="canceledReason != null and canceledReason != ''">
-				r.canceled_reason = #{canceledReason}
-			</if>
-		
-			<!-- 날짜 검색 -->
-			<if test="startDate != null and startDate != ''">
-				<![CDATA[
+    <resultMap type="Reservation" id="ReservationMap" autoMapping="true">
+        <id column="no" property="no"/>
+
+        <collection property="selectedKeywords" javaType="ArrayList" ofType="SelectedKeyword" autoMapping="true">
+            <id column="rsv_no" property="rsvNo"/>
+            <id column="kwd_no" property="kwdNo"/>
+        </collection>
+    </resultMap>
+
+    <!-- 검색용 WHERE -->
+    <sql id="search">
+        <where>
+            <!-- 예약 상태 -->
+            <if test="reserveState == 'canceled' and reserveState != 'all'">
+                r.is_canceled = 1
+            </if>
+
+            <if test="reserveState == 'active' and reserveState != 'all'">
+                r.is_canceled = 0
+            </if>
+
+            <if test="region != null and region != ''">
+                r.region = #{region}
+            </if>
+
+            <if test="inflow != null and inflow != ''">
+                r.inflow = #{inflow}
+            </if>
+
+            <if test="canceledReason != null and canceledReason != ''">
+                r.canceled_reason = #{canceledReason}
+            </if>
+
+            <!-- 날짜 검색 -->
+            <if test="startDate != null and startDate != ''">
+                <![CDATA[
 					r.created_at >= #{startDate}
 				]]>
-			</if>
-			
-			<if test="endDate != null and endDate != ''">
-				<![CDATA[
+            </if>
+
+            <if test="endDate != null and endDate != ''">
+                <![CDATA[
 					r.created_at <= #{endDate}
 				]]>
-			</if>
-		
-			<!-- 기본 검색 -->
-			<if test="keyword != null and keyword != ''">
-				<if test="search == 1">
-					r.no = #{keyword}
-				</if>
-				<if test="search == 2">
-					r.email LIKE CONCAT('%', #{keyword}, '%')
-				</if>
-				<if test="search == 3">
-					r.name LIKE CONCAT('%', #{keyword}, '%')
-				</if>
-				<if test="search == 4">
-					r.user_ip = #{keyword}
-				</if>
-			</if>
-		</where>
-	</sql>
+            </if>
 
-	<select id="totalCountReservation" resultType="Integer">
-		SELECT count(*)
-		FROM RESERVATION AS r
-		
-		<include refid="search"></include>
-	</select>
+            <!-- 기본 검색 -->
+            <if test="keyword != null and keyword != ''">
+                <if test="search == 'rsvNo'">
+                    r.no = #{keyword}
+                </if>
+                <if test="search == 'email'">
+                    r.email LIKE CONCAT('%', #{keyword}, '%')
+                </if>
+                <if test="search == 'name'">
+                    r.name LIKE CONCAT('%', #{keyword}, '%')
+                </if>
+                <if test="search == 'userIp'">
+                    r.user_ip = #{keyword}
+                </if>
+            </if>
+        </where>
+    </sql>
 
-	<!-- 관리자용 전체 조회 -->
-	<select id="loadAllReservations" resultType="Reservation">
-		SELECT *
-		FROM RESERVATION AS r
-		
-		<include refid="search"></include>
-		
-		ORDER BY r.created_at DESC, r.no DESC
-		LIMIT #{offset}, #{perPage}
-	</select>
-	
-	<!-- 관리자용 상세 조회 -->
-	<select id="findReservationDetailByEmail" resultMap="ReservationMap">
-		SELECT
-			r.*,
-			usk.rsv_no,
-			usk.kwd_no,
-			usk.name AS keyword_name,
-			usk.study_level
-		FROM RESERVATION r
-		LEFT JOIN (
-			SELECT 
-				sk.*,
-				ik.name
-			FROM SELECTED_KEYWORD sk 
-			JOIN INTEREST_KEYWORD ik 
-			  ON sk.kwd_no  = ik.no
-		) AS usk
-			ON usk.rsv_no = r.no
-		WHERE r.no = #{no}
-	</select>
+    <select id="totalCountReservation" resultType="Integer">
+        SELECT count(*)
+        FROM RESERVATION AS r
 
-	<!-- 사용자용 상세 조회 -->
-	<select id="findReservationDetail" resultMap="ReservationMap">
-		SELECT
-			r.*,
-			usk.kwd_no,
-			usk.name AS keyword_name,
-			usk.study_level
-		FROM RESERVATION r
-		LEFT JOIN (
-			SELECT 
-				sk.*,
-				ik.name
-			FROM SELECTED_KEYWORD sk 
-			JOIN INTEREST_KEYWORD ik 
-			  ON sk.kwd_no  = ik.no
-		) AS usk
-			ON usk.rsv_no = r.no
-		WHERE r.email = #{email} AND password = #{password}
-	</select>
+        <include refid="search"></include>
+    </select>
 
-	<insert id="registerReserve">
-		INSERT INTO RESERVATION
-		(email, user_ip, password, name, phone, region, inflow, created_at, is_canceled)
-		VALUES                          
-		(#{email}, #{userIp}, #{password}, #{name}, #{phone}, #{region}, #{inflow}, now(), 0)
-		
-		<selectKey keyProperty="no" resultType="long" order="AFTER">
-    		SELECT LAST_INSERT_ID()
-  		</selectKey>
-	
-	</insert>
-	
-	<insert id="registerSelectedKeywords">
-		INSERT INTO SELECTED_KEYWORD
-		(kwd_no, rsv_no, study_level, created_at)
-		VALUES
-		<foreach collection="selectedKeywords" item="item" separator=", ">
-			(#{item.kwdNo}, #{rsvNo}, #{item.studyLevel}, now())
-		</foreach>
-	</insert>
-	
+    <!-- 관리자용 전체 조회 -->
+    <select id="loadAllReservations" resultType="Reservation">
+        SELECT *
+        FROM RESERVATION AS r
+
+        <include refid="search"></include>
+
+        ORDER BY r.created_at DESC, r.no DESC
+        LIMIT #{offset}, #{perPage}
+    </select>
+
+    <!-- 관리자용 상세 조회 -->
+    <select id="findReservationDetailByEmail" resultMap="ReservationMap">
+        SELECT
+        r.*,
+        usk.rsv_no,
+        usk.kwd_no,
+        usk.name AS keyword_name,
+        usk.study_level
+        FROM RESERVATION r
+        LEFT JOIN (
+        SELECT
+        sk.*,
+        ik.name
+        FROM SELECTED_KEYWORD sk
+        JOIN INTEREST_KEYWORD ik
+        ON sk.kwd_no = ik.no
+        ) AS usk
+        ON usk.rsv_no = r.no
+        WHERE r.no = #{no}
+    </select>
+
+    <!-- 사용자용 상세 조회 -->
+    <select id="findReservationDetail" resultMap="ReservationMap">
+        SELECT
+        r.*,
+        usk.kwd_no,
+        usk.name AS keyword_name,
+        usk.study_level
+        FROM RESERVATION r
+        LEFT JOIN (
+        SELECT
+        sk.*,
+        ik.name
+        FROM SELECTED_KEYWORD sk
+        JOIN INTEREST_KEYWORD ik
+        ON sk.kwd_no = ik.no
+        ) AS usk
+        ON usk.rsv_no = r.no
+        WHERE r.email = #{email} AND password = #{password}
+    </select>
+
+    <insert id="registerReserve">
+        INSERT INTO RESERVATION
+        (email, user_ip, password, name, phone, region, inflow, created_at, is_canceled)
+        VALUES
+        (#{email}, #{userIp}, #{password}, #{name}, #{phone}, #{region}, #{inflow}, now(), 0)
+
+        <selectKey keyProperty="no" resultType="long" order="AFTER">
+            SELECT LAST_INSERT_ID()
+        </selectKey>
+
+    </insert>
+
+    <insert id="registerSelectedKeywords">
+        INSERT INTO SELECTED_KEYWORD
+        (kwd_no, rsv_no, study_level, created_at)
+        VALUES
+        <foreach collection="selectedKeywords" item="item" separator=", ">
+            (#{item.kwdNo}, #{rsvNo}, #{item.studyLevel}, now())
+        </foreach>
+    </insert>
+
 </mapper>

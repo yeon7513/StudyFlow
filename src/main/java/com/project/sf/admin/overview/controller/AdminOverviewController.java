@@ -10,7 +10,7 @@ public class AdminOverviewController {
 
   // 운영 현황
   @GetMapping("")
-  String main() {
+  String displayOverview() {
     return "pages/admin/overview/overview";
   }
 

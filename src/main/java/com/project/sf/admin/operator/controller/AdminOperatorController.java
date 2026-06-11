@@ -12,7 +12,7 @@ public class AdminOperatorController {
 
   // 운영자 관리 (SUPER만 접근 가능)
   @GetMapping("/list")
-  String managementOperators() {
+  String displayOperators() {
     return "pages/admin/management/operator/list";
   }
 }

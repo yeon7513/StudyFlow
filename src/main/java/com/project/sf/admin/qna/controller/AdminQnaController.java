@@ -1,21 +1,19 @@
 package com.project.sf.admin.qna.controller;
 
-import java.util.List;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
 import com.project.sf.admin.Admin;
 import com.project.sf.common.pager.AdminQnaPostSearch;
+import com.project.sf.common.searchFilter.AdminInquirySearchFilter;
 import com.project.sf.qna.AnswerPost;
 import com.project.sf.qna.QuestionPost;
 import com.project.sf.qna.service.AnswerPostService;
 import com.project.sf.qna.service.QnaService;
 import jakarta.servlet.http.HttpSession;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Controller
 @RequestMapping("/admin/management/qna")
@@ -29,7 +27,7 @@ public class AdminQnaController {
 
   // 문의 관리
   @GetMapping("/list")
-  String main(Model model, AdminQnaPostSearch adminQnaPostSearch) {
+  String displayQuestionPosts(Model model, AdminQnaPostSearch adminQnaPostSearch) {
 
     // 보여질 개수 설정
     adminQnaPostSearch.setPerPage(10);
@@ -48,6 +46,9 @@ public class AdminQnaController {
     QuestionPost initPost = answerPostService.loadOldestNoAnswerPost();
 
     model.addAttribute("detailPost", initPost);
+
+    // 검색용 필터 추가
+    model.addAttribute("searchOptions", new AdminInquirySearchFilter());
 
     return "pages/admin/management/qna/list";
   }

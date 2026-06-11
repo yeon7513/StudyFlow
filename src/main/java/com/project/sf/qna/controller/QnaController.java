@@ -1,20 +1,16 @@
 package com.project.sf.qna.controller;
 
-import java.util.List;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import com.project.sf.common.pager.Pager;
 import com.project.sf.qna.QuestionPost;
 import com.project.sf.qna.service.QnaService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @Controller
 @RequestMapping("/qna")
@@ -25,7 +21,7 @@ public class QnaController {
 
   // 전체 리스트 조회
   @GetMapping("")
-  String main(Model model, Pager pager) {
+  String displayQnaPosts(Model model, Pager pager) {
 
     pager.setPerPage(10);
 

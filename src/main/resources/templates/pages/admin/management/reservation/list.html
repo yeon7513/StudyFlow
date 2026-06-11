@@ -1,13 +1,14 @@
 <!doctype html>
 <html
   lang="ko"
-  xmlns:th="http://www.thymeleaf.org"
-  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
   layout:decorate="~{/layout/admin/dashboard}"
   th:with="breadCrumbs=${ { {label: '예약자 관리', path: null} } }"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  xmlns:th="http://www.thymeleaf.org"
 >
   <head>
-    <link rel="stylesheet" href="/css/admin/reservation/reservation.css" />
+    <title>스터디 플로우</title>
+    <link href="/css/admin/reservation/reservation.css" rel="stylesheet" />
     <script defer src="/js/admin/reservation/list.js"></script>
   </head>
   <body>
@@ -26,40 +27,28 @@
                 <div class="filter select-group">
                   <!-- 취소 여부 -->
                   <h4>예약 상태</h4>
-                  <select name="reserveState" id="is-canceled">
-                    <option value="active" selected>예약중</option>
-                    <option value="canceled">예약취소</option>
-                    <option value="all">전체</option>
+                  <select id="is-canceled" name="reserveState">
+                    <option th:each="option : ${searchOptions.reserveStates}"
+                            th:selected="${option.isSelected}"
+                            th:text="${option.label}"
+                            th:value="${option.value}"></option>
                   </select>
 
                   <!-- 지역 및 유입경로 선택 -->
                   <h4>지역</h4>
-                  <select name="region" id="region">
-                    <option value="">전체</option>
-                    <option value="서울/인천">서울/인천</option>
-                    <option value="경기">경기</option>
-                    <option value="강원">강원</option>
-                    <option value="충북">충북</option>
-                    <option value="충남">충남</option>
-                    <option value="대전/세종">대전/세종</option>
-                    <option value="전북">전북</option>
-                    <option value="전남">전남</option>
-                    <option value="광주">광주</option>
-                    <option value="경북">경북</option>
-                    <option value="경남">경남</option>
-                    <option value="대구/부산">대구/부산</option>
-                    <option value="제주">제주</option>
+                  <select id="region" name="region">
+                    <option th:each="option : ${searchOptions.regions}"
+                            th:selected="${option.isSelected}"
+                            th:text="${option.label}"
+                            th:value="${option.value}"></option>
                   </select>
 
                   <h4>유입경로</h4>
                   <select name="inflow">
-                    <option value="">전체</option>
-                    <option value="커뮤니티">커뮤니티</option>
-                    <option value="페이스북">페이스북</option>
-                    <option value="인스타그램">인스타그램</option>
-                    <option value="지인 추천">지인 추천</option>
-                    <option value="블로그 검색">블로그 검색</option>
-                    <option value="기타">기타</option>
+                    <option th:each="option : ${searchOptions.inflows}"
+                            th:selected="${option.isSelected}"
+                            th:text="${option.label}"
+                            th:value="${option.value}"></option>
                   </select>
                 </div>
               </div>
@@ -70,25 +59,25 @@
               <div class="filter date-group">
                 <h4>예약일자</h4>
                 <label>시작일</label>
-                <input type="date" name="startDate" />
+                <input name="startDate" type="date" />
                 <label>종료일</label>
-                <input type="date" name="endDate" />
+                <input name="endDate" type="date" />
               </div>
 
               <!-- 검색어 -->
               <div class="filter text-group">
                 <h4>상세 검색</h4>
                 <select name="search">
-                  <option value="1">예약 코드</option>
-                  <option value="2">이메일</option>
-                  <option value="3">예약자명</option>
-                  <option value="4">아이피</option>
+                  <option th:each="option : ${searchOptions.keywordSearch}"
+                          th:selected="${option.isSelected}"
+                          th:text="${option.label}"
+                          th:value="${option.value}"></option>
                 </select>
                 <input
-                  type="text"
+                  autocomplete="off"
                   name="keyword"
                   placeholder="검색어를 입력하세요."
-                  autocomplete="off"
+                  type="text"
                 />
               </div>
             </div>
@@ -97,8 +86,8 @@
 
         <ul class="reservations">
           <li
-            th:each="reservation : ${reservations}"
             th:data-no="${reservation.no}"
+            th:each="reservation : ${reservations}"
           >
             <span th:text="${reservation.no}">예약 고유 번호</span>
             <div>
@@ -112,7 +101,7 @@
             </div>
             <div>
               <span th:text="${reservation.isCanceled ? 'Y' : 'N'}"
-                >취소여부</span
+              >취소여부</span
               >
             </div>
           </li>
