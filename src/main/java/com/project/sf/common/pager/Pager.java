@@ -10,24 +10,20 @@ public class Pager {
   private int perGroup = 5;
 
   // 검색용 키워드
-  private int search;
+  private String search;
   private String keyword;
 
   // 쿼리스트링 설정
   public String getQuery() {
     String query = "";
-
     // 필터가 있을 경우
-    if (search > 0 && keyword != null && keyword != "") {
+    if (search != null && !search.isEmpty() && keyword != null && !keyword.isEmpty()) {
       query = "&search=" + search + "&keyword=" + keyword;
     }
-
     // 필터가 없을 경우
-    if (search < 0 && keyword != null && keyword != "") {
+    if ((search == null || search.isEmpty()) && keyword != null && !keyword.isEmpty()) {
       query = "&keyword=" + keyword;
     }
-
-
     return query;
   }
 
@@ -56,7 +52,7 @@ public class Pager {
     // perGroup을 곱해주면 원래의 수를 복구한다.
     // 여기다 처음에 밀어놨던 값을 되살리기 위해 +1을 해줌.
     // 즉, 해당 그룹의 첫번째 값으로 이동됨
-    int startPage = ((page - 1) / perGroup + 0) * perGroup + 1;
+    int startPage = ((page - 1) / perGroup) * perGroup + 1;
     int last = getLast();
 
     // 반복문으로 그룹에 속한 숫자들을 list에 담는다.
@@ -127,11 +123,11 @@ public class Pager {
     this.keyword = keyword;
   }
 
-  public int getSearch() {
+  public String getSearch() {
     return search;
   }
 
-  public void setSearch(int search) {
+  public void setSearch(String search) {
     this.search = search;
   }
 

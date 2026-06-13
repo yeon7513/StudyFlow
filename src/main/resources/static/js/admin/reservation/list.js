@@ -4,6 +4,9 @@ const reserveCancel = modal.querySelector(".reserve-cancel");
 
 const handleShowModal = () => {
   modal.style.display = "block";
+
+  const body = modal.closest("body");
+  body.style.overflow = "hidden";
 };
 
 // 모달 닫기
@@ -12,6 +15,9 @@ const handleHideModal = () => {
   keywords.innerHTML = "";
 
   modal.style.display = "none";
+
+  const body = modal.closest("body");
+  body.style.overflow = "auto";
 };
 
 modal.addEventListener("click", handleHideModal);
@@ -24,9 +30,9 @@ const handleLoadReservationDetailByEmail = (rsvNo) => {
   // 모달과 전체 목록 리스트가 같은 html에 있기 때문에
   // 데이터는 json으로 받아온다.
   fetch(`/admin/management/reservation/detail/${rsvNo}`)
-    .then((res) => res.json())
-    .then((result) => handleRenderDetail(result))
-    .catch((error) => console.log(error));
+  .then((res) => res.json())
+  .then((result) => handleRenderDetail(result))
+  .catch((error) => console.log(error));
 };
 
 reservationCards.forEach((card) => {
@@ -112,6 +118,7 @@ const handleRenderDetail = (data) => {
 // 예약 취소
 const reserveCancelBtn = reserveCancel.querySelector(".reserve-cancel-btn");
 
-const handleCancelReserve = () => {};
+const handleCancelReserve = () => {
+};
 
 reserveCancelBtn.addEventListener("click", handleCancelReserve);

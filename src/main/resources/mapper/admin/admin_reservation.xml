@@ -1,0 +1,117 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="adminReservation">
+    <resultMap type="Reservation" id="ReservationMap" autoMapping="true">
+        <id column="no" property="no"/>
+
+        <collection property="selectedKeywords" javaType="ArrayList" ofType="SelectedKeyword" autoMapping="true">
+            <id column="rsv_no" property="rsvNo"/>
+            <id column="kwd_no" property="kwdNo"/>
+        </collection>
+    </resultMap>
+
+    <!-- 검색용 WHERE -->
+    <sql id="search">
+        <where>
+            <!-- 예약 상태 -->
+            <if test="reserveState == 'canceled' and reserveState != 'all'">
+                AND r.is_canceled = 1
+            </if>
+
+            <if test="reserveState == 'active' and reserveState != 'all'">
+                AND r.is_canceled = 0
+            </if>
+
+            <if test="region != null and !region.isEmpty()">
+                AND r.region IN
+                <foreach collection="region" item="item" open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+
+            <if test="inflow != null and !inflow.isEmpty()">
+                AND r.inflow IN
+                <foreach collection="inflow" item="item" open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+
+            <if test="canceledReason != null and !canceledReason.isEmpty()">
+                AND r.canceled_reason IN
+                <foreach collection="canceledReason" item="item" open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+
+            <!-- 날짜 검색 -->
+            <if test="startDate != null and startDate != '' and (endDate == null or endDate == '')">
+                AND r.created_at = #{startDate}
+            </if>
+
+            <if test="startDate != null and startDate != '' and endDate != null and endDate != ''">
+                <![CDATA[
+                    AND r.created_at BETWEEN #{startDate} AND #{endDate}
+                ]]>
+            </if>
+
+            <!-- 기본 검색 -->
+            <if test="keyword != null and keyword != ''">
+                <if test="search == 'rsvNo'">
+                    AND r.no = #{keyword}
+                </if>
+                <if test="search == 'email'">
+                    AND r.email LIKE CONCAT('%', #{keyword}, '%')
+                </if>
+                <if test="search == 'name'">
+                    AND r.name LIKE CONCAT('%', #{keyword}, '%')
+                </if>
+                <if test="search == 'userIp'">
+                    AND r.user_ip = #{keyword}
+                </if>
+            </if>
+        </where>
+    </sql>
+
+    <select id="totalCountReservation" resultType="Integer">
+        SELECT count(*)
+        FROM RESERVATION AS r
+
+        <include refid="search"></include>
+    </select>
+
+    <!-- 관리자용 전체 조회 -->
+    <select id="loadAllReservations" resultType="Reservation">
+        SELECT *
+        FROM RESERVATION AS r
+
+        <include refid="search"></include>
+
+        ORDER BY r.created_at DESC, r.no DESC
+        LIMIT #{offset}, #{perPage}
+    </select>
+
+    <!-- 관리자용 상세 조회 -->
+    <select id="findReservationDetailByEmail" resultMap="ReservationMap">
+        SELECT
+        r.*,
+        usk.rsv_no,
+        usk.kwd_no,
+        usk.name AS keyword_name,
+        usk.study_level
+        FROM RESERVATION r
+        LEFT JOIN (
+        SELECT
+        sk.*,
+        ik.name
+        FROM SELECTED_KEYWORD sk
+        JOIN INTEREST_KEYWORD ik
+        ON sk.kwd_no = ik.no
+        ) AS usk
+        ON usk.rsv_no = r.no
+        WHERE r.no = #{no}
+    </select>
+
+</mapper>

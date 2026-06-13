@@ -4,18 +4,18 @@
   xmlns:th="http://www.thymeleaf.org"
 >
   <form id="search-form" th:fragment="SearchForm(filters)">
-    <h3>검색 필터</h3>
-
     <th:block th:replace="${filters}"></th:block>
 
-    <div class="active-filter">
+    <ul id="selected-filter"></ul>
+
+    <div class="search-btns">
       <!-- 필터 초기화 버튼 -->
-      <button class="btn cancel" type="button">
-        <i class="fa-solid fa-arrow-rotate-left"></i>
+      <button class="btn cancel" id="reset-search-filter-btn" type="button">
+        초기화
       </button>
-      <ul id="selected-filter">
-        <li>선택된 필터</li>
-      </ul>
+      <button class="btn" type="submit">
+        검색
+      </button>
     </div>
   </form>
 </html>

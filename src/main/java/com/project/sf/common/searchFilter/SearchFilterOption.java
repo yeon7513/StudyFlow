@@ -6,15 +6,20 @@ public class SearchFilterOption {
   private final String value;
   private boolean isSelected = false;
 
-  public SearchFilterOption(String label, String value) {
-    this.label = label;
-    this.value = value;
-  }
-
-  public SearchFilterOption(String label, String value, boolean isSelected) {
+  private SearchFilterOption(String label, String value, boolean isSelected) {
     this.label = label;
     this.value = value;
     this.isSelected = isSelected;
+  }
+
+  // 기본 옵션
+  public static SearchFilterOption of(String label, String value) {
+    return new SearchFilterOption(label, value, false);
+  }
+
+  // 선택된 옵션
+  public static SearchFilterOption selected(String label, String value) {
+    return new SearchFilterOption(label, value, true);
   }
 
   public String getLabel() {

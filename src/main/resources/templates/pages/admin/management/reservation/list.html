@@ -10,78 +10,90 @@
     <title>스터디 플로우</title>
     <link href="/css/admin/reservation/reservation.css" rel="stylesheet" />
     <script defer src="/js/admin/reservation/list.js"></script>
+    <script defer src="/js/admin/search.js"></script>
   </head>
   <body>
     <section layout:fragment="container">
       <div class="contents">
-        <div th:if="${reservations.isEmpty()}">
-          <p>검색된 예약자 내역이 없습니다.</p>
-        </div>
-
+        <!-- 검색 필터 -->
         <div
           th:replace="~{layout/admin/fragments/search_form :: SearchForm(~{:: #filters})}"
         >
           <div id="filters">
-            <div class="filters">
-              <div class="select-group">
-                <div class="filter select-group">
-                  <!-- 취소 여부 -->
-                  <h4>예약 상태</h4>
-                  <select id="is-canceled" name="reserveState">
-                    <option th:each="option : ${searchOptions.reserveStates}"
-                            th:selected="${option.isSelected}"
-                            th:text="${option.label}"
-                            th:value="${option.value}"></option>
-                  </select>
-
-                  <!-- 지역 및 유입경로 선택 -->
-                  <h4>지역</h4>
-                  <select id="region" name="region">
-                    <option th:each="option : ${searchOptions.regions}"
-                            th:selected="${option.isSelected}"
-                            th:text="${option.label}"
-                            th:value="${option.value}"></option>
-                  </select>
-
-                  <h4>유입경로</h4>
-                  <select name="inflow">
-                    <option th:each="option : ${searchOptions.inflows}"
-                            th:selected="${option.isSelected}"
-                            th:text="${option.label}"
-                            th:value="${option.value}"></option>
-                  </select>
-                </div>
-              </div>
+            <!-- 탭 메뉴 -->
+            <div class="tab-menu">
+              <h4>예약 상태</h4>
+              <label th:each="option : ${searchOptions.reserveStates}" th:for="${option.value}">
+                <input name="reserveState"
+                       th:checked="${pager.reserveState != null and #lists.contains(pager.reserveState, option.value)}"
+                       th:id="${option.value}"
+                       th:value="${option.value}" type="radio" />
+                <span th:text="${option.label}"></span>
+              </label>
             </div>
 
-            <div class="filters">
-              <!-- 예약 날짜별 -->
-              <div class="filter date-group">
-                <h4>예약일자</h4>
-                <label>시작일</label>
-                <input name="startDate" type="date" />
-                <label>종료일</label>
-                <input name="endDate" type="date" />
-              </div>
+            <div class="filter region-group">
+              <h4 class="option-title">지역</h4>
+              <label th:each="option : ${searchOptions.regions}" th:for="${option.value}">
+                <input name="region"
+                       th:checked="${pager.region != null and #lists.contains(pager.region, option.value)}"
+                       th:id="${option.value}"
+                       th:value="${option.value}"
+                       type="checkbox" />
+                <span th:text="${option.label}"></span>
+              </label>
+            </div>
 
-              <!-- 검색어 -->
-              <div class="filter text-group">
-                <h4>상세 검색</h4>
-                <select name="search">
-                  <option th:each="option : ${searchOptions.keywordSearch}"
-                          th:selected="${option.isSelected}"
-                          th:text="${option.label}"
-                          th:value="${option.value}"></option>
-                </select>
-                <input
-                  autocomplete="off"
-                  name="keyword"
-                  placeholder="검색어를 입력하세요."
-                  type="text"
+            <div class="filter inflow-group">
+              <h4 class="option-title">유입경로</h4>
+              <label th:each="option : ${searchOptions.inflows}" th:for="${option.value}">
+                <input name="inflow"
+                       th:checked="${pager.inflow != null and #lists.contains(pager.inflow, option.value)}"
+                       th:id="${option.value}"
+                       th:value="${option.value}"
+                       type="checkbox"
                 />
-              </div>
+                <span th:text="${option.label}"></span>
+              </label>
+            </div>
+
+            <!-- 예약 날짜별 -->
+            <div class="filter date-group">
+              <h4 class="option-title">예약일자</h4>
+              <label>
+                <span>
+                  시작일
+                </span>
+                <input name="startDate" th:value="${pager.startDate}" type="date" />
+              </label>
+              <label>
+                <span>종료일</span>
+                <input name="endDate" th:value="${pager.endDate}" type="date" />
+              </label>
+            </div>
+
+            <!-- 검색어 -->
+            <div class="filter text-group">
+              <h4>상세 검색</h4>
+              <select name="search">
+                <option th:each="option : ${searchOptions.reservationSearch}"
+                        th:selected="${pager.search == option.value}"
+                        th:text="${option.label}"
+                        th:value="${option.value}"></option>
+              </select>
+              <input
+                autocomplete="off"
+                name="keyword"
+                placeholder="검색어를 입력하세요."
+                th:value="${pager.keyword}"
+                type="text"
+              />
             </div>
           </div>
+        </div>
+
+        <div th:if="${reservations.isEmpty()}">
+          <p>검색된 예약자 내역이 없습니다.</p>
         </div>
 
         <ul class="reservations">

@@ -12,9 +12,9 @@ const loadDetailButtons = document.querySelectorAll(".load-detail-btn");
 
 const handleLoadDetail = (postNo) => {
   fetch(`/admin/management/qna/detail/${postNo}`)
-    .then((res) => res.text())
-    .then((result) => handleRenderDetail(result))
-    .catch((err) => console.log(err));
+  .then((res) => res.text())
+  .then((result) => handleRenderDetail(result))
+  .catch((err) => console.log(err));
 };
 
 loadDetailButtons.forEach((button) => {
@@ -22,3 +22,5 @@ loadDetailButtons.forEach((button) => {
 
   button.addEventListener("click", () => handleLoadDetail(postNo));
 });
+
+

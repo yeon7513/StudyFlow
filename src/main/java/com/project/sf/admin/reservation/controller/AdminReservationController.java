@@ -26,13 +26,13 @@ public class AdminReservationController {
   @GetMapping("/list")
   String displayReservations(Model model, AdminReservationSearch adminReservationSearch) {
 
+    // 최초 접근 시 예약 상태를 active로
+    if (adminReservationSearch.getReserveState() == null) {
+      adminReservationSearch.setReserveState("active");
+    }
+
     // 예약자 전체 조회
     List<Reservation> reservations = reservationService.loadAllReservations(adminReservationSearch);
-
-    // 비밀번호 제외
-    for (Reservation reservation : reservations) {
-      reservation.setPassword(null);
-    }
 
     model.addAttribute("reservations", reservations);
     model.addAttribute("pager", adminReservationSearch);
@@ -43,13 +43,12 @@ public class AdminReservationController {
     return "pages/admin/management/reservation/list";
   }
 
-  // 예약자 상세 조회
+  // 예약자 상세 조회 -> 수정할 것!! 타임리프 프래그먼트로 반환할 것
   @ResponseBody
   @GetMapping("/detail/{no}")
   ResponseEntity<?> findReservationDetailByEmail(@PathVariable Long no) {
 
     Reservation reservation = reservationService.findReservationDetailByEmail(no);
-
 
     if (reservation == null) {
       return ResponseEntity.badRequest().body("사용자의 예약 정보를 찾을 수 없습니다.");
@@ -61,3 +60,4 @@ public class AdminReservationController {
     return ResponseEntity.ok(reservation);
   }
 }
+

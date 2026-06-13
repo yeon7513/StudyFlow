@@ -8,4 +8,5 @@ document.addEventListener("DOMContentLoaded", () => {
     // 예약자 정보 세션을 지움
     sessionStorage.removeItem("user-info");
   }
+
 });
