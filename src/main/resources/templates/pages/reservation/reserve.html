@@ -1,13 +1,13 @@
 <!doctype html>
 <html
   lang="ko"
-  xmlns:th="http://www.thymeleaf.org"
-  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
   layout:decorate="~{/layout/common/layout}"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  xmlns:th="http://www.thymeleaf.org"
 >
   <head>
     <title layout:fragment="title">스터디 플로우 - 사전예약</title>
-    <link rel="stylesheet" href="/css/reservation/reserve.css" />
+    <link href="/css/reservation/reserve.css" rel="stylesheet" />
     <script defer src="/js/reservation/reserve.js"></script>
   </head>
   <body>
@@ -20,111 +20,74 @@
         )}"
       >
       </th:block>
+
       <!-- 예약자 정보 입력 -->
       <form id="user-info">
         <div class="input-group">
           <input
-            id="email"
+            autocomplete="no-email"
             class="text-field"
-            type="email"
+            id="email"
             name="email"
             placeholder="이메일 입력"
-            autocomplete="no-email"
+            type="email"
           />
-          <label for="email" class="text-label">이메일</label>
+          <label class="text-label" for="email">이메일</label>
         </div>
         <div class="input-group">
           <input
-            id="password"
+            autocomplete="off"
             class="text-field"
-            type="password"
+            id="password"
             name="password"
             placeholder="비밀번호 입력"
-            autocomplete="off"
+            type="password"
           />
-          <label for="password" class="text-label">비밀번호</label>
+          <label class="text-label" for="password">비밀번호</label>
         </div>
         <div class="input-group">
           <input
-            id="name"
+            autocomplete="no-name"
             class="text-field"
-            type="text"
+            id="name"
             name="name"
             placeholder="예약자명 입력"
-            autocomplete="no-name"
+            type="text"
           />
-          <label for="name" class="text-label">예약자명</label>
+          <label class="text-label" for="name">예약자명</label>
         </div>
         <div class="input-group">
           <input
-            id="phone"
+            autocomplete="off"
             class="text-field"
-            type="text"
+            id="phone"
             name="phone"
             placeholder="연락처 입력"
-            autocomplete="off"
+            type="text"
           />
-          <label for="phone" class="text-label">연락처</label>
+          <label class="text-label" for="phone">연락처</label>
         </div>
 
         <!-- 지역 -->
         <div>
-          <select name="region" id="region">
-            <option value="">지역 선택</option>
-            <option value="서울/인천">서울/인천</option>
-            <option value="경기">경기</option>
-            <option value="강원">강원</option>
-            <option value="충북">충북</option>
-            <option value="충남">충남</option>
-            <option value="대전/세종">대전/세종</option>
-            <option value="전북">전북</option>
-            <option value="전남">전남</option>
-            <option value="광주">광주</option>
-            <option value="경북">경북</option>
-            <option value="경남">경남</option>
-            <option value="대구/부산">대구/부산</option>
-            <option value="제주">제주</option>
+          <select id="region" name="region">
+            <option th:each="option : ${formOptions.regions}" th:text="${option.label}"
+                    th:value="${option.value}"></option>
           </select>
         </div>
 
         <!-- 유입 경로 -->
         <div>
-          <label for="community">
-            <input id="community" type="radio" name="inflow" value="커뮤니티" />
-            커뮤니티
-          </label>
-
-          <label for="facebook">
-            <input id="facebook" type="radio" name="inflow" value="페이스북" />
-            페이스북
-          </label>
-          <label for="insta">
-            <input id="insta" type="radio" name="inflow" value="인스타그램" />
-            인스타그램
-          </label>
-          <label for="acquaintance">
-            <input
-              id="acquaintance"
-              type="radio"
-              name="inflow"
-              value="지인 추천"
-            />
-            지인 추천
-          </label>
-          <label for="blog">
-            <input id="blog" type="radio" name="inflow" value="블로그 검색" />
-            블로그 검색
-          </label>
-          <label for="extra">
-            <input id="extra" type="radio" name="inflow" value="기타" />
-            기타
+          <label th:each="option : ${formOptions.inflows}" th:for="${option.value}">
+            <input name="inflow" th:id="${option.value}" th:value="${option.value}" type="radio" />
+            <span th:text="${option.label}"></span>
           </label>
         </div>
         <div>
-          <button id="save-user-info" type="button" class="btn">
+          <button class="btn" id="save-user-info" type="button">
             관심 분야 선택
           </button>
-          <a href="/preorder" class="btn cancel">취소</a>
+          <a class="btn cancel" href="/reservation">취소</a>
         </div>
       </form>
     </section>

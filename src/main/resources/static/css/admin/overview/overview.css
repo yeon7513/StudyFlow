@@ -1,0 +1,61 @@
+@charset "UTF-8";
+@import "../../common/variables.css";
+
+/* 공통 */
+#overview .wrap, #overview > h2 {
+  margin-bottom: 24px;
+}
+
+#overview .overview-title {
+  margin-bottom: 16px;
+  padding-bottom: 8px;
+  border-bottom: 1px solid #eaeaea;
+}
+
+/* 위젯 */
+#widget {
+  padding: 24px;
+  background-color: #fff;
+}
+
+#widget > .overview-container {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+}
+
+#widget .widget-content {
+  outline: 1px dotted red;
+}
+
+#widget .new-inquiries {
+  grid-column: span 2;
+}
+
+/* 차트 */
+#chart {
+
+}
+
+#chart .chart-content {
+  padding: 24px;
+  background-color: #fff;
+}
+
+/* 신규 예약자 & 관심분야 & 문의글 */
+.service-chart {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: 24px;
+}
+
+.service-chart .chart-content.category {
+  grid-column: span 2;
+}
+
+/* 지역 & 유입경로 */
+.map-chart {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 24px;
+}

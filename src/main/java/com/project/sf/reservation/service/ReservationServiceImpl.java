@@ -1,8 +1,8 @@
 package com.project.sf.reservation.service;
 
+import com.project.sf.common.enums.reservation.InflowEnum;
+import com.project.sf.common.enums.reservation.RegionEnum;
 import com.project.sf.common.pager.AdminReservationSearch;
-import com.project.sf.common.searchFilter.constance.enums.reservation.InflowEnum;
-import com.project.sf.common.searchFilter.constance.enums.reservation.RegionEnum;
 import com.project.sf.reservation.Reservation;
 import com.project.sf.reservation.SelectedKeyword;
 import com.project.sf.reservation.dao.ReservationDao;

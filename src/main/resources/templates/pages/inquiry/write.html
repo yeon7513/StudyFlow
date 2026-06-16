@@ -1,0 +1,45 @@
+<!doctype html>
+<html
+  lang="ko"
+  layout:decorate="~{/layout/common/layout}"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  xmlns:th="http://www.thymeleaf.org"
+>
+  <head>
+    <title layout:fragment="title">스터디 플로우 - 문의글 작성</title>
+    <th:block layout:fragment="css">
+      <link href="/css/inquiry/editor.css" rel="stylesheet" />
+    </th:block>
+    <th:block layout:fragment="js">
+      <script defer src="/js/inquiry/editor.js"></script>
+    </th:block>
+  </head>
+  <body>
+    <section id="write" layout:fragment="container">
+      <h3>게시글 등록</h3>
+      <form action="/qna/register" id="write-form" method="post">
+        <div class="title">
+          <input name="title" placeholder="제목을 입력해주세요." type="text" />
+          <input
+            name="postPw"
+            placeholder="비밀번호를 입력해주세요."
+            type="password"
+          />
+        </div>
+        <div class="text">
+          <textarea
+            name="text"
+            placeholder="내용을 입력해주세요."
+            rows="20"
+          ></textarea>
+        </div>
+        <div>
+          <button class="btn" type="submit">등록</button>
+          <button class="btn cancel" id="cancel-button" type="button">
+            취소
+          </button>
+        </div>
+      </form>
+    </section>
+  </body>
+</html>

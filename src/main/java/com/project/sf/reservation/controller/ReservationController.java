@@ -1,5 +1,6 @@
 package com.project.sf.reservation.controller;
 
+import com.project.sf.common.filter.user.ReservationFormOptions;
 import com.project.sf.reservation.Reservation;
 import com.project.sf.reservation.SelectedKeyword;
 import com.project.sf.reservation.service.ReservationService;
@@ -20,13 +21,11 @@ public class ReservationController {
 
   @Autowired
   TrendService trendService;
-
   @Autowired
   ReservationService reservationService;
 
-
   @GetMapping("")
-  String displayReservation() {
+  String reservationMain() {
     return "pages/reservation/main";
   }
 
@@ -42,7 +41,9 @@ public class ReservationController {
 
   // 사전 예약 페이지 렌더링
   @GetMapping("/reserve")
-  String reserve() {
+  String reserve(Model model) {
+    model.addAttribute("formOptions", new ReservationFormOptions());
+
     return "pages/reservation/reserve";
   }
 
@@ -50,7 +51,7 @@ public class ReservationController {
   @ResponseBody
   @PostMapping("/reserve")
   boolean reserve(@RequestBody Reservation reservation, HttpServletRequest request,
-      HttpSession session) {
+                  HttpSession session) {
     try {
       // 사용자 IP 추출
       String ip = request.getRemoteAddr();

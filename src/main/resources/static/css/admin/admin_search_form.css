@@ -3,9 +3,9 @@
 
 #search-form {
   padding: 24px;
-  background-color: #f7f7f7;
   border-radius: 8px;
   margin-bottom: 24px;
+  background-color: #fff;
 }
 
 #search-form .filters {

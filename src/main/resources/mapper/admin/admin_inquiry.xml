@@ -1,0 +1,148 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="adminInquiry">
+    <resultMap type="QuestionPost" id="InquiryPost" autoMapping="true">
+        <id property="no" column="no"/>
+
+        <association property="answerPost" column="post_no" javaType="AnswerPost" autoMapping="true" columnPrefix="a_">
+            <id property="postNo" column="post_no"/>
+        </association>
+    </resultMap>
+
+    <!-- 검색용 WHERE -->
+    <sql id="search">
+        <where>
+            <!-- 답변이 없는 경우 -->
+            <if test="answerState == 'waiting' and answerState != 'all'">
+                q.is_answered = 0
+            </if>
+
+            <!-- 답변이 있는 경우 -->
+            <if test="answerState == 'answered' and answerState != 'all'">
+                q.is_answered = 1
+            </if>
+
+            <!-- 카테고리 검색 -->
+            <if test="category != null and !category.isEmpty()">
+                AND q.category IN
+                <foreach collection="category" item="item" open="(" separator="," close=")">
+                    #{item}
+                </foreach>
+            </if>
+
+            <!-- 날짜 검색 -->
+            <if test="startDate != null and startDate != '' and (endDate == null or endDate == '')">
+                <![CDATA[
+                    AND q.created_at >= #{startDate}
+                ]]>
+            </if>
+
+            <if test="startDate != null and startDate != '' and endDate != null and endDate != ''">
+                AND q.created_at BETWEEN #{startDate} AND #{endDate}
+            </if>
+
+            <!-- 기본 검색 -->
+            <if test="keyword != null and keyword != ''">
+                <choose>
+                    <when test='search == "postNo"'>
+                        AND q.no = #{keyword}
+                    </when>
+
+                    <when test='search == "writerIp"'>
+                        AND q.writer_ip = #{keyword}
+                    </when>
+
+                    <when test='search == "adminId"'>
+                        AND q.admin_id = #{keyword}
+                    </when>
+
+                    <when test='search == "contents"'>
+                        AND (
+                        q.title LIKE CONCAT('%', #{keyword}, '%')
+                        OR q.text LIKE CONCAT('%', #{keyword}, '%')
+                        )
+                    </when>
+                </choose>
+            </if>
+        </where>
+    </sql>
+
+    <select id="totalCountPost" resultType="Integer">
+        SELECT count(*)
+        FROM QUESTION_POST q
+
+        <include refid="search"></include>
+    </select>
+
+    <!-- 전체 문의글 조회 -->
+    <select id="loadAllPosts" resultMap="InquiryPost">
+        SELECT
+        q.*, a.post_no AS a_post_no,
+        a.admin_id AS a_admin_id,
+        a.answered_text AS a_answered_text,
+        a.answered_at AS a_answered_at
+        FROM QUESTION_POST q
+        LEFT JOIN ANSWER_POST a ON a.post_no = q.no
+
+        <include refid="search"></include>
+
+        <!-- 답변 상태에 따라 정렬 변경 -->
+        <choose>
+            <when test="answerState == 'all'">
+                ORDER BY q.created_at DESC, q.no DESC
+            </when>
+
+            <when test="answerState == 'answered'">
+                ORDER BY q.created_at DESC, q.no DESC
+            </when>
+
+            <otherwise>
+                ORDER BY created_at, q.no DESC
+            </otherwise>
+        </choose>
+
+        LIMIT #{offset}, #{perPage}
+    </select>
+
+    <!-- 초기 렌더링용 오래된 문의글 먼저 조회 -->
+    <select id="loadOldestNoAnswerPost" resultMap="InquiryPost">
+        SELECT *
+        FROM QUESTION_POST AS q
+
+        <include refid="search"></include>
+
+        <choose>
+            <when test="answerState == 'all'">
+                ORDER BY q.created_at DESC, q.no DESC
+            </when>
+
+            <when test="answerState == 'answered'">
+                ORDER BY q.created_at DESC, q.no DESC
+            </when>
+
+            <otherwise>
+                ORDER BY created_at, q.no DESC
+            </otherwise>
+        </choose>
+
+        LIMIT 1
+    </select>
+
+    <!-- 답변글 등록 -->
+    <insert id="registerAnswerPost">
+        INSERT INTO ANSWER_POST
+        (post_no, admin_id, answered_text, answered_at)
+        VALUES
+        (#{postNo}, #{adminId}, #{answeredText}, now())
+    </insert>
+
+    <!-- 답변 등록 후 문의글 테이블의 답변 여부 컬럼 업데이트 -->
+    <update id="updateAnswerState">
+        UPDATE QUESTION_POST
+        SET is_answered = 1
+        WHERE no = #{postNo}
+    </update>
+</mapper>

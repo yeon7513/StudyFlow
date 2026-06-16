@@ -1,0 +1,34 @@
+<!doctype html>
+<html
+  lang="ko"
+  th:fragment="Chart"
+  xmlns:th="http://www.thymeleaf.org"
+>
+  <div id="chart">
+    <div class="wrap service-chart">
+      <div class="chart-content new-reserve">
+        <h3 class="overview-title">신규 예약자</h3>
+        <div>선 그래프</div>
+      </div>
+      <div class="chart-content keywords">
+        <h3 class="overview-title">선택된 관심 분야</h3>
+        <div>파이 그래프</div>
+      </div>
+      <div class="chart-content category">
+        <h3 class="overview-title">문의글 카테고리 (어떤 문의 카테고리가 많이 들어왔는지)</h3>
+        <div>세로 바 그래프</div>
+      </div>
+    </div>
+
+    <div class="wrap map-chart">
+      <div class="chart-content region">
+        <h3 class="overview-title">지역</h3>
+        <div>가로 바 그래프</div>
+      </div>
+      <div class="chart-content inflow">
+        <h3 class="overview-title">유입경로</h3>
+        <div>도넛 그래프</div>
+      </div>
+    </div>
+  </div>
+</html>

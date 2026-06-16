@@ -1,0 +1,151 @@
+<!doctype html>
+<html
+  lang="ko"
+  layout:decorate="~{/layout/admin/dashboard}"
+  th:with="breadCrumbs=${ { {label: '문의 관리', path: null} } }"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  xmlns:th="http://www.thymeleaf.org"
+>
+  <head>
+    <link href="/css/admin/inquiry/list.css" rel="stylesheet" />
+    <script defer src="/js/admin/inquiry/list.js"></script>
+    <script defer src="/js/admin/search.js"></script>
+  </head>
+  <body>
+    <section layout:fragment="container">
+      <div
+        th:replace="~{layout/admin/fragments/search_form :: SearchForm(~{:: #filters})}"
+      >
+        <div id="filters">
+          <!-- 필터 선택 -->
+          <div class="tab-menu">
+            <!-- 취소 여부 -->
+            <h4>답변 상태</h4>
+            <label th:each="option : ${searchOptions.answerStates}" th:for="${option.value}">
+              <input name="answerState"
+                     th:checked="${pager.answerState != null and #lists.contains(pager.answerState, option.value)}"
+                     th:id="${option.value}"
+                     th:value="${option.value}" type="radio" />
+              <span th:text="${option.label}"></span>
+            </label>
+          </div>
+
+          <!-- 카테고리 -->
+          <div class="filter category-group">
+            <h4 class="option-title">카테고리</h4>
+            <label th:each="option : ${searchOptions.categories}" th:for="${option.value}">
+              <input name="category"
+                     th:checked="${pager.category != null and #lists.contains(pager.category, option.value)}"
+                     th:id="${option.value}"
+                     th:value="${option.value}"
+                     type="checkbox"
+              />
+              <span th:text="${option.label}"></span>
+            </label>
+          </div>
+
+          <!-- 날짜별 -->
+          <div class="filter date-group">
+            <h4 class="option-title">예약일자</h4>
+            <label>
+              <span>
+                시작일
+              </span>
+              <input name="startDate" th:value="${pager.startDate}" type="date" />
+            </label>
+            <label>
+              <span>종료일</span>
+              <input disabled="disabled" name="endDate" th:value="${pager.endDate}" type="date" />
+            </label>
+          </div>
+
+          <!-- 검색어 -->
+          <div class="filter text-group">
+            <h4>상세 검색</h4>
+            <select name="search">
+              <option th:each="option : ${searchOptions.inquirySearch}"
+                      th:selected="${pager.search == option.value}"
+                      th:text="${option.label}"
+                      th:value="${option.value}"></option>
+            </select>
+            <input
+              autocomplete="off"
+              name="keyword"
+              placeholder="검색어를 입력하세요."
+              th:value="${pager.keyword}"
+              type="text"
+            />
+          </div>
+        </div>
+      </div>
+
+      <div class="flex-box contents">
+        <div class="posts">
+          <table>
+            <thead>
+              <tr>
+                <th>No.</th>
+                <th>제목</th>
+                <th>답변여부</th>
+                <th>작성일</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr th:if="${questionPosts.isEmpty()}">
+                <td colspan="4">
+                  <p>작성된 문의글이 없습니다.</p>
+                </td>
+              </tr>
+
+              <tr
+                th:each="post : ${questionPosts}"
+                th:if="${post.isActive == true}"
+              >
+                <td class="num" th:text="${post.no}">글번호</td>
+                <td class="title">
+                  <button
+                    class="load-detail-btn"
+                    th:data-post-no="${post.no}"
+                    th:text="${post.title}"
+                    type="button"
+                  >
+                    게시글 제목
+                  </button>
+                </td>
+                <td>
+                  <span
+                    th:class="${post.answered == false} ? 'status waiting' : 'status complete'"
+                    th:text="${post.answered == false} ? '미답변' : '답변완료'"
+                  >답변 여부</span
+                  >
+                </td>
+                <td class="date" th:text="${post.createdAt}">작성일</td>
+              </tr>
+            </tbody>
+
+            <tfoot>
+              <tr>
+                <td colspan="4">
+                  <div
+                    th:replace="~{/layout/common/fragments/pagination :: Pagination(${pager})}"
+                  ></div>
+                </td>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+
+        <article id="inquiry-detail">
+          <div th:if="${inquiryDetail == null}">
+            <p>현재 대기 중인 문의글이 없습니다.</p>
+          </div>
+
+          <div
+            th:if="${inquiryDetail != null}"
+            th:replace="~{/layout/admin/fragments/inquiry_detail :: InquiryDetail}"
+          ></div>
+        </article>
+      </div>
+    </section>
+  </body>
+</html>

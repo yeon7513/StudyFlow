@@ -48,7 +48,9 @@
 
             <!-- 날짜 검색 -->
             <if test="startDate != null and startDate != '' and (endDate == null or endDate == '')">
-                AND r.created_at = #{startDate}
+                <![CDATA[
+                    AND r.created_at >= #{startDate}
+                ]]>
             </if>
 
             <if test="startDate != null and startDate != '' and endDate != null and endDate != ''">
@@ -59,18 +61,23 @@
 
             <!-- 기본 검색 -->
             <if test="keyword != null and keyword != ''">
-                <if test="search == 'rsvNo'">
-                    AND r.no = #{keyword}
-                </if>
-                <if test="search == 'email'">
-                    AND r.email LIKE CONCAT('%', #{keyword}, '%')
-                </if>
-                <if test="search == 'name'">
-                    AND r.name LIKE CONCAT('%', #{keyword}, '%')
-                </if>
-                <if test="search == 'userIp'">
-                    AND r.user_ip = #{keyword}
-                </if>
+                <choose>
+                    <when test="search == 'rsvNo'">
+                        AND r.no = #{keyword}
+                    </when>
+
+                    <when test="search == 'email'">
+                        AND r.email LIKE CONCAT('%', #{keyword}, '%')
+                    </when>
+
+                    <when test="search == 'name'">
+                        AND r.name LIKE CONCAT('%', #{keyword}, '%')
+                    </when>
+
+                    <when test="search == 'userIp'">
+                        AND r.user_ip = #{keyword}
+                    </when>
+                </choose>
             </if>
         </where>
     </sql>

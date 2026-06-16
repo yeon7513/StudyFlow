@@ -1,7 +1,7 @@
 package com.project.sf.admin.reservation.controller;
 
+import com.project.sf.common.filter.admin.AdminReservationSearchFilter;
 import com.project.sf.common.pager.AdminReservationSearch;
-import com.project.sf.common.searchFilter.AdminReservationSearchFilter;
 import com.project.sf.reservation.Reservation;
 import com.project.sf.reservation.service.ReservationService;
 import org.springframework.beans.factory.annotation.Autowired;

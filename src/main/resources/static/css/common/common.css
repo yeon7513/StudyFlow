@@ -11,19 +11,6 @@ footer {
   max-width: 75rem;
 }
 
-header {
-  outline: 1px dotted red;
-}
-
-main {
-  padding-bottom: 48px;
-  outline: 1px dotted blue;
-}
-
-footer {
-  outline: 1px dotted green;
-}
-
 select {
   padding: 0.5rem;
 }

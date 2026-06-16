@@ -119,6 +119,7 @@ const handleRenderDetail = (data) => {
 const reserveCancelBtn = reserveCancel.querySelector(".reserve-cancel-btn");
 
 const handleCancelReserve = () => {
+  console.log("예약 취소 버튼 클릭");
 };
 
 reserveCancelBtn.addEventListener("click", handleCancelReserve);

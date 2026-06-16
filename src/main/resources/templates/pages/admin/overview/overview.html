@@ -1,17 +1,23 @@
 <!doctype html>
 <html
   lang="ko"
-  xmlns:th="http://www.thymeleaf.org"
-  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
   layout:decorate="~{/layout/admin/dashboard}"
   th:with="breadCrumbs=${ { {label: '운영현황', path: null} } }"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  xmlns:th="http://www.thymeleaf.org"
 >
   <head>
-    <link rel="stylesheet" href="/css/admin/home.css" />
+    <link href="/css/admin/overview/overview.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/chart.js@4.5.1/dist/chart.umd.min.js"></script>
+    <script defer th:inline="javascript" th:src="@{/js/admin/overview/chart.js}"></script>
   </head>
   <body>
-    <section layout:fragment="container">
+    <section id="overview" layout:fragment="container">
       <h2>운영현황</h2>
+      <!-- 요약 위젯 -->
+      <div th:replace="~{layout/admin/fragments/widget :: Widget}"></div>
+      <!-- 차트 -->
+      <div th:replace="~{layout/admin/fragments/chart :: Chart}"></div>
     </section>
   </body>
 </html>

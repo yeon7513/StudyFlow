@@ -32,11 +32,17 @@ const handleRenderSelectedFilterOptions = () => {
   });
 
   // 날짜 필터 처리
-  const startDate = searchForm.querySelector("input[name='startDate']").value;
-  const endDate = searchForm.querySelector("input[name='endDate']").value;
-  if (startDate || endDate) {
+  const startDate = searchForm.querySelector("input[name='startDate']");
+  const endDate = searchForm.querySelector("input[name='endDate']");
+
+  // 시작일이 빈 값이면 종료일은 비활성화
+  startDate.addEventListener("input", () => {
+    endDate.disabled = startDate.value === "";
+  })
+
+  if (startDate.value || endDate.value) {
     const optionTitle = startDate.closest('.filter').querySelector(".option-title").textContent.trim();
-    const dateRange = `${optionTitle}: ${startDate || '제한없음'} ~ ${endDate || '제한없음'}`;
+    const dateRange = `${optionTitle}: ${startDate.value || '제한없음'} ~ ${endDate.value || '제한없음'}`;
     activeFilters.push({
       text: dateRange,
       type: 'date',
@@ -45,6 +51,7 @@ const handleRenderSelectedFilterOptions = () => {
 
   // 상세 검색 필터 처리
   const keywordField = searchForm.querySelector("input[name='keyword']");
+
   if (keywordField && keywordField.value.trim() !== '') {
     const searchKey = searchForm.querySelector("select[name='search']");
     const searchKeyText = searchKey.options[searchKey.selectedIndex].text;
