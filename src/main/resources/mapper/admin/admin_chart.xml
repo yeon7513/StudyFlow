@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="adminChart">
+
+    <!--
+        ** resultType을 Map으로 하는 이유?
+        마이바티스의 resultType은 전체 결과를 감싸는 바구니를 묻는 것이 아닌,
+        하나의 튜플을 어디에 담을 것인지 설정하는 것임.
+        DAO에서 List<Map<String, Object>>로 데이터 타입을 설정해놨기 때문에
+        resultType은 ArrayList가 아닌 Map으로 설정!
+    -->
+    <select id="loadNewReserveChartData" resultType="Map">
+        SELECT date_format(R.CREATED_AT, '%c월 %e일') AS label, count(*) AS value
+        FROM RESERVATION AS R
+        WHERE R.CREATED_AT >= DATE_SUB(CURDATE(), INTERVAL #{range} DAY)
+        GROUP BY date(R.CREATED_AT)
+        ORDER BY date(R.CREATED_AT)
+    </select>
+
+    <select id="loadSelectedKeywordChartData" resultType="Map">
+        SELECT ik.name AS label, count(ik.name) AS value
+        FROM SELECTED_KEYWORD AS sk
+        JOIN INTEREST_KEYWORD AS ik
+        ON sk.kwd_no = ik.NO
+        GROUP BY ik.name
+    </select>
+
+    <select id="loadInflowChartData" resultType="Map">
+        SELECT R.inflow AS label, count(*) AS value
+        FROM RESERVATION AS R
+        GROUP BY R.inflow
+    </select>
+
+    <select id="loadRegionChartData" resultType="Map">
+        SELECT R.REGION AS label, count(*) AS value
+        FROM RESERVATION AS R
+        GROUP BY R.REGION
+    </select>
+
+    <select id="loadInquiryCategoryChartData" resultType="Map">
+        SELECT QP.CATEGORY AS label, count(*) AS value
+        FROM QUESTION_POST AS QP
+        GROUP BY QP.CATEGORY
+    </select>
+</mapper>

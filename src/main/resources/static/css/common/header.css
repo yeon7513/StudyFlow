@@ -1,6 +1,7 @@
 @import "./variables.css";
 
 header {
+  position: relative;
   text-align: center;
 }
 
@@ -34,4 +35,10 @@ header nav > ul.gnb > li > a {
   display: block;
   padding: 16px 24px;
   transition: 0.3s;
+}
+
+.admin-dashboard {
+  position: absolute;
+  top: 8px;
+  right: 8px;
 }

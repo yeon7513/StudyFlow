@@ -2,14 +2,21 @@
 <html
   lang="ko"
   layout:decorate="~{/layout/admin/dashboard}"
-  th:with="breadCrumbs=${ { {label: '운영현황', path: null} } }"
   xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-  xmlns:th="http://www.thymeleaf.org"
 >
   <head>
     <link href="/css/admin/overview/overview.css" rel="stylesheet" />
     <script src="https://cdn.jsdelivr.net/npm/chart.js@4.5.1/dist/chart.umd.min.js"></script>
-    <script defer th:inline="javascript" th:src="@{/js/admin/overview/chart.js}"></script>
+    <script th:inline="javascript">
+      /*<![CDATA[*/
+      const newReserveData = /*[[${charts.newReserveData}]]*/ {labels: [], values: []};
+      const selectedKeywordData = /*[[${charts.selectedKeywordData}]]*/ {labels: [], values: []};
+      const inflowData = /*[[${charts.inflowData}]]*/ {labels: [], values: []};
+      const regionData = /*[[${charts.regionData}]]*/ {labels: [], values: []};
+      const inquiryCategoryData = /*[[${charts.inquiryCategoryData}]]*/ {labels: [], values: []};
+      /*]]*/
+    </script>
+    <script defer src="/js/admin/overview/chart.js"></script>
   </head>
   <body>
     <section id="overview" layout:fragment="container">

@@ -24,7 +24,7 @@ public class AdminReservationController {
 
   // 예약자 관리
   @GetMapping("/list")
-  String displayReservations(Model model, AdminReservationSearch adminReservationSearch) {
+  String list(Model model, AdminReservationSearch adminReservationSearch) {
 
     // 최초 접근 시 예약 상태를 active로
     if (adminReservationSearch.getReserveState() == null) {

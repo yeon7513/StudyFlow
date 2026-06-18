@@ -17,5 +17,16 @@
         </ul>
       </nav>
     </div>
+
+    <div class="admin-dashboard" th:if="${session.logined_admin != null}">
+      <a href="/admin_dashboard">
+        <i class="fa-solid fa-gear"></i>
+        <span>관리자 모드</span>
+      </a>
+      <a href="/admin/auth/logout">
+        <i class="fa-solid fa-right-from-bracket"></i>
+        <span>로그아웃</span>
+      </a>
+    </div>
   </header>
 </html>

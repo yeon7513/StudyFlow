@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "https://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="adminOverview">
+
+    <!-- 신규 예약자 수 -->
+    <select id="countNewReserve" resultType="Integer">
+        SELECT count(*)
+        FROM RESERVATION AS r
+        WHERE r.is_canceled = 0 AND date(r.created_at) = CURDATE()
+    </select>
+
+    <!-- 총 예약자 수 -->
+    <select id="countTotalReserve" resultType="Integer">
+        SELECT count(*)
+        FROM RESERVATION AS r
+        WHERE r.is_canceled = 0
+    </select>
+
+    <!-- 누적 1위 관심 분야 키워드 -->
+    <select id="findTopKeyword" resultType="Map">
+        SELECT ik.name AS keyword, count(ik.name) AS count
+        FROM SELECTED_KEYWORD AS sk
+        JOIN INTEREST_KEYWORD AS ik
+        ON sk.kwd_no = ik.NO
+        GROUP BY ik.name
+        ORDER BY count DESC
+        LIMIT 1
+    </select>
+
+    <!-- 답변 대기 중인 문의글 수 -->
+    <select id="countWaitingInquiry" resultType="Integer">
+        SELECT count(*)
+        FROM QUESTION_POST
+        WHERE is_answered = 0
+    </select>
+</mapper>

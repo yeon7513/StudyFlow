@@ -41,6 +41,16 @@ public enum RegionEnum {
     this.value = value;
   }
 
+  // 영문을 한글로 -> value를 label로
+  public static String changeValueToLabel(String value) {
+    for (RegionEnum regionEnum : RegionEnum.values()) {
+      if (regionEnum.getValue().equals(value)) {
+        return regionEnum.getLabel();
+      }
+    }
+    return "알 수 없음";
+  }
+
   public String getLabel() {
     return label;
   }

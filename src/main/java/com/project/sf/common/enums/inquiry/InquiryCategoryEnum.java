@@ -15,6 +15,15 @@ public enum InquiryCategoryEnum {
     this.value = value;
   }
 
+  public static String changeValueToLabel(String value) {
+    for (InquiryCategoryEnum inquiryCategoryEnum : InquiryCategoryEnum.values()) {
+      if (inquiryCategoryEnum.getValue().equals(value)) {
+        return inquiryCategoryEnum.getLabel();
+      }
+    }
+    return "알 수 없음";
+  }
+
   public String getLabel() {
     return label;
   }

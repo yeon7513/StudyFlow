@@ -1,5 +1,6 @@
 package com.project.sf.reservation.service;
 
+import com.project.sf.common.enums.reservation.CanceledReasonEnum;
 import com.project.sf.common.enums.reservation.InflowEnum;
 import com.project.sf.common.enums.reservation.RegionEnum;
 import com.project.sf.common.pager.AdminReservationSearch;
@@ -43,21 +44,15 @@ public class ReservationServiceImpl implements ReservationService {
       // 비밀번호 제외
       reservation.setPassword(null);
 
-      // DB에 저장된 지역 영문을 한글로
-      for (RegionEnum region : RegionEnum.values()) {
-        if (region.getValue().equals(reservation.getRegion())) {
-          reservation.setRegion(region.getLabel());
-          break;
-        }
+      // DB에 저장된 영문을 한글로 변경
+      reservation.setRegion(RegionEnum.changeValueToLabel(reservation.getRegion()));
+      reservation.setInflow(InflowEnum.changeValueToLabel(reservation.getInflow()));
+
+      // 취소 사유는 없을 수도 있으니 if문으로 처리
+      if (reservation.getCanceledReason() != null) {
+        reservation.setCanceledReason(CanceledReasonEnum.changeValueToLabel(reservation.getCanceledReason()));
       }
 
-      // DB에 저장된 유입경로 영문을 한글로
-      for (InflowEnum inflow : InflowEnum.values()) {
-        if (inflow.getValue().equals(reservation.getInflow())) {
-          reservation.setInflow(inflow.getLabel());
-          break;
-        }
-      }
     }
 
     return reservations;

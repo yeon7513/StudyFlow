@@ -1,14 +1,14 @@
 @charset "UTF-8";
 @import "../common/variables.css";
 
-#wrap {
+#error {
   position: relative;
   width: 100vw;
   height: 100vh;
   background: url("../../images/error_notice.png") no-repeat top/contain;
 }
 
-#wrap::before {
+#error::before {
   content: "";
   position: absolute;
   top: 0;
@@ -22,7 +22,7 @@
   background: linear-gradient(#fff 0%, #ebf3ee 100%);
 }
 
-#wrap > .content {
+#error > .content {
   position: absolute;
   top: 45%;
   left: 50%;
@@ -30,6 +30,6 @@
   text-align: center;
 }
 
-#wrap > .content > .btn {
+#error > .content .btn {
   margin-top: 24px;
 }

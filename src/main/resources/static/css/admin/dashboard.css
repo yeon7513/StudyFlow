@@ -7,7 +7,7 @@
   max-width: 100vw;
   height: fit-content;
   min-height: 100vh;
-  background-color: #f7f7f9;
+  background-color: #f9f9f9;
 }
 
 #dashboard-wrap header,
@@ -19,6 +19,9 @@
 }
 
 #dashboard-wrap header {
+  position: sticky;
+  top: 0;
+  z-index: 10;
   display: flex;
   justify-content: space-between;
   background-color: #fff;
@@ -28,6 +31,10 @@
 #dashboard-wrap header .utils {
   display: flex;
   gap: 8px;
+}
+
+#dashboard-wrap header .util-icon {
+  display: none;
 }
 
 #dashboard-wrap header .bread-crumb {
@@ -69,19 +76,46 @@
 
 /* ------------------------------------------------------ */
 
+/* 헤더 축소 */
+#dashboard-wrap header.shrink {
+  padding: 1rem;
+}
+
+#dashboard-wrap header.shrink .util-text {
+  display: none;
+}
+
+#dashboard-wrap header.shrink .util-icon {
+  display: block;
+}
+
+#dashboard-wrap header.shrink a {
+  padding: 4px 16px;
+}
+
+/* ------------------------------------------------------ */
+
 /* 사이드바 */
 #sidebar {
+  position: sticky;
+  top: 0;
   display: flex;
   flex-direction: column;
   gap: 8px;
   padding: 24px;
   width: 20rem;
+  height: 100vh;
   background-color: #fff;
   border-right: 1px solid #eaeaea;
+  transition: width 0.3s;
 }
 
 #sidebar .profile {
   text-align: center;
+}
+
+#sidebar .profile .logo {
+  opacity: 1;
 }
 
 #sidebar .profile .logo a {
@@ -133,12 +167,16 @@
   border-bottom: 1px solid #d9d9d9;
 }
 
+#sidebar .main-menu .menu-icon {
+  display: none;
+}
+
 #sidebar > nav > .main-menu a {
   display: block;
   padding: 8px;
 }
 
-#sidebar > nav > .main-menu a:hover {
+#sidebar > nav > .main-menu li a:hover {
   color: var(--secondary-color);
 }
 
@@ -150,13 +188,12 @@
   border-bottom: 1px dashed #d9d9d9;
 }
 
-#sidebar > nav > .main-menu > li > a {
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
+#sidebar > nav .active-menu {
+  color: var(--secondary-color);
 }
 
-#sidebar > nav .sub-menu > li > a {
+#sidebar > nav li a.active-menu:hover {
+  color: var(--point-color);
 }
 
 #sidebar .profile .profile-util {
@@ -164,4 +201,55 @@
   justify-content: center;
   align-items: center;
   gap: 16px;
+}
+
+/* ------------------------------------------------------ */
+
+/* 사이드바 접었을 경우 */
+#sidebar.shrink {
+  padding: 1rem;
+  width: 60px;
+}
+
+#sidebar.shrink i {
+  font-size: 20px !important;
+}
+
+#sidebar.shrink .profile .logo {
+  opacity: 0;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+}
+
+#sidebar.shrink .profile-util {
+  display: flex;
+  flex-direction: column-reverse;
+}
+
+#sidebar.shrink .admin-info {
+  margin: 0;
+  opacity: 0;
+  width: 0;
+  height: 0;
+  overflow: hidden;
+}
+
+#sidebar.shrink .main-menu .menu-icon {
+  display: block;
+}
+
+#sidebar.shrink > nav > .main-menu > li.overview a {
+  width: fit-content;
+}
+
+#sidebar.shrink .main-menu li {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+#sidebar.shrink .main-menu .menu-text {
+  opacity: 0;
+  display: none;
 }

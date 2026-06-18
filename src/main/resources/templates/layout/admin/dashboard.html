@@ -1,14 +1,15 @@
 <!doctype html>
 <html
   lang="ko"
-  xmlns:th="http://www.thymeleaf.org"
   xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  xmlns:th="http://www.thymeleaf.org"
 >
   <head>
     <th:block th:replace="~{layout/common/fragments/config :: Config}">
     </th:block>
     <title layout:fragment="title">스터디 플로우 - 관리자</title>
-    <link rel="stylesheet" href="/css/admin/dashboard.css" />
+    <link href="/css/admin/dashboard.css" rel="stylesheet" />
+    <script defer src="/js/admin/common.js"></script>
   </head>
 
   <body>

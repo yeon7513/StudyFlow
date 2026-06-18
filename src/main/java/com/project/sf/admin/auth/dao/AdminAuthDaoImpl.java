@@ -1,22 +1,21 @@
-package com.project.sf.admin.dao;
+package com.project.sf.admin.auth.dao;
 
+import com.project.sf.admin.auth.model.Admin;
+import com.project.sf.admin.auth.model.AdminLogin;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
-import com.project.sf.admin.AdminLogin;
-import com.project.sf.admin.Admin;
 
 @Repository
-public class AdminDaoImpl implements AdminDao {
+public class AdminAuthDaoImpl implements AdminAuthDao {
 
   @Autowired
   SqlSession sql;
 
   @Override
   public Admin login(AdminLogin adminLogin) {
-    return sql.selectOne("admin.login", adminLogin);
+    return sql.selectOne("adminAuth.login", adminLogin);
   }
-
 
 
 }

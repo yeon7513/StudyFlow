@@ -6,10 +6,18 @@
   margin-bottom: 24px;
 }
 
+#overview .wrap .chart-content {
+  box-shadow: var(--box-shadow);
+}
+
 #overview .overview-title {
   margin-bottom: 16px;
   padding-bottom: 8px;
   border-bottom: 1px solid #eaeaea;
+}
+
+.new-reserve > .new-reserve-filter {
+  text-align: right;
 }
 
 /* 위젯 */
@@ -28,10 +36,6 @@
   outline: 1px dotted red;
 }
 
-#widget .new-inquiries {
-  grid-column: span 2;
-}
-
 /* 차트 */
 #chart {
 
@@ -45,16 +49,27 @@
 /* 신규 예약자 & 관심분야 & 문의글 */
 .service-chart {
   display: grid;
-  grid-template-columns: repeat(4, 1fr);
+  grid-template-columns: repeat(3, 1fr);
   gap: 24px;
 }
 
-.service-chart .chart-content.category {
+.service-chart .chart-content.new-reserve {
   grid-column: span 2;
 }
 
 /* 지역 & 유입경로 */
 .map-chart {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 24px;
+}
+
+.map-chart .chart-content.region {
+  grid-column: span 2;
+}
+
+/* 문의글 */
+.inquiry-chart {
   display: grid;
   grid-template-columns: repeat(2, 1fr);
   gap: 24px;

@@ -8,13 +8,31 @@
     <h3 class="overview-title">TODAY</h3>
     <div class="overview-container">
       <div class="widget-content new-reserve-count">
-        신규 예약자 현황 (숫자로 표시)
+        <div>
+          <p>신규 사전 예약</p>
+          <span th:text="|${widget.newReserve}명|"></span>
+        </div>
       </div>
-      <div class="widget-content today-work-count">
-        금일 업무 처리 현황 (숫자로 표시)
+      <div class="widget-content total-reserve-count">
+        <div>
+          <p>총 누적 사전 예약</p>
+          <span th:text="|${widget.totalReserve}건|"></span>
+        </div>
       </div>
-      <div class="widget-content new-inquiries">
-        새로 등록된 처리할 문의글
+      <div class="widget-content top-keywords">
+        <div>
+          <p>누적 1위 관심 분야</p>
+          <span th:text="${widget.topKeyword}"></span>
+          <span th:text="|${widget.topKeywordCount}명 선택|"></span>
+        </div>
+
+      </div>
+      <div class="widget-content waiting-inquiry-count">
+        <div>
+          <p>답변 대기 중인 문의글 수</p>
+          <span th:text="|${widget.waitingInquiry}건|"></span>
+        </div>
+
       </div>
     </div>
   </div>

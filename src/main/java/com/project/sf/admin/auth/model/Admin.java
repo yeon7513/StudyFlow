@@ -1,4 +1,4 @@
-package com.project.sf.admin;
+package com.project.sf.admin.auth.model;
 
 public class Admin {
   private String id;

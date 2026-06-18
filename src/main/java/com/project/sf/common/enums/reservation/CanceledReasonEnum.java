@@ -15,6 +15,16 @@ public enum CanceledReasonEnum {
     this.value = value;
   }
 
+  // 영문을 한글로 -> value를 label로
+  public static String changeValueToLabel(String value) {
+    for (CanceledReasonEnum canceledReasonEnum : CanceledReasonEnum.values()) {
+      if (canceledReasonEnum.getValue().equals(value)) {
+        return canceledReasonEnum.getLabel();
+      }
+    }
+    return "알 수 없음";
+  }
+
   public String getLabel() {
     return label;
   }
