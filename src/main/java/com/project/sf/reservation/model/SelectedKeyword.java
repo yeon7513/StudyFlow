@@ -1,4 +1,4 @@
-package com.project.sf.reservation;
+package com.project.sf.reservation.model;
 
 public class SelectedKeyword {
   private Long kwdNo; // 키워드 고유 번호

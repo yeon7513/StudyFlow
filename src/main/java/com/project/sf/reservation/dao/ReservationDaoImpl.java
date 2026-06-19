@@ -2,7 +2,7 @@ package com.project.sf.reservation.dao;
 
 import com.project.sf.common.pager.AdminReservationSearch;
 import com.project.sf.common.pager.Pager;
-import com.project.sf.reservation.Reservation;
+import com.project.sf.reservation.model.Reservation;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;

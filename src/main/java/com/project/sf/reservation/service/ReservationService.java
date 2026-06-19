@@ -1,9 +1,10 @@
 package com.project.sf.reservation.service;
 
-import java.util.List;
 import com.project.sf.common.pager.AdminReservationSearch;
-import com.project.sf.reservation.Reservation;
-import com.project.sf.reservation.SelectedKeyword;
+import com.project.sf.reservation.model.Reservation;
+import com.project.sf.reservation.model.SelectedKeyword;
+
+import java.util.List;
 
 public interface ReservationService {
 

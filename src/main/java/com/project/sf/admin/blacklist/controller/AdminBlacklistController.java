@@ -10,7 +10,7 @@ public class AdminBlacklistController {
 
   // 블랙리스트 관리
   @GetMapping("/list")
-  String main() {
+  String list() {
     return "pages/admin/management/blacklist/list";
   }
 }

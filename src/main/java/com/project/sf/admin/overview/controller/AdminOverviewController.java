@@ -33,7 +33,7 @@ public class AdminOverviewController {
     model.addAttribute("charts", charts);
 
 
-    return "pages/admin/main";
+    return "pages/admin/overview";
   }
 
   // 날짜별 신규 예약자

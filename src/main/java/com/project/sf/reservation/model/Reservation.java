@@ -1,4 +1,4 @@
-package com.project.sf.reservation;
+package com.project.sf.reservation.model;
 
 import java.util.List;
 

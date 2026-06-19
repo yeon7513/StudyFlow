@@ -1,8 +1,8 @@
 package com.project.sf.reservation.controller;
 
 import com.project.sf.common.filter.user.ReservationFormOptions;
-import com.project.sf.reservation.Reservation;
-import com.project.sf.reservation.SelectedKeyword;
+import com.project.sf.reservation.model.Reservation;
+import com.project.sf.reservation.model.SelectedKeyword;
 import com.project.sf.reservation.service.ReservationService;
 import com.project.sf.trend.Category;
 import com.project.sf.trend.service.TrendService;

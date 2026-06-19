@@ -14,7 +14,7 @@
   <body>
     <section layout:fragment="container">
       <div
-        th:replace="~{layout/admin/fragments/search_form :: SearchForm(~{:: #filters})}"
+        th:replace="~{layout/admin/fragments/global/search_form :: SearchForm(~{:: #filters})}"
       >
         <div id="filters">
           <!-- 필터 선택 -->
@@ -142,7 +142,7 @@
 
           <div
             th:if="${inquiryDetail != null}"
-            th:replace="~{/layout/admin/fragments/inquiry_detail :: InquiryDetail}"
+            th:replace="~{/layout/admin/fragments/inquiry/inquiry_detail :: InquiryDetail}"
           ></div>
         </article>
       </div>

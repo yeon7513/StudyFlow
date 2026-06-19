@@ -14,10 +14,10 @@
 
   <body>
     <div id="dashboard-wrap">
-      <div th:replace="~{layout/admin/fragments/sidebar :: Sidebar}"></div>
+      <div th:replace="~{layout/admin/fragments/global/sidebar :: Sidebar}"></div>
       <div class="container">
         <div
-          th:replace="~{layout/admin/fragments/header :: Header(breadCrumb=${breadCrumbs})}"
+          th:replace="~{layout/admin/fragments/global/header :: Header(breadCrumb=${breadCrumbs})}"
         ></div>
         <main>
           <th:block layout:fragment="container"></th:block>

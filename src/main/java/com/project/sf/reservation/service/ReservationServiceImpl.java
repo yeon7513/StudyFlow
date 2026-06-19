@@ -4,9 +4,9 @@ import com.project.sf.common.enums.reservation.CanceledReasonEnum;
 import com.project.sf.common.enums.reservation.InflowEnum;
 import com.project.sf.common.enums.reservation.RegionEnum;
 import com.project.sf.common.pager.AdminReservationSearch;
-import com.project.sf.reservation.Reservation;
-import com.project.sf.reservation.SelectedKeyword;
 import com.project.sf.reservation.dao.ReservationDao;
+import com.project.sf.reservation.model.Reservation;
+import com.project.sf.reservation.model.SelectedKeyword;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

@@ -7,11 +7,38 @@
   xmlns:th="http://www.thymeleaf.org"
 >
   <head>
-    <link href="/css/admin/overview/overview.css" rel="stylesheet" />
+    <link href="/css/admin/interest/interest.css" rel="stylesheet" />
+    <script defer src="/js/admin/interest/toggle_panel.js"></script>
   </head>
   <body>
-    <section layout:fragment="container">
+    <section id="interest" layout:fragment="container">
       <h2>관심 분야 관리</h2>
+      <div class="summary">
+        <div class="summary-content total-category">
+          <span>전체 카테고리</span>
+          <span th:text="|${0}개|">전체 카테고리</span>
+        </div>
+        <div class="summary-content empty-category">
+          <span>빈 카테고리</span>
+          <span th:text="|${0}개|">빈 카테고리</span>
+        </div>
+        <div class="summary-content total-keyword">
+          <span>전체 키워드</span>
+          <span th:text="|${0}개|">전체 키워드</span>
+        </div>
+        <div class="summary-content active-keyword">
+          <p>키워드 운영 상태</p>
+          <span th:text="|활성 ${0}개|">키워드 운영 상태 - 활성</span>
+          <span th:text="|비활성 ${0}개|">키워드 운영 상태 - 비활성</span>
+        </div>
+      </div>
+      <div class="tab-menu">
+        <button class="tab-button active-tab" data-url="category" type="button">카테고리</button>
+        <button class="tab-button" data-url="keyword" type="button">키워드</button>
+      </div>
+      <article id="tab-panel">
+        <th:block th:replace="~{layout/admin/fragments/interest/category_panel :: CategoryPanel}"></th:block>
+      </article>
     </section>
   </body>
 </html>

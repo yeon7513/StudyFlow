@@ -1,10 +1,11 @@
 package com.project.sf.reservation.dao;
 
-import java.util.List;
-import java.util.Map;
 import com.project.sf.common.pager.AdminReservationSearch;
 import com.project.sf.common.pager.Pager;
-import com.project.sf.reservation.Reservation;
+import com.project.sf.reservation.model.Reservation;
+
+import java.util.List;
+import java.util.Map;
 
 public interface ReservationDao {
 

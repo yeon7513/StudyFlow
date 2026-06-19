@@ -78,7 +78,7 @@ public class AdminInquiryController {
     // 프래그먼트를 반환하는 것도 가능!!
     // 타임리프가 SSR라서 가능한듯함.
 
-    return "layout/admin/fragments/inquiry_detail :: InquiryDetail";
+    return "layout/admin/fragments/inquiry/inquiry_detail :: InquiryDetail";
   }
 
 
