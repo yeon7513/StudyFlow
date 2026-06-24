@@ -5,28 +5,29 @@
   xmlns:th="http://www.thymeleaf.org"
 >
   <header>
-    <div class="wrap">
-      <h1 class="logo">
-        <a href="/"> <span>S</span>TUDY <span>F</span>LOW </a>
-      </h1>
-      <nav>
-        <ul class="gnb flex-box">
-          <li><a href="/trend">실시간 트렌드</a></li>
-          <li><a href="/reservation">사전 예약</a></li>
-          <li><a href="/inquiry">Q&A</a></li>
-        </ul>
-      </nav>
-    </div>
-
-    <div class="admin-dashboard" th:if="${session.logined_admin != null}">
-      <a href="/admin_dashboard">
-        <i class="fa-solid fa-gear"></i>
-        <span>관리자 모드</span>
-      </a>
-      <a href="/admin/auth/logout">
-        <i class="fa-solid fa-right-from-bracket"></i>
-        <span>로그아웃</span>
-      </a>
+    <div class="px-3 py-2 border-bottom">
+      <div class="container-lg">
+        <div class="d-flex flex-wrap align-items-center justify-content-center justify-content-lg-start">
+          <a class="d-flex align-items-center my-2 my-lg-0 me-lg-auto text-primary fw-bold fs-4 navbar-brand" href="/">
+            STUDY FLOW
+          </a>
+          <ul class="nav col-12 col-lg-auto my-2 justify-content-center align-items-center my-md-0 text-small">
+            <li class="nav-item">
+              <a class="nav-link text-secondary" href="/trend">실시간 트렌드</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-secondary" href="/reservation">사전 예약</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link text-secondary" href="/inquiry">Q&A</a>
+            </li>
+            <li class="text-end" th:if="${session.logined_admin != null}">
+              <a class="btn  btn-primary" href="/admin_dashboard">관리자 모드</a>
+              <a class="btn btn-light text-dark me-2" href="/admin/auth/logout">로그아웃</a>
+            </li>
+          </ul>
+        </div>
+      </div>
     </div>
   </header>
 </html>

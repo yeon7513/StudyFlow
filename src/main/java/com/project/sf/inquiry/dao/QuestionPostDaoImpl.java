@@ -1,7 +1,7 @@
 package com.project.sf.inquiry.dao;
 
 import com.project.sf.common.pager.Pager;
-import com.project.sf.inquiry.QuestionPost;
+import com.project.sf.inquiry.model.QuestionPost;
 import org.apache.ibatis.session.SqlSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;

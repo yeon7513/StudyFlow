@@ -1,4 +1,4 @@
-package com.project.sf.inquiry;
+package com.project.sf.inquiry.model;
 
 public class AnswerPost {
   private Long postNo;

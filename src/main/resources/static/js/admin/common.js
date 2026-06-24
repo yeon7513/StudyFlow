@@ -13,24 +13,18 @@ document.addEventListener("DOMContentLoaded", () => {
   // 사이드바 접기
   const toggleSidebarButton = document.getElementById("toggle-sidebar-button");
   const sidebar = document.getElementById("sidebar");
-  const header = document.querySelector("#dashboard-wrap header");
 
+  // 초기 상태 로드
   if (localStorage.getItem('sidebarState') === 'shrink') {
     sidebar.classList.add('shrink');
-    header.classList.add('shrink');
   }
 
-  const handleToggleSidebar = () => {
-    sidebar.classList.toggle("shrink");
-    header.classList.toggle("shrink");
+  toggleSidebarButton.addEventListener("click", () => {
+    const isShrink = sidebar.classList.toggle("shrink");
 
-    if (sidebar.classList.contains('shrink')) {
-      localStorage.setItem('sidebarState', 'shrink');
-    } else {
-      localStorage.setItem('sidebarState', 'visible');
-    }
-  };
+    console.log(isShrink);
 
-  toggleSidebarButton.addEventListener("click", handleToggleSidebar);
-
+    // 상태 저장
+    localStorage.setItem('sidebarState', isShrink ? 'shrink' : 'visible');
+  });
 });

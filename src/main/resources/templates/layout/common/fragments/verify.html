@@ -1,37 +1,46 @@
 <!doctype html>
 <html
   lang="ko"
+  th:fragment="Verify"
   xmlns:th="http://www.thymeleaf.org"
-  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 >
-  <div th:fragment="Modal" id="modal">
-    <form method="post" novalidate>
-      <input type="hidden" id="postNo" name="no" th:value="${detail.no}" />
-      <input type="hidden" id="postAction" name="action" />
+  <!-- 비밀번호 검증 폼 -->
+  <form id="password-verify-form" method="post" novalidate>
+    <input id="post-no" name="postNo" type="hidden" />
+    <!--  -->
+    <input id="post-action" name="postAction" type="hidden" />
 
-      <div class="title">
-        <h3>title</h3>
-      </div>
+    <!-- 타이틀 및 닫기 버튼 -->
+    <div class="modal-header border-bottom-0 pb-0 pt-4 px-4">
+      <h3 class="modal-title fs-5 fw-bold">비밀번호 확인</h3>
+      <button aria-label="Close" class="btn-close" data-bs-dismiss="modal" type="button"></button>
+    </div>
 
-      <div>
-        <label for="password">
+    <!-- 본문 내용 -->
+    <div class="modal-body p-4">
+      <div class="mb-2">
+        <label class="form-label text-secondary fw-semibold small" for="password">
           게시글 작성 시 등록한 비밀번호를 입력해주세요.
         </label>
-        <div class="field-group">
-          <input
-            type="password"
-            id="password"
-            name="postPw"
-            placeholder="게시글 비밀번호 입력"
-            required
-          />
+        <input
+          class="form-control form-control-lg bg-light"
+          id="password"
+          name="postPw"
+          placeholder="게시글 비밀번호 입력"
+          required
+          type="password"
+        />
+        <div class="invalid-feedback text-danger fw-bold mt-1">
+          비밀번호가 일치하지 않습니다.
         </div>
       </div>
+    </div>
 
-      <div class="button-group">
-        <button id="verify-password" type="submit" class="btn">확인</button>
-        <button id="cancel-modal" type="button" class="btn cancel">취소</button>
-      </div>
-    </form>
-  </div>
+    <!-- 취소 & 서브밋 버튼 -->
+    <div class="modal-footer border-top-0 pt-0 pb-4 px-4 d-flex justify-content-end gap-2">
+      <button class="btn btn-light px-4 fw-bold border" data-bs-dismiss="modal" id="cancel-modal" type="button">취소
+      </button>
+      <button class="btn btn-primary px-4 fw-bold shadow-sm" id="verify-password" type="submit">확인</button>
+    </div>
+  </form>
 </html>

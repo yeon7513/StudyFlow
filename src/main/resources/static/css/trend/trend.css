@@ -2,41 +2,85 @@
 
 @import '../common/variables.css';
 
-.banner .title > span {
-  font-weight: 400;
-}
-
-.top-keywords {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-}
-
-.top-keywords li {
+/* 알맹이 기본 공통 디자인 */
+.trend-bubble {
+  border-radius: 50%;
+  background-color: #ffffff;
+  border: 1px solid #e9ecef;
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.04);
   display: flex;
   flex-direction: column;
   justify-content: center;
   align-items: center;
+  text-align: center;
+  padding: 10px;
+  animation: float-vertical 3s ease-in-out infinite;
+  transition: transform 0.2s ease;
+  aspect-ratio: 1 / 1;
+  flex-shrink: 0;
+}
+
+/* 1위 방울 사이즈 */
+.rank-1 .trend-bubble {
+  width: 220px;
+  height: 220px;
+  animation-delay: 0s;
+}
+
+/* 2위 ~ 5위 방울 사이즈 */
+.rank-2 .trend-bubble,
+.rank-3 .trend-bubble,
+.rank-4 .trend-bubble,
+.rank-5 .trend-bubble {
   width: 200px;
   height: 200px;
-  background-color: rgba(232, 237, 242, 0.2);
-  border: 1px solid var(--bg-color);
-  border-radius: 50%;
 }
 
-.top-keywords .icon {
-  text-align: center;
+/* 애니메이션 */
+.rank-2 .trend-bubble {
+  animation-delay: 0.4s;
 }
 
-.top-keywords .icon .category {
-  font-size: 14px;
+.rank-3 .trend-bubble {
+  animation-delay: 0.8s;
 }
 
-.top-keywords .icon .keyword {
-  font-size: 20px;
-  font-weight: 600;
+.rank-4 .trend-bubble {
+  animation-delay: 1.2s;
 }
 
-.select {
-  text-align: center;
+.rank-5 .trend-bubble {
+  animation-delay: 1.6s;
+}
+
+/* 카테고리 폰트 크기 */
+.trend-bubble .category {
+  font-size: 0.75rem;
+}
+
+/* 키워드 폰트 크기 */
+.trend-bubble .keyword {
+  font-size: 0.95rem;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+/* 선택한 사용자 수 */
+.trend-bubble .small {
+  font-size: 1rem;
+}
+
+/* 1위 글씨 크기 강조 */
+.rank-1 .trend-bubble .keyword {
+  font-size: 2rem;
+}
+
+
+@keyframes float-vertical {
+  0%, 100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-12px);
+  }
 }

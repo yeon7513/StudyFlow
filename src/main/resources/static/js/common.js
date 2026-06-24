@@ -1,5 +1,5 @@
-// 각 페이지마다 렌더링 될 때 이벤트 핸들러 적용
 document.addEventListener("DOMContentLoaded", () => {
+  // 각 페이지마다 렌더링 될 때 이벤트 핸들러 적용
   // 브라우저의 주소(URL 경로)를 가져옴
   const path = window.location.pathname;
 
@@ -9,4 +9,7 @@ document.addEventListener("DOMContentLoaded", () => {
     sessionStorage.removeItem("user-info");
   }
 
+
+  // 모달 열기/닫기
+  
 });

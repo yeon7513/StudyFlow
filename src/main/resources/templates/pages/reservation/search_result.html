@@ -1,9 +1,9 @@
 <!doctype html>
 <html
   lang="ko"
-  xmlns:th="http://www.thymeleaf.org"
-  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
   layout:decorate="~{/layout/common/layout}"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  xmlns:th="http://www.thymeleaf.org"
 >
   <head>
     <title layout:fragment="title">스터디 플로우 - 사전예약</title>
@@ -14,6 +14,7 @@
       <th:block th:if="${result != null}">
         <th:block
           th:replace="~{layout/common/fragments/Banner :: Banner(
+          'search-success',
 					'Perfect Match', 
 					'나와 딱 맞는 스터디를 만날 준비 완료', 
 					'사전예약 내역이 확인되었습니다.<br>정식 오픈 시, 나의 목표와 레벨에 꼭 맞는 스터디 메이트를 가장 먼저 매칭해 드릴게요.'
@@ -24,6 +25,7 @@
       <th:block th:if="${result == null}">
         <th:block
           th:replace="~{layout/common/fragments/Banner :: Banner(
+          'search-fail',
 					'New Connection', 
 					'아직 맞춤형 스터디 매칭을 신청하지 않으셨네요!', 
 					'조회된 사전예약 내역이 없습니다.<br>지금 관심 분야를 설정하시고, 정식 오픈 시 가장 먼저 나와 핏이 맞는 스터디 그룹을 추천받아 보세요.'
@@ -32,28 +34,117 @@
         </th:block>
       </th:block>
 
-      <div>
-        <div th:if="${result == null}">
-          <h3>입력하신 정보와 일치하는 예약 내역이 없습니다.</h3>
-          <p>이메일과 비밀번호를 다시 확인해주세요.</p>
-          <a href="/reservation" class="btn">다시 검색</a>
-          <a href="/reservation/reserve" class="btn">사전 예약</a>
-        </div>
+      <div class="container-lg my-5">
+        <div class="row justify-content-center">
+          <div class="col-12 col-md-8 col-lg-6">
 
-        <div th:if="${result != null}">
-          <p th:text="${result.email}">이메일</p>
-          <p th:text="${result.name}">예약자명</p>
-          <p th:text="${result.phone}">연락처</p>
-          <p th:text="${result.createdAt}">예약일</p>
-          <ul th:if="${!result.selectedKeywords.isEmpty()}">
-            <li th:each="keyword : ${result.selectedKeywords}">
-              <span th:text="${keyword.keywordName}">키워드명</span>
-              <span th:text="${keyword.studyLevel}">레벨</span>
-            </li>
-          </ul>
-          <div>
-            <a href="/" class="btn">메인페이지로 이동</a>
-            <a href="/trend" class="btn">실시간 트렌드 확인하기</a>
+            <!-- 조회 결과가 없는 경우 (Empty State) -->
+            <div class="text-center py-5" th:if="${result == null}">
+
+              <!-- 경고 아이콘 -->
+              <i class="bi bi-exclamation-circle text-warning mb-3" style="font-size: 4.5rem;"></i>
+
+              <h3 class="fw-bold mb-3 fs-4 text-dark">입력하신 정보와 일치하는 예약 내역이 없습니다.</h3>
+              <p class="text-secondary mb-5">이메일과 비밀번호를 다시 한 번 확인해 주세요.</p>
+
+              <!-- 버튼 그룹 -->
+              <div class="d-flex flex-column flex-sm-row justify-content-center gap-2">
+                <a class="btn btn-outline-secondary btn-lg px-5 py-3 fw-bold rounded-pill" href="/reservation">
+                  <i class="bi bi-arrow-counterclockwise me-1"></i>다시 검색
+                </a>
+                <a class="btn btn-primary btn-lg px-5 py-3 fw-bold rounded-pill shadow" href="/reservation/reserve">
+                  사전 예약하기 <i class="bi bi-arrow-right-short"></i>
+                </a>
+              </div>
+
+            </div>
+
+
+            <!-- 조회 결과가 있는 경우 (Success State) -->
+            <div th:if="${result != null}">
+
+              <!-- 상단 헤더 -->
+              <div class="text-center mb-5">
+                <i class="bi bi-search text-success" style="font-size: 3.5rem;"></i>
+                <h2 class="fw-bold mt-3 mb-2">예약 정보 조회 결과</h2>
+                <p class="text-secondary">고객님의 사전예약 상세 내역입니다.</p>
+              </div>
+
+              <!-- 예약 정보 카드 -->
+              <div class="card border border-light-subtle shadow-sm rounded-4 overflow-hidden mb-4">
+                <div class="card-body p-4 p-md-5">
+
+                  <!-- 기본 정보 -->
+                  <h4 class="fw-bold mb-4 border-bottom pb-2 fs-5">
+                    <i class="bi bi-person-vcard-fill me-2 text-secondary"></i>기본 예약 정보
+                  </h4>
+
+                  <ul class="list-unstyled mb-5">
+                    <li class="d-flex justify-content-between align-items-center py-3 border-bottom border-light">
+                      <span class="text-secondary fw-semibold">이메일</span>
+                      <span class="fw-bold text-dark" th:text="${result.email}">이메일</span>
+                    </li>
+                    <li class="d-flex justify-content-between align-items-center py-3 border-bottom border-light">
+                      <span class="text-secondary fw-semibold">예약자명</span>
+                      <span class="fw-bold text-dark" th:text="${result.name}">예약자명</span>
+                    </li>
+                    <li class="d-flex justify-content-between align-items-center py-3 border-bottom border-light">
+                      <span class="text-secondary fw-semibold">연락처</span>
+                      <span class="fw-bold text-dark" th:text="${result.phone}">연락처</span>
+                    </li>
+                    <li class="d-flex justify-content-between align-items-center py-3 border-bottom border-light">
+                      <span class="text-secondary fw-semibold">예약일</span>
+                      <span class="fw-bold text-dark" th:text="${result.createdAt}">예약일</span>
+                    </li>
+                  </ul>
+
+                  <!-- 관심 분야 (선택한 키워드가 있을 때만 노출) -->
+                  <div th:if="${!result.selectedKeywords.isEmpty()}">
+                    <h4 class="fw-bold mb-3 fs-5">
+                      <i class="bi bi-bookmark-star-fill me-2 text-secondary"></i>선택한 관심 분야
+                    </h4>
+
+                    <div class="bg-light rounded-4 p-3 border border-light-subtle">
+                      <ul class="list-unstyled mb-0 d-flex flex-column gap-2">
+                        <li
+                          class="d-flex justify-content-between align-items-center bg-white p-3 rounded-3 border shadow-sm"
+                          th:each="keyword : ${result.selectedKeywords}">
+                          <span class="fw-bold text-dark fs-6" th:text="${keyword.keywordName}">키워드명</span>
+                          <span class="badge bg-primary-subtle text-primary rounded-pill px-3 py-2 fw-bold"
+                                th:text="${keyword.studyLevel}">레벨</span>
+                        </li>
+                      </ul>
+                    </div>
+                  </div>
+
+                </div>
+              </div>
+
+              <!-- 이동 버튼 그룹 -->
+              <div class="d-flex flex-column flex-sm-row justify-content-center gap-2">
+                <a class="btn btn-light border btn-lg px-4 py-3 fw-bold rounded-pill w-100 w-sm-auto" href="/">
+                  메인페이지
+                </a>
+                <a class="btn btn-primary btn-lg px-3 py-3 fw-bold rounded-pill shadow w-100 w-sm-auto" href="/trend">
+                  실시간 트렌드 확인하기 <i class="bi bi-graph-up-arrow ms-1"></i>
+                </a>
+              </div>
+
+              <!-- 사전 예약 취소 영역 -->
+              <div class="text-center mt-3 pt-3">
+                <div class="mx-auto border-top border-secondary-subtle mb-4"></div>
+                <!-- 취소 폼 -->
+                <form>
+                  <!-- 백엔드에서 어떤 유저를 지울지 알아야 하므로 이메일을 hidden으로 넘겨줌 -->
+                  <input name="email" th:value="${result.email}" type="hidden" />
+
+                  <button class="btn btn-link text-danger text-decoration-none small fw-semibold" type="submit">
+                    <i class="fa-solid fa-triangle-exclamation"></i> 사전 예약을 취소하고 싶어요
+                  </button>
+                </form>
+              </div>
+
+            </div>
           </div>
         </div>
       </div>

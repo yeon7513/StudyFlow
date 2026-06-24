@@ -1,53 +1,113 @@
 <!doctype html>
 <html
   lang="ko"
-  xmlns:th="http://www.thymeleaf.org"
-  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
   layout:decorate="~{/layout/common/layout}"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  xmlns:th="http://www.thymeleaf.org"
 >
   <head>
     <title layout:fragment="title">스터디 플로우 - Q&A</title>
-    <link rel="stylesheet" href="/css/inquiry/detail.css" />
+    <link href="/css/inquiry/detail.css" rel="stylesheet" />
     <script defer src="/js/inquiry/detail.js"></script>
   </head>
   <body>
-    <section layout:fragment="container" id="detail">
-      <!-- 질문 본문 내용 -->
-      <div class="content question">
-        <div class="title">
-          <h3 th:text="${detail.title}">게시글 제목</h3>
-          <p th:text="${detail.createdAt}">날짜</p>
+    <section class="container-lg my-5" id="detail" layout:fragment="container">
+
+      <div class="row justify-content-center">
+        <div class="col-12 col-md-10 col-lg-8">
+
+          <!-- 질문(Question) 영역 -->
+          <div class="card shadow-sm border-light-subtle rounded-4 overflow-hidden mb-4">
+
+            <!-- 질문 헤더 (제목, 날짜) -->
+            <div class="card-header bg-white border-bottom p-4">
+              <div class="d-flex justify-content-between align-items-center mb-2">
+                <span class="badge bg-secondary px-3 py-2" th:text="${detail.category}">문의 유형</span>
+                <span class="text-muted small" th:text="${detail.createdAt}">작성일</span>
+              </div>
+              <h3 class="fs-4 fw-bold mb-0 lh-base" th:text="${detail.title}">게시글 제목</h3>
+            </div>
+
+            <!-- 질문 바디 (본문, 액션 버튼) -->
+            <div class="card-body p-4 p-md-5">
+              <p class="card-text fs-6 lh-lg mb-5 text-dark"
+                 style="white-space: pre-wrap;"
+                 th:text="${detail.text}">본문내용</p>
+
+              <div class="d-flex justify-content-between align-items-end mt-4">
+                <!-- 비밀번호 노출 영역 -> 나중에 삭제할 것 -->
+                <p class="text-muted small mb-0 fw-semibold">
+                  <i class="bi bi-lock-fill me-1"></i>글 비밀번호: <span th:text="${detail.postPw}">비밀번호</span>
+                </p>
+
+                <!-- 수정/삭제 버튼 -->
+                <div class="d-flex gap-2">
+                  <button class="btn btn-outline-secondary px-4 fw-bold" data-bs-target="#passwordVerifyModal"
+                          id="modify"
+                          th:data-post-no="${detail.no}"
+                          th:if="${detail.isAnswered == false}"
+                          type="button">
+                    수정
+                  </button>
+
+                  <button class="btn btn-outline-danger px-4 fw-bold" data-bs-target="#passwordVerifyModal"
+                          id="delete"
+                          th:data-post-no="${detail.no}"
+                          type="button">
+                    삭제
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <!-- 답변(Answer) 영역 -->
+
+          <!-- 미답변 상태 (Empty State) -->
+          <div class="card bg-light border-0 shadow-sm rounded-4 mb-5" th:if="${detail.answerPost == null}">
+            <div class="card-body text-center py-5">
+              <i class="bi bi-clock-history text-secondary mb-3 d-block" style="font-size: 2.5rem;"></i>
+              <p class="text-secondary fw-semibold mb-0">
+                아직 답변이 등록되지 않았습니다.<br>조금만 기다려주시면 신속하게 답변해 드리겠습니다.
+              </p>
+            </div>
+          </div>
+
+          <!-- 답변 완료 상태 -->
+          <div class="card bg-primary-subtle border-0 shadow-sm rounded-4 mb-5" th:if="${detail.answerPost != null}">
+            <div class="card-body p-4 p-md-5">
+
+              <!-- 답변 헤더 -->
+              <div
+                class="d-flex justify-content-between align-items-center mb-4 border-bottom border-primary border-opacity-25 pb-3">
+                <div class="d-flex align-items-center gap-2">
+                  <i class="bi bi-person-circle fs-3 text-primary"></i>
+                  <span class="fw-bold text-primary fs-5" th:text="${detail.answerPost.adminId}">관리자 아이디</span>
+                </div>
+                <span class="text-primary-emphasis small fw-semibold"
+                      th:text="${detail.answerPost.answeredAt}">답변일</span>
+              </div>
+
+              <!-- 답변 본문 -->
+              <p class="card-text fs-6 lh-lg text-dark mb-0"
+                 style="white-space: pre-wrap;"
+                 th:text="${detail.answerPost.answeredText}">답변 내용</p>
+            </div>
+          </div>
+
+
+          <!-- 목록 이동 버튼 -->
+          <div class="text-center mt-5">
+            <a class="btn btn-dark btn-lg px-5 py-3 rounded-pill shadow-sm fw-bold w-100 w-sm-auto" href="/inquiry">
+              목록으로 돌아가기
+            </a>
+          </div>
+
         </div>
-        <p th:text="${detail.text}">본문내용</p>
-        <p th:text="${detail.postPw}">비밀번호</p>
-        <div>
-          <button
-            id="modify"
-            type="button"
-            th:if="${detail.isAnswered == false}"
-          >
-            수정
-          </button>
-          <button id="delete" type="button">삭제</button>
-        </div>
       </div>
 
-      <!-- 답글 내용 -->
-      <div th:if="${detail.answerPost == null}" class="content answer">
-        <p>아직 답글이 작성되지 않았습니다.</p>
-      </div>
+      <div th:replace="~{/layout/common/fragments/modal :: Modal}"></div>
 
-      <div th:if="${detail.answerPost != null}" class="content answer">
-        <p th:text="${detail.answerPost.adminId}">관리자 아이디</p>
-        <p th:text="${detail.answerPost.answeredText}">답변 내용</p>
-        <p th:text="${detail.answerPost.answeredAt}">답변일</p>
-      </div>
-
-      <div class="utils">
-        <a href="/qna" class="btn">목록으로</a>
-      </div>
-
-      <div th:replace="~{/layout/common/fragments/verify :: Modal}"></div>
     </section>
   </body>
 </html>

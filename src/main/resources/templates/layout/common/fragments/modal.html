@@ -1,0 +1,10 @@
+<!doctype html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+  <!-- 공용 모달 구조 -->
+  <div class="modal fade" id="common-modal" tabindex="-1" th:fragment="Modal">
+    <div class="modal-dialog modal-dialog-centered">
+      <!-- 스프링에서 받아온 프래그먼트를 이 div 안에 innerHTML -->
+      <div class="modal-content border-0 shadow rounded-4" id="modal-content"></div>
+    </div>
+  </div>
+</html>

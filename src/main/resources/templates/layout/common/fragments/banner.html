@@ -3,17 +3,14 @@
 <!doctype html>
 <html
   lang="ko"
+  th:fragment="Banner(page, mainTitle, subTitle, description)"
   xmlns:th="http://www.thymeleaf.org"
-  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-  th:fragment="Banner(mainTitle, subTitle, description)"
 >
-  <div class="banner">
-    <div class="flex-box inner">
-      <h2>
-        [[${mainTitle}]]:
-        <span th:text="${subTitle}">SUB TITLE</span>
-      </h2>
-      <p th:utext="${description}" style="text-align: center">DESCRIPTION</p>
-    </div>
+  <div class="banner text-center mb-4 border-bottom" th:classappend="|${page}-banner|">
+    <h2 class="fw-bold fs-2 mb-2" style="text-transform: uppercase">
+      [[${mainTitle}]]:
+      <span class="fw-normal" th:text="${subTitle}">SUB TITLE</span>
+    </h2>
+    <p class="mb-0" th:utext="${description}">DESCRIPTION</p>
   </div>
 </html>

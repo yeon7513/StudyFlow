@@ -1,92 +1,121 @@
 <!doctype html>
 <html
   lang="ko"
-  xmlns:th="http://www.thymeleaf.org"
-  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
   layout:decorate="~{/layout/common/layout}"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  xmlns:th="http://www.thymeleaf.org"
 >
   <head>
     <title layout:fragment="title">스터디 플로우 - 사전예약</title>
-    <link rel="stylesheet" href="/css/reservation/select_keywords.css" />
     <script defer src="/js/reservation/select_keywords.js"></script>
   </head>
   <body>
-    <section layout:fragment="container">
-      <form id="register-reservation" class="content">
-        <ul>
-          <li th:each="keywords : ${keywords}">
-            <h3 th:text="${keywords.name}">카테고리명</h3>
-            <div
-              th:each="keyword : ${keywords.keywordInfo}"
-              class="select-content"
-            >
-              <!-- 키워드 선택 -->
-              <label th:for="|kwdno_${keyword.kwdNo}|" class="category">
-                <input
-                  type="checkbox"
-                  th:id="|kwdno_${keyword.kwdNo}|"
-                  name="kwdNo"
-                  th:value="${keyword.kwdNo}"
-                />
-                <span th:text="|${keyword.name} - ${keyword.description}|">
-                  키워드명 - 키워드 설명
-                </span>
-              </label>
+    <section class="container-lg my-5" layout:fragment="container">
 
-              <!-- 본인의 실력 선택 -->
-              <div class="select-level" th:data-kwdno="${keyword.kwdNo}">
-                <div class="level-content">
-                  <input
-                    th:id="|${keyword.kwdNo}_beginner|"
-                    type="radio"
-                    th:name="|${keyword.kwdNo}_studyLevel|"
-                    value="입문"
-                    disabled
-                  />
-                  <label th:for="|${keyword.kwdNo}_beginner|">입문</label>
+      <div class="row justify-content-center">
+        <div class="col-12 col-lg-10">
+
+          <div class="text-center mb-5">
+            <h2 class="fw-bold fs-3 mb-2">어떤 분야에 관심이 있으신가요?</h2>
+            <p class="text-secondary">학습하고 싶은 키워드와 현재 실력을 선택해 주시면 맞춤형 로드맵을 제공해 드립니다.</p>
+          </div>
+
+          <form class="p-4 p-md-5 rounded-4 bg-white border shadow-sm" id="register-reservation">
+
+            <div class="category-list">
+
+              <div class="mb-5" th:each="keywords : ${keywords}">
+
+                <h3 class="fs-5 fw-bold text-dark border-bottom border-2 border-dark pb-2 mb-4"
+                    th:text="${keywords.name}">카테고리명</h3>
+
+                <div class="row g-3">
+                  <div class="col-12" th:each="keyword : ${keywords.keywordInfo}">
+
+                    <div class="select-content p-4 rounded-4 bg-light border">
+
+                      <div class="form-check mb-3">
+                        <input class="form-check-input fs-4 mt-1"
+                               name="kwdNo"
+                               th:id="|kwdno_${keyword.kwdNo}|"
+                               th:value="${keyword.kwdNo}"
+                               type="checkbox" />
+                        <label class="form-check-label ms-2" th:for="|kwdno_${keyword.kwdNo}|">
+                          <strong class="d-block fs-5 text-dark" th:text="${keyword.name}">키워드명</strong>
+                          <span class="text-secondary small" th:text="${keyword.description}">키워드 설명</span>
+                        </label>
+                      </div>
+
+                      <div class="select-level pt-3 border-top border-secondary-subtle"
+                           th:data-kwdno="${keyword.kwdNo}">
+                        <p class="small fw-bold text-secondary mb-2">이 분야의 현재 실력은 어느 정도인가요?</p>
+
+                        <div class="d-flex flex-wrap gap-2">
+
+                          <div class="level-content">
+                            <input class="btn-check"
+                                   disabled
+                                   th:id="|${keyword.kwdNo}_beginner|"
+                                   th:name="|${keyword.kwdNo}_studyLevel|"
+                                   type="radio" value="입문" />
+                            <label class="btn btn-outline-primary rounded-pill px-3 py-1"
+                                   th:for="|${keyword.kwdNo}_beginner|">입문</label>
+                          </div>
+
+                          <div class="level-content">
+                            <input class="btn-check"
+                                   disabled
+                                   th:id="|${keyword.kwdNo}_novice|"
+                                   th:name="|${keyword.kwdNo}_studyLevel|"
+                                   type="radio" value="초급" />
+                            <label class="btn btn-outline-primary rounded-pill px-3 py-1"
+                                   th:for="|${keyword.kwdNo}_novice|">초급</label>
+                          </div>
+
+                          <div class="level-content">
+                            <input class="btn-check"
+                                   disabled
+                                   th:id="|${keyword.kwdNo}_intermediate|"
+                                   th:name="|${keyword.kwdNo}_studyLevel|"
+                                   type="radio" value="중급" />
+                            <label class="btn btn-outline-primary rounded-pill px-3 py-1"
+                                   th:for="|${keyword.kwdNo}_intermediate|">중급</label>
+                          </div>
+
+                          <div class="level-content">
+                            <input class="btn-check"
+                                   disabled
+                                   th:id="|${keyword.kwdNo}_advanced|"
+                                   th:name="|${keyword.kwdNo}_studyLevel|"
+                                   type="radio" value="고급" />
+                            <label class="btn btn-outline-primary rounded-pill px-3 py-1"
+                                   th:for="|${keyword.kwdNo}_advanced|">고급</label>
+                          </div>
+
+                        </div>
+                      </div>
+
+                    </div>
+                  </div>
                 </div>
-                <div class="level-content">
-                  <input
-                    th:id="|${keyword.kwdNo}_novice|"
-                    type="radio"
-                    th:name="|${keyword.kwdNo}_studyLevel|"
-                    value="초급"
-                    disabled
-                  />
-                  <label th:for="|${keyword.kwdNo}_novice|">초급</label>
-                </div>
-                <div class="level-content">
-                  <input
-                    th:id="|${keyword.kwdNo}_intermediate|"
-                    type="radio"
-                    th:name="|${keyword.kwdNo}_studyLevel|"
-                    value="중급"
-                    disabled
-                  />
-                  <label th:for="|${keyword.kwdNo}_intermediate|">중급</label>
-                </div>
-                <div class="level-content">
-                  <input
-                    th:id="|${keyword.kwdNo}_advanced|"
-                    type="radio"
-                    th:name="|${keyword.kwdNo}_studyLevel|"
-                    value="고급"
-                    disabled
-                  />
-                  <label th:for="|${keyword.kwdNo}_advanced|">고급</label>
-                </div>
+
               </div>
             </div>
-          </li>
-        </ul>
-        <div class="btn-group">
-          <!-- 최종 예약 정보를 전송 -->
-          <button id="register-reserve-btn" class="btn" type="submit">
-            사전예약하기
-          </button>
-          <button id="cancel" class="btn cancel" type="button">취소</button>
+
+            <div class="d-flex flex-column flex-sm-row gap-2 mt-5 pt-4 border-top">
+              <button class="btn btn-primary btn-lg w-100 py-3 fw-bold rounded-pill shadow" id="register-reserve-btn"
+                      type="submit">
+                🎉 혜택 받고 사전예약 완료하기
+              </button>
+              <button class="btn btn-light btn-lg w-100 w-sm-auto px-5 py-3 fw-bold rounded-pill border" id="cancel"
+                      type="button">
+                취소
+              </button>
+            </div>
+
+          </form>
         </div>
-      </form>
+      </div>
     </section>
   </body>
 </html>

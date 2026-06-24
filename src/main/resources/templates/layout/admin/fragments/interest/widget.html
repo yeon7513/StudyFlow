@@ -1,0 +1,31 @@
+<!doctype html>
+<html
+  lang="ko"
+  th:fragment="Widget"
+  xmlns:th="http://www.thymeleaf.org"
+>
+  <div class="wrap" id="widget">
+    <div class="interest-widget-content total-category">
+      <span>전체 카테고리</span>
+      <span th:text="|${widget.totalCategory}개|">전체 카테고리 수</span>
+      <p>카테고리 운영 상태</p>
+      <span th:text="|활성 ${widget.activeCategory}개|">키워드 운영 상태 - 활성</span>
+      <span th:text="|비활성 ${widget.inactiveCategory}개|">키워드 운영 상태 - 비활성</span>
+    </div>
+    <div class="interest-widget-content empty-category">
+      <span>빈 카테고리</span>
+      <span th:text="|${widget.emptyCategory}개|">빈 카테고리 수</span>
+      <div>
+        <a href="" th:if="${widget.emptyCategory != 0}"><i class="fa-solid fa-circle-plus"></i> 키워드 등록</a>
+        <p th:if="${widget.emptyCategory == 0}">비어있는 카테고리가 없습니다.</p>
+      </div>
+    </div>
+    <div class="interest-widget-content total-keyword">
+      <span>전체 키워드</span>
+      <span th:text="|${widget.totalKeyword}개|">전체 키워드 수</span>
+      <p>키워드 운영 상태</p>
+      <span th:text="|활성 ${widget.activeKeyword}개|">키워드 운영 상태 - 활성</span>
+      <span th:text="|비활성 ${widget.inactiveKeyword}개|">키워드 운영 상태 - 비활성</span>
+    </div>
+  </div>
+</html>

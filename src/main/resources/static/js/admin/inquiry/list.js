@@ -29,12 +29,11 @@ loadDetailButtons.forEach((button) => {
 // 프래그먼트가 재렌더링 될 때마다 이벤트 핸들러가 없어짐..
 // 이럴 때 상위 요소에 이벤트를 위임해 해당 요소에 핸들러를 등록함
 // -> 이벤트 위임(Event Delegation)
-
 const handleSubmitReply = (e) => {
   const replyRegisterButton = e.target.closest("#reply-register-button");
 
   if (!replyRegisterButton) {
-    return
+    return;
   }
 
   const targetNo = replyRegisterButton.dataset.targetNo;

@@ -2,12 +2,14 @@ package com.project.sf.admin.interest.controller;
 
 import com.project.sf.admin.interest.model.AdminInterestCategory;
 import com.project.sf.admin.interest.model.AdminInterestKeyword;
+import com.project.sf.admin.interest.model.AdminInterestKeywordStats;
+import com.project.sf.admin.interest.model.AdminInterestWidget;
 import com.project.sf.admin.interest.service.AdminInterestService;
+import com.project.sf.common.model.UpdateSuccess;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -18,46 +20,115 @@ public class AdminInterestController {
   @Autowired
   AdminInterestService adminInterestService;
 
-  // 관심 분야 관리
+  // 관심 분야 관리 렌더링
   @GetMapping("/list")
   String list(Model model) {
 
-    // 등록된 카테고리 수
-    int totalCategoryCount = adminInterestService.totalCategoryCount();
-
-    // 등록된 키워드 수
-    int totalKeywordCount = adminInterestService.totalKeywordCount();
-
-    // 비어있는 카테고리 수 -> 키워드가 등록되지 않은 카테고리
-
-    // 키워드 운영 상태 -> 활성 00건 / 비활성 00건
+    // 관심 분야 위젯
+    AdminInterestWidget widget = adminInterestService.loadInterestWidgetData();
+    model.addAttribute("widget", widget);
 
     // 최초 진입 시에는 카테고리 패널 렌더링
-    List<AdminInterestCategory> category = adminInterestService.loadCategories();
-    model.addAttribute("category", category);
+    List<AdminInterestCategory> categories = adminInterestService.loadCategories();
+    model.addAttribute("categories", categories);
 
     return "pages/admin/management/interest/list";
   }
 
-  // 카테고리 패널
+  // 카테고리 패널 렌더링
   @GetMapping("/category")
   String category(Model model) {
 
-    List<AdminInterestCategory> category = adminInterestService.loadCategories();
+    List<AdminInterestCategory> categories = adminInterestService.loadCategories();
 
-    model.addAttribute("category", category);
+    model.addAttribute("categories", categories);
 
     return "layout/admin/fragments/interest/category_panel :: CategoryPanel";
   }
 
-  // 키워드 패널
+  // 키워드 패널 렌더링
   @GetMapping("/keyword")
   String keyword(Model model) {
 
-    List<AdminInterestKeyword> keyword = adminInterestService.loadKeywords();
+    List<AdminInterestKeyword> keywords = adminInterestService.loadKeywords();
 
-    model.addAttribute("keyword", keyword);
+    model.addAttribute("keywords", keywords);
 
     return "layout/admin/fragments/interest/keyword_panel :: KeywordPanel";
   }
+
+  // 키워드 상세 정보 조회
+  @GetMapping("/keyword/detail/{no}")
+  String keywordDetail(@PathVariable Long no, Model model) {
+
+    AdminInterestKeyword keyword = adminInterestService.loadKeywordDetail(no);
+    model.addAttribute("keyword", keyword);
+
+    AdminInterestKeywordStats stats = adminInterestService.loadKeywordStatByNo(no);
+    model.addAttribute("stats", stats);
+
+    return "layout/admin/fragments/interest/keyword_detail :: KeywordDetail";
+  }
+
+  // 키워드 수정 모드 전환
+  @GetMapping("/keyword/modify/{no}")
+  String keywordModify(@PathVariable Long no, Model model) {
+
+    AdminInterestKeyword keyword = adminInterestService.loadKeywordDetail(no);
+
+    // 키워드가 속한 카테고리 변경을 위해 카테고리 번호 & 카테고리명은 따로 가져옴
+    List<AdminInterestCategory> categoryOptions = adminInterestService.loadCategoryOptions();
+
+    model.addAttribute("keyword", keyword);
+    model.addAttribute("categoryOptions", categoryOptions);
+
+    return "layout/admin/fragments/interest/keyword_modify :: KeywordModify";
+  }
+
+  // 카테고리명 수정
+  @ResponseBody
+  @PostMapping("/category/update/{no}/name")
+  UpdateSuccess updateCategoryName(@PathVariable Long no, String name) {
+    return adminInterestService.updateCategoryName(no, name);
+  }
+
+  // 카테고리 활성 상태 변경
+  @ResponseBody
+  @PostMapping("/category/update/{no}/state")
+  UpdateSuccess updateCategoryState(@PathVariable Long no, boolean isActive) {
+    return adminInterestService.updateCategoryState(no, isActive);
+  }
+
+  // 키워드 활성 상태 변경
+  @ResponseBody
+  @PostMapping("/keyword/update/{no}/state")
+  UpdateSuccess updateKeywordState(@PathVariable Long no, boolean isActive) {
+    return adminInterestService.updateKeywordState(no, isActive);
+  }
+
+  // 키워드 상세 정보 변경
+  @ResponseBody
+  @PostMapping("/keyword/update/{no}/info")
+  UpdateSuccess updateKeywordInfo(@PathVariable Long no, AdminInterestKeyword keyword) {
+    return adminInterestService.updateKeywordInfo(no, keyword);
+  }
+
+  // 카테고리 등록 모달 렌더링
+  @GetMapping("/category/register")
+  String registerCategoryModal() {
+    return "layout/admin/fragments/interest/category_register :: Modal";
+  }
+
+  // 카테고리 등록
+  @PostMapping("/category/register")
+  String registerCategory(Model model, AdminInterestCategory category) {
+    adminInterestService.registerCategory(category);
+
+    List<AdminInterestCategory> categories = adminInterestService.loadCategories();
+
+    model.addAttribute("categories", categories);
+
+    return "layout/admin/fragments/interest/category_panel :: CategoryPanel";
+  }
+
 }

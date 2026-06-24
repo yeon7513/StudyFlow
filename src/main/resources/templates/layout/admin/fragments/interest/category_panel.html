@@ -4,7 +4,52 @@
   th:fragment="CategoryPanel"
   xmlns:th="http://www.thymeleaf.org"
 >
-  <div>
-    CategoryPanel
-  </div>
+  <!--  <th:block th:replace="~{layout/admin/fragments/global/search_form :: SearchForm(~{:: #filters})}">-->
+  <!--    <div id="filters">-->
+  <!--      <div>-->
+  <!--        카테고리 검색 필터 섹션-->
+  <!--      </div>-->
+  <!--    </div>-->
+  <!--  </th:block>-->
+
+  <button class="btn" id="register-category" type="button">새 카테고리 등록</button>
+
+  <ul class="panel-content" id="category-panel">
+    <li class="panel-header">
+      <div>No.</div>
+      <div>카테고리명</div>
+      <div>등록 관리자</div>
+      <div>활성 상태</div>
+      <div>등록일</div>
+      <div>수정일</div>
+    </li>
+    <li class="panel-item" th:each="category : ${categories}">
+      <div th:text="${category.no}">카테고리 고유 번호</div>
+      <div class="category-name" th:data-category-name="${category.name}" th:data-category-no="${category.no}">
+        [[${category.name}]] <i class="fa-regular fa-pen-to-square"></i>
+      </div>
+      <div th:text="${category.adminId}">카테고리를 등록한 관리자</div>
+
+      <div class="switch-wrapper">
+        <input
+          class="switch"
+          name="categoryState"
+          th:checked="${category.isActive}"
+          th:data-category-no="${category.no}"
+          th:id="|${category.no}_switch|"
+          type="checkbox">
+        <label th:for="|${category.no}_switch|">
+          <span class="switch-x-toggletext">
+            <span class="switch-x-unchecked"><span class="switch-x-hiddenlabel">Unchecked: </span>비활성</span>
+            <span class="switch-x-checked"><span class="switch-x-hiddenlabel">Checked: </span>활성</span>
+          </span>
+        </label>
+      </div>
+
+      <div th:text="${category.createdAt}">카테고리 생성일</div>
+      <div class="updated-at" th:text="${category.updatedAt != null ? category.updatedAt : '-' }">카테고리 수정일</div>
+    </li>
+  </ul>
+
+  <th:block th:replace="~{layout/admin/fragments/interest/register_category :: Modal}"></th:block>
 </html>

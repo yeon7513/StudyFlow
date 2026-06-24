@@ -10,82 +10,108 @@
     <link href="/css/inquiry/list.css" rel="stylesheet" />
   </head>
   <body>
-    <section layout:fragment="container">
+    <section id="inquiry" layout:fragment="container">
       <!-- 배너 -->
       <th:block
         th:replace="~{layout/common/fragments/Banner :: Banner(
+        'inquiry',
         'insight report',
         '무엇이든 물어보세요',
         '회원가입이나 로그인 없이 누구나 자유롭게 질문할 수 있습니다.<br>사전예약이나 서비스 이용에 대해 궁금한 점을 남겨주시면 빠르게 답변해 드립니다.')}"
       >
       </th:block>
 
-      <!-- 검색 & 글쓰기 -->
-      <div class="utils">
-        <form class="search">
-          <input
-            class="search-field"
-            name="keyword"
-            placeholder="검색어 입력"
-            type="text"
-          />
-          <button class="btn" id="search-btn" type="submit">검색</button>
-          <button id="search-reset-btn" type="button">
-            <i class="fa-solid fa-arrow-rotate-left"></i>
-          </button>
-        </form>
-        <a class="btn" href="inquiry/write">글쓰기</a>
-      </div>
+      <div class="container-lg my-5">
 
-      <!-- 게시글 목록 -->
-      <div id="board">
-        <table id="post">
-          <thead>
-            <tr>
-              <th>No.</th>
-              <th>제목</th>
-              <th>답변여부</th>
-              <th>작성일</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr th:if="${questionPosts.isEmpty()}">
-              <td colspan="4">
-                <p>작성된 문의글이 없습니다.</p>
-              </td>
-            </tr>
+        <!-- 검색 & 글쓰기 -->
+        <div class="d-flex flex-column flex-md-row justify-content-between align-items-md-center gap-3 mb-4">
 
-            <tr
-              th:each="qna : ${questionPosts}"
-              th:if="${qna.isActive == true}"
-            >
-              <td class="num" th:text="${qna.no}">글번호</td>
-              <td class="title">
-                <a th:href="@{|inquiry/detail/${qna.no}|}" th:text="${qna.title}">
-                  게시글 제목
-                </a>
-              </td>
-              <td>
-                <span
-                  th:class="${qna.answerPost == null} ? 'status waiting' : 'status complete'"
-                  th:text="${qna.answerPost == null} ? '미답변' : '답변완료'"
-                >답변 여부</span
-                >
-              </td>
-              <td class="date" th:text="${qna.createdAt}">작성일</td>
-            </tr>
-          </tbody>
+          <!-- 검색 폼 -->
+          <form class="search d-flex w-100" style="max-width: 400px;">
+            <div class="input-group shadow-sm">
+              <input
+                class="form-control border-end-0"
+                name="keyword"
+                placeholder="검색어 입력"
+                type="text"
+              />
 
-          <tfoot>
-            <tr>
-              <td colspan="4">
-                <div
-                  th:replace="~{/layout/common/fragments/pagination :: Pagination(${pager})}"
-                ></div>
-              </td>
-            </tr>
-          </tfoot>
-        </table>
+              <!-- 검색 버튼 -->
+              <button class="btn btn-dark px-4 fw-bold" id="search-btn" type="submit">검색</button>
+            </div>
+          </form>
+
+          <!-- 글쓰기 버튼 -->
+          <div class="text-end">
+            <a class="btn btn-primary fw-bold shadow-sm px-4" href="inquiry/write">
+              <i class="bi bi-pencil-square me-1"></i>글쓰기
+            </a>
+          </div>
+        </div>
+
+        <!-- 게시글 목록 테이블 -->
+        <div class="table-responsive shadow-sm rounded-3 border">
+          <table class="table table-hover align-middle text-center mb-0">
+            <thead class="table-light">
+              <tr>
+                <th class="py-3" scope="col" style="width: 10%;">No.</th>
+                <th class="text-start py-3" scope="col">제목</th>
+                <th class="py-3" scope="col" style="width: 15%;">상태</th>
+                <th class="py-3" scope="col" style="width: 15%;">작성일</th>
+              </tr>
+            </thead>
+
+            <tbody class="border-top-0">
+
+              <!-- 데이터가 없을 때 -->
+              <tr th:if="${questionPosts.isEmpty()}">
+                <td class="py-5 text-secondary" colspan="4">
+                  <i class="bi bi-chat-square-text text-light mb-2 d-block" style="font-size: 3rem;"></i>
+                  작성된 문의글이 없습니다.
+                </td>
+              </tr>
+
+              <!-- 데이터가 있을 때 반복 -->
+              <tr th:each="post : ${questionPosts}" th:if="${post.isActive == true}">
+
+                <!-- 글번호 -->
+                <td class="text-muted fw-semibold" th:text="${post.no}">번호</td>
+
+                <!-- 제목 -->
+                <td class="text-start">
+                  <!-- 카테고리 배지 -->
+                  <span class="badge border text-dark bg-white me-2" th:text="${post.category}">유형</span>
+
+                  <a class="text-dark text-decoration-none fw-semibold"
+                     th:href="@{|inquiry/detail/${post.no}|}"
+                     th:text="${post.title}">
+                    게시글 제목
+                  </a>
+                </td>
+
+                <!-- 답변 여부 뱃지 -->
+                <!-- 미답변: 회색 테두리 / 답변완료: 파란색 배경 -->
+                <td>
+                  <span class="badge rounded-pill px-3 py-2 fw-semibold"
+                        th:classappend="${post.answerPost == null} ? 'bg-light text-secondary border' : 'bg-primary-subtle text-primary border border-primary-subtle'"
+                        th:text="${post.answerPost == null} ? '미답변' : '답변완료'">
+                    답변 여부
+                  </span>
+                </td>
+
+                <!-- 작성일 -->
+                <td class="text-muted small" th:text="${post.createdAt}">작성일</td>
+
+              </tr>
+            </tbody>
+          </table>
+        </div>
+
+        <!-- 페이지네이션 -->
+        <div class="d-flex justify-content-center mt-5">
+          <div th:replace="~{/layout/common/fragments/pagination :: Pagination(${pager})}"></div>
+        </div>
+
       </div>
     </section>
   </body>

@@ -1,20 +1,100 @@
 <!doctype html>
 <html
   lang="ko"
-  xmlns:th="http://www.thymeleaf.org"
-  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
   layout:decorate="~{/layout/common/layout}"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
 >
-  <head>
-    <th:block layout:fragment="css">
-      <link rel="stylesheet" href="/css/index/index.css" />
-    </th:block>
-  </head>
   <body>
-    <section layout:fragment="container">
-      <h2>index.html</h2>
-      <p>메인페이지</p>
-      <p>test</p>
+    <section class="container my-5" layout:fragment="container">
+
+      <div
+        class="row pb-0 pe-lg-0 align-items-center justify-content-between rounded-4 border shadow-sm bg-white overflow-hidden">
+        <div class="col-lg-8 p-3 p-lg-5 pt-lg-3">
+          <h1 class="display-4 fw-bold lh-1 mb-3">당신의 스터디 팀, <br><span class="text-primary">가장 완벽하게 매칭</span>해드립니다.</h1>
+          <p class="lead mb-4 text-secondary">
+            스터디 플로우 정식 출시를 앞두고, 가장 먼저 시작할 준비가 된 분들을 모십니다.<br>
+            지금 사전예약하고 출시 알림과 함께 특별한 혜택을 받아보세요!
+          </p>
+          <div class="d-grid gap-2 d-md-flex justify-content-md-start mb-4 mb-lg-3">
+            <a class="btn btn-primary btn-lg px-4 me-md-2 fw-bold" href="/reserve">사전예약 신청하기</a>
+            <a class="btn btn-outline-secondary btn-lg px-4" href="/inquiry">문의하기</a>
+          </div>
+        </div>
+        <!-- 대표 이미지 -->
+        <div class="col-lg-4 p-0 overflow-hidden shadow-sm">
+          <div class="bg-primary-subtle text-primary d-flex align-items-center justify-content-center"
+               style="height: 400px">
+            <img alt="대표 이미지" src="/images/index_1.jpg" style="object-fit: cover; width: 100%; height: 100%;" />
+          </div>
+        </div>
+      </div>
+
+      <!-- 특장점 -->
+      <div class="row g-4 py-5">
+        <div class="col-md-4">
+          <div class="card h-100 p-4 border-0 shadow-sm bg-light">
+            <div class="mb-3"><i class="fa-solid fa-magnifying-glass fa-2x text-primary"></i></div>
+            <h3 class="fs-4 fw-bold">맞춤형 팀 매칭</h3>
+            <p class="text-secondary">학습 목표와 관심사를 분석하여 가장 시너지가 나는 팀원을 자동으로 추천합니다.</p>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card h-100 p-4 border-0 shadow-sm bg-light">
+            <div class="mb-3"><i class="fa-solid fa-chart-line fa-2x text-primary"></i></div>
+            <h3 class="fs-4 fw-bold">체계적인 학습 관리</h3>
+            <p class="text-secondary">목표 달성률 확인부터 일정 관리까지, 스터디 완주를 돕는 도구들을 제공합니다.</p>
+          </div>
+        </div>
+        <div class="col-md-4">
+          <div class="card h-100 p-4 border-0 shadow-sm bg-light">
+            <div class="mb-3"><i class="fa-solid fa-comments fa-2x text-primary"></i></div>
+            <h3 class="fs-4 fw-bold">오픈 소통 공간</h3>
+            <p class="text-secondary">언제든 의견을 공유하고 팀원들과 더 나은 스터디 환경을 만들어 보세요.</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- 기대 효과 -->
+      <div class="py-5">
+        <h2 class="text-center fw-bold mb-5">왜 '스터디 플로우'인가요?</h2>
+        <div class="row align-items-center">
+          <div class="col">
+            <img alt="왜 '스터디 플로우'인가요?" class="img-fluid rounded-4 shadow" src="/images/index_2.jpg">
+          </div>
+          <div class="col-auto ps-md-5">
+            <ul class="list-unstyled">
+              <li class="mb-4 fs-5"><i class="fa-solid fa-check text-primary me-2"></i>
+                <strong>검증된 팀원 매칭:</strong>
+                꼼꼼한 심사를 거친 팀원들만 참여 가능합니다.
+              </li>
+              <li class="mb-4 fs-5"><i class="fa-solid fa-check text-primary me-2"></i>
+                <strong>실시간 알림 서비스:</strong>
+                중요한 일정은 놓치지 않게 푸시 알림을 드립니다.
+              </li>
+              <li class="mb-4 fs-5"><i class="fa-solid fa-check text-primary me-2"></i>
+                <strong>최적화된 커뮤니티:</strong>
+                학습에만 집중할 수 있는 깔끔한 UI를 제공합니다.
+              </li>
+              <li class="mb-4 fs-5"><i class="fa-solid fa-check text-primary me-2"></i>
+                <strong>데이터 기반 학습 리포트:</strong>
+                매주 나의 학습 진행률과 개선점을 분석하여 리포트로 제공합니다.
+              </li>
+              <li class="mb-4 fs-5"><i class="fa-solid fa-check text-primary me-2"></i>
+                <strong>온라인 동기부여 시스템:</strong>
+                팀원들과 함께 목표를 완주할 때마다 특별한 배지와 보상이 주어집니다.
+              </li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <!-- CTA 섹션 -->
+      <div class="py-5 text-center bg-primary rounded-4 shadow-sm my-5 text-white">
+        <h2 class="fw-bold">정식 출시 전, 사전예약 혜택을 놓치지 마세요!</h2>
+        <p class="lead mb-4">지금 예약하면 정식 출시 시 가장 먼저 알림과 함께 프리미엄 멤버십 혜택을 드립니다.</p>
+        <a class="btn btn-light btn-lg px-5 fw-bold" href="/reserve">지금 사전예약하기</a>
+      </div>
+
     </section>
   </body>
 </html>

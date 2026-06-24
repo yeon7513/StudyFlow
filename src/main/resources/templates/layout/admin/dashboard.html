@@ -13,15 +13,18 @@
   </head>
 
   <body>
-    <div id="dashboard-wrap">
+    <div class="d-flex" id="dashboard-wrap">
+
       <div th:replace="~{layout/admin/fragments/global/sidebar :: Sidebar}"></div>
-      <div class="container">
-        <div
-          th:replace="~{layout/admin/fragments/global/header :: Header(breadCrumb=${breadCrumbs})}"
-        ></div>
-        <main>
+
+      <div class="d-flex flex-column flex-grow-1">
+
+        <div th:replace="~{layout/admin/fragments/global/header :: Header(breadCrumb=${breadCrumbs})}"></div>
+
+        <main class="p-4 flex-grow-1">
           <th:block layout:fragment="container"></th:block>
         </main>
+
       </div>
     </div>
   </body>

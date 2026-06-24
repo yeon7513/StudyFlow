@@ -1,0 +1,32 @@
+<!doctype html>
+<html
+  lang="ko"
+  th:fragment="KeywordModify"
+  xmlns:th="http://www.thymeleaf.org"
+>
+  <form class="keyword-modify">
+    <div class="keyword-modify-name">
+      <select id="category-no" name="cateNo">
+        <option
+          th:each="categoryOption : ${categoryOptions}"
+          th:selected="${categoryOption.no == keyword.cateNo}"
+          th:text="${categoryOption.name}"
+          th:value="${categoryOption.no}"
+        ></option>
+      </select>
+      <div>
+        <input id="keyword-name" name="name" th:value="${keyword.name}" />
+      </div>
+    </div>
+
+    <div class="keyword-modify-description">
+      <label for="keyword-description">상세 설명</label>
+      <textarea id="keyword-description" name="description" rows="10" th:text="${keyword.description}"></textarea>
+    </div>
+
+    <div class="keyword-modify-button">
+      <button class="submit-modify btn" type="button">완료</button>
+      <button class="cancel-modify btn warn" type="button">취소</button>
+    </div>
+  </form>
+</html>

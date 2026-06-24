@@ -1,11 +1,11 @@
 package com.project.sf.reservation.controller;
 
 import com.project.sf.common.filter.user.ReservationFormOptions;
+import com.project.sf.interest.Category;
+import com.project.sf.interest.service.TrendService;
 import com.project.sf.reservation.model.Reservation;
 import com.project.sf.reservation.model.SelectedKeyword;
 import com.project.sf.reservation.service.ReservationService;
-import com.project.sf.trend.Category;
-import com.project.sf.trend.service.TrendService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -24,6 +24,7 @@ public class ReservationController {
   @Autowired
   ReservationService reservationService;
 
+
   @GetMapping("")
   String reservationMain() {
     return "pages/reservation/main";
@@ -40,11 +41,12 @@ public class ReservationController {
   }
 
   // 사전 예약 페이지 렌더링
-  @GetMapping("/reserve")
+  @GetMapping("/enter_information")
   String reserve(Model model) {
+
     model.addAttribute("formOptions", new ReservationFormOptions());
 
-    return "pages/reservation/reserve";
+    return "pages/reservation/enter_information";
   }
 
   // 사전 예약 등록

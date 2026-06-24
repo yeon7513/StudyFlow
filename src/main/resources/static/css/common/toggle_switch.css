@@ -1,0 +1,100 @@
+@charset "UTF-8";
+@import "./variables.css";
+
+.switch-wrapper {
+  height: 22px;
+}
+
+.switch-wrapper .switch {
+  display: none;
+}
+
+.switch-wrapper .switch + label {
+  align-items: center;
+  cursor: pointer;
+  display: flex;
+  height: 100%;
+  position: relative;
+  user-select: none;
+}
+
+.switch-wrapper .switch + label::before,
+.switch-wrapper .switch + label::after {
+  content: '';
+  display: block;
+}
+
+.switch-wrapper .switch + label::before {
+  background-color: var(--disable-color);
+  border-radius: 500px;
+  height: 18px;
+  margin-right: 8px;
+  transition: background-color 0.125s ease-out;
+  width: 30px;
+}
+
+.switch-wrapper .switch + label::after {
+  background-color: #fff;
+  border-radius: 13px;
+  box-shadow: 0 3px 1px 0 rgba(37, 34, 71, 0.05), 0 2px 2px 0 rgba(37, 34, 71, 0.1), 0 3px 3px 0 rgba(37, 34, 71, 0.05);
+  width: 16px;
+  height: 16px;
+  left: 3px;
+  position: absolute;
+  top: 2px;
+  transition: transform 0.125s ease-out;
+}
+
+.switch-wrapper .switch + label .switch-x-text {
+  display: block;
+  margin-right: .3em;
+}
+
+.switch-wrapper .switch + label .switch-x-toggletext {
+  display: block;
+  font-weight: 500;
+  height: 18px;
+  position: relative;
+  width: 50px;
+}
+
+.switch-wrapper .switch + label .switch-x-unchecked,
+.switch-wrapper .switch + label .switch-x-checked {
+  left: 0;
+  position: absolute;
+  top: 0;
+  transition: transform 0.125s ease-out, opacity 0.125s ease-out;
+}
+
+.switch-wrapper .switch + label .switch-x-unchecked {
+  opacity: 1;
+  transform: none;
+}
+
+.switch-wrapper .switch + label .switch-x-checked {
+  opacity: 0;
+  transform: translate3d(0, 100%, 0);
+}
+
+.switch-wrapper .switch + label .switch-x-hiddenlabel {
+  position: absolute;
+  visibility: hidden;
+}
+
+.switch-wrapper .switch:checked + label::before {
+  background-color: var(--point-color);
+}
+
+.switch-wrapper .switch:checked + label::after {
+  transform: translate3d(10px, 0, 0);
+}
+
+.switch-wrapper .switch:checked + label .switch-x-unchecked {
+  opacity: 0;
+  transform: translate3d(0, -100%, 0);
+}
+
+.switch-wrapper .switch:checked + label .switch-x-checked {
+  opacity: 1;
+  transform: none;
+}

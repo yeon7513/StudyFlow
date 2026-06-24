@@ -1,8 +1,9 @@
 package com.project.sf.inquiry.service;
 
-import java.util.List;
 import com.project.sf.common.pager.Pager;
-import com.project.sf.inquiry.QuestionPost;
+import com.project.sf.inquiry.model.QuestionPost;
+
+import java.util.List;
 
 public interface QuestionPostService {
 

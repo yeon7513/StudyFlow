@@ -1,10 +1,10 @@
 package com.project.sf.admin.inquiry.controller;
 
-import com.project.sf.admin.auth.model.Admin;
+import com.project.sf.admin.operator.model.Admin;
 import com.project.sf.common.filter.admin.AdminInquirySearchFilter;
 import com.project.sf.common.pager.AdminInquiryPostSearch;
-import com.project.sf.inquiry.AnswerPost;
-import com.project.sf.inquiry.QuestionPost;
+import com.project.sf.inquiry.model.AnswerPost;
+import com.project.sf.inquiry.model.QuestionPost;
 import com.project.sf.inquiry.service.AnswerPostService;
 import com.project.sf.inquiry.service.QuestionPostService;
 import jakarta.servlet.http.HttpSession;

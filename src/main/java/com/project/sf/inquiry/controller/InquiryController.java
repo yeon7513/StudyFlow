@@ -1,7 +1,8 @@
 package com.project.sf.inquiry.controller;
 
+import com.project.sf.common.enums.inquiry.InquiryCategoryEnum;
 import com.project.sf.common.pager.Pager;
-import com.project.sf.inquiry.QuestionPost;
+import com.project.sf.inquiry.model.QuestionPost;
 import com.project.sf.inquiry.service.QuestionPostService;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpSession;
@@ -27,6 +28,10 @@ public class InquiryController {
 
     List<QuestionPost> questionPosts = questionPostService.loadQnaPosts(pager);
 
+    for (QuestionPost post : questionPosts) {
+      post.setCategory(InquiryCategoryEnum.changeValueToLabel(post.getCategory()));
+    }
+
     model.addAttribute("questionPosts", questionPosts);
 
     return "pages/inquiry/list";
@@ -34,7 +39,11 @@ public class InquiryController {
 
   // 게시글 작성 페이지 이동
   @GetMapping("/write")
-  String writePost() {
+  String writePost(Model model) {
+
+    // 카테고리 enum의 모든 값들을 모델에 담아 보냄.
+    model.addAttribute("categoryOptions", InquiryCategoryEnum.values());
+
     return "pages/inquiry/write";
   }
 
@@ -56,10 +65,17 @@ public class InquiryController {
 
     // 비밀번호 제외
     // detailPost.setPostPw(null);
+    detailPost.setCategory(InquiryCategoryEnum.changeValueToLabel(detailPost.getCategory()));
 
     model.addAttribute("detail", detailPost);
 
     return "pages/inquiry/detail";
+  }
+
+  // 수정 또는 삭제 시 띄울 모달 프래그먼트 내려주기
+  @GetMapping("/verify")
+  String verifyModal() {
+    return "layout/common/fragments/verify :: Verify";
   }
 
   // 게시글 작성자인지 판별
@@ -88,6 +104,7 @@ public class InquiryController {
     QuestionPost prevPost = questionPostService.findQnaPostByNo(no);
 
     model.addAttribute("prevPost", prevPost);
+    model.addAttribute("categoryOptions", InquiryCategoryEnum.values());
 
     return "pages/inquiry/modify";
   }

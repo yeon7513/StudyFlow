@@ -4,7 +4,62 @@
   th:fragment="KeywordPanel"
   xmlns:th="http://www.thymeleaf.org"
 >
-  <div>
-    KeywordPanel
-  </div>
+  <!--  <th:block th:replace="~{layout/admin/fragments/global/search_form :: SearchForm(~{:: #filters})}">-->
+  <!--    <div id="filters">-->
+  <!--      <div>-->
+  <!--        키워드 검색 필터 섹션-->
+  <!--      </div>-->
+  <!--    </div>-->
+  <!--  </th:block>-->
+
+
+  <button class="btn" id="register-keyword" type="button">새 키워드 등록</button>
+
+  <ul class="panel-content" id="keyword-panel">
+    <li class="panel-header">
+      <div>No.</div>
+      <div>카테고리</div>
+      <div>키워드명</div>
+      <div>활성 상태</div>
+      <div>등록일</div>
+      <div>관리</div>
+    </li>
+    <li class="panel-item" th:each="keyword : ${keywords}">
+      <div th:text="${keyword.no}"></div>
+      <div class="category-name" th:text="${keyword.categoryName}"></div>
+      <div class="keyword-name" th:text="${keyword.name}"></div>
+
+      <div class="switch-wrapper">
+        <input
+          class="switch"
+          name="keywordState"
+          th:checked="${keyword.isActive}"
+          th:data-keyword-no="${keyword.no}"
+          th:id="|${keyword.no}_switch|"
+          type="checkbox">
+        <label th:for="|${keyword.no}_switch|">
+          <span class="switch-x-toggletext">
+            <span class="switch-x-unchecked"><span class="switch-x-hiddenlabel">Unchecked: </span>비활성</span>
+            <span class="switch-x-checked"><span class="switch-x-hiddenlabel">Checked: </span>활성</span>
+          </span>
+        </label>
+      </div>
+
+      <div th:text="${keyword.createdAt}">키워드 생성일</div>
+
+      <div>
+        <input class="detail-toggle-checkbox"
+               th:data-keyword-no="${keyword.no}"
+               th:id="|detail-toggle-${keyword.no}|"
+               type="checkbox">
+        <label class="detail-toggle-label" th:for="|detail-toggle-${keyword.no}|">
+          <span class="text-open">상세 조회 <i class="fa-solid fa-caret-down"></i></span>
+          <span class="text-close" style="display: none;">닫기 <i class="fa-solid fa-caret-up"></i></span>
+        </label>
+
+      </div>
+
+      <div class="keyword-expand-box"></div>
+    </li>
+  </ul>
 </html>

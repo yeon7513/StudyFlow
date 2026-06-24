@@ -1,8 +1,8 @@
 package com.project.sf.admin.auth.service;
 
 import com.project.sf.admin.auth.dao.AdminAuthDao;
-import com.project.sf.admin.auth.model.Admin;
 import com.project.sf.admin.auth.model.AdminLogin;
+import com.project.sf.admin.operator.model.Admin;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

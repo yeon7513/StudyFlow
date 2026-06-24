@@ -1,18 +1,85 @@
 @charset "UTF-8";
 @import "../../common/variables.css";
+@import "../../common/toggle_switch.css";
+@import "../admin_search_form.css";
+@import "./category_panel.css";
+@import "./keyword_panel.css";
 
-#interest {
-
+#interest button[id*='register'] {
+  margin-bottom: 16px;
 }
 
-#interest .summary {
+#interest #widget {
   display: flex;
   gap: 24px;
-  outline: 1px dotted red;
+  margin-top: 24px;
 }
 
-#interest .summary .summary-content {
+
+#interest #widget .interest-widget-content {
   flex: 1;
   padding: 24px;
+  background-color: #fff;
+}
+
+#interest #tab-menu {
+  display: flex;
+  align-items: center;
+  margin-top: 24px;
+  background-color: #fff;
+  border-bottom: 2px solid var(--primary-color);
+}
+
+#interest #tab-menu .tab-button {
+  padding: 16px 0;
+  width: 50%;
+  transition: 0.3s;
+}
+
+#interest #tab-menu .tab-button:hover {
+  opacity: 0.8;
+}
+
+#interest #tab-menu .tab-button.active-tab {
+  background-color: var(--primary-color);
+  color: #fff;
+}
+
+#interest #tab-panel {
+  padding: 24px;
+  background-color: #fff;
+}
+
+#interest #tab-panel .panel-content > li {
+  display: grid;
+  padding: 8px 0;
+  outline: 1px dotted blue;
+}
+
+#category-panel > li {
+  grid-template-columns: 0.5fr 2fr 1.5fr 1fr 1.2fr 1.2fr;
+  align-items: center;
+  gap: 16px;
+}
+
+#keyword-panel > li {
+  grid-template-columns: 0.5fr 1.5fr 2fr 1fr 1.2fr 0.8fr;
+  align-items: center;
+}
+
+#interest #tab-panel .panel-content li > * {
+}
+
+#modal {
+  display: block;
+}
+
+#modal .container {
+  position: relative;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  width: 25rem;
+  padding: 2rem;
   background-color: #fff;
 }

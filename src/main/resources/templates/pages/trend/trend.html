@@ -1,15 +1,13 @@
 <!doctype html>
 <html
   lang="ko"
-  xmlns:th="http://www.thymeleaf.org"
-  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
   layout:decorate="~{/layout/common/layout}"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  xmlns:th="http://www.thymeleaf.org"
 >
   <head>
     <title layout:fragment="title">스터디 플로우 - 트렌드</title>
-    <th:block layout:fragment="css">
-      <link rel="stylesheet" href="/css/trend/trend.css" />
-    </th:block>
+    <link href="/css/trend/trend.css" rel="stylesheet" />
     <script src="/js/trend/trend.js"></script>
   </head>
   <body>
@@ -17,6 +15,7 @@
       <!-- 배너 -->
       <th:block
         th:replace="~{layout/common/fragments/Banner :: Banner(
+          'trend',
 					'TREND REPORT', 
 					'지금 가장 뜨거운 학습 키워드', 
 					'기초부터 심화까지! 나와 같은 레벨의 러너들이 가장 많이 찾는 분야'
@@ -24,24 +23,99 @@
       >
       </th:block>
 
-      <div class="content">
-        <div class="loading">
-          <p th:if="${topKeywords.isEmpty()}">데이터를 집계 중입니다.</p>
+      <div class="container-lg text-center my-5">
+        <div class="loading py-5" th:if="${topKeywords == null}">
+          <div class="spinner-border text-primary mb-3" role="status"></div>
+          <p class="text-secondary mb-0">데이터를 집계 중입니다. 잠시만 기다려주세요.</p>
         </div>
 
-        <ul class="top-keywords">
-          <li th:each="keyword : ${topKeywords}">
-            <div class="icon">
-              <span th:text="${keyword.category}" class="category">
-                카테고리
-              </span>
-              <p th:text="${keyword.name}" class="keyword">키워드</p>
-              <div>
-                <span th:text="${keyword.countKeyword}">집계 수</span>명 선택
+        <div class="d-flex flex-wrap justify-content-center align-items-center gap-3 gap-lg-4 my-5">
+
+          <div th:classappend="'rank-' + ${iterStat.count}"
+               th:each="keyword, iterStat : ${topKeywords}"
+               th:if="${iterStat.count <= 5}">
+
+            <div class="trend-bubble d-flex flex-column justify-content-center align-items-center"
+                 th:classappend="${iterStat.count == 1} ? 'border-primary border-2 shadow-sm' : ''">
+
+              <span class="badge mb-2"
+                    th:classappend="${iterStat.count == 1} ? 'bg-primary fs-5' : 'bg-secondary fs-6'"
+                    th:text="${iterStat.count + '위'}">1위</span>
+
+              <span class="category text-muted fw-bold mb-1"
+                    th:classappend="${iterStat.count == 1} ? 'fs-5' : 'fs-6'"
+                    th:text="${keyword.category}">카테고리</span>
+              <strong class="keyword mb-2 text-dark"
+                      th:classappend="${iterStat.count == 1} ? 'fs-3' : 'fs-4'"
+                      th:text="${keyword.name}">키워드</strong>
+
+              <div class="text-muted small">
+                <span class="fw-bold text-dark"
+                      th:classappend="${iterStat.count == 1} ? 'fs-4' : 'fs-5'"
+                      th:text="${keyword.countKeyword}">0</span>명 선택
               </div>
             </div>
-          </li>
-        </ul>
+
+          </div>
+        </div>
+
+        <div class="row justify-content-center mt-5">
+          <div class="col-12 col-md-9">
+            <div class="p-4 p-md-5 rounded-4 bg-light border shadow-sm">
+
+              <h3 class="fw-bold fs-4 mb-4 text-center">STUDY FLOW 사전예약 한정 혜택</h3>
+
+              <div class="bg-primary rounded mx-auto mb-4" style="width: 60px; height: 3px;"></div>
+
+              <div class="d-inline-block text-start mb-4">
+                <ul class="list-unstyled d-flex flex-column gap-3">
+
+                  <li class="d-flex align-items-start">
+                    <i class="bi bi-check-circle-fill text-primary me-3 fs-5"></i>
+                    <div>
+                      <strong class="text-dark d-block fs-5 lh-sm">정식 런칭 시 얼리버드 30% 할인 쿠폰</strong>
+                      <span class="text-secondary">오픈 당일 모든 클래스 및 유료 서비스에 즉시 사용 가능한 쿠폰을 드립니다.</span>
+                    </div>
+                  </li>
+
+                  <li class="d-flex align-items-start">
+                    <i class="bi bi-check-circle-fill text-primary me-3 fs-5"></i>
+                    <div>
+                      <strong class="text-dark d-block fs-5 lh-sm">인기 키워드 비밀 시크릿 리포트 (PDF)</strong>
+                      <span class="text-secondary">현재 가장 뜨거운 학습 키워드(백엔드, 모의면접 등)의 핵심 가이드북을 전송해 드립니다.</span>
+                    </div>
+                  </li>
+
+                  <li class="d-flex align-items-start">
+                    <i class="bi bi-check-circle-fill text-primary me-3 fs-5"></i>
+                    <div>
+                      <strong class="text-dark d-block fs-5 lh-sm">클로즈드 베타 테스터 우선 참여권</strong>
+                      <span class="text-secondary">누구보다 빠르게 STUDY FLOW의 프리미엄 신기능을 먼저 체험할 수 있는 기회를 드립니다.</span>
+                    </div>
+                  </li>
+
+                  <li class="d-flex align-items-start">
+                    <i class="bi bi-check-circle-fill text-primary me-3 fs-5"></i>
+                    <div>
+                      <strong class="text-dark d-block fs-5 lh-sm">서비스 오픈 즉시 알림톡 발송</strong>
+                      <span class="text-secondary">놓치지 않고 혜택을 수령하실 수 있도록 카카오톡 알림으로 신속하게 안내해 드립니다.</span>
+                    </div>
+                  </li>
+
+                </ul>
+              </div>
+
+              <div class="text-center mt-4">
+                <a class="btn btn-primary btn-lg px-5 fw-bold rounded-pill shadow"
+                   href="/reservation/enter_inforamtion">
+                  혜택 받고 사전예약하기 <i class="fa-solid fa-arrow-right-long"></i>
+                </a>
+              </div>
+
+            </div>
+          </div>
+        </div>
+
       </div>
     </section>
   </body>

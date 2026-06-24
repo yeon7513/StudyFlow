@@ -31,6 +31,6 @@ window.addEventListener("pageshow", function (event) {
   }
 
   if (isBack) {
-    location.replace("/qna");
+    location.replace("/inquiry");
   }
 });

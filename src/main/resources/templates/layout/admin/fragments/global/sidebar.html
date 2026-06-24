@@ -4,90 +4,94 @@
   th:fragment="Sidebar"
   xmlns:th="http://www.thymeleaf.org"
 >
-  <div id="sidebar">
-    <!-- 현재 접속한 운영자 정보 -->
-    <div class="profile">
-      <h1 class="logo">
-        <a href="/admin_dashboard">
-          <span>S</span>TUDY <span>F</span>LOW
-          <small>관리자 모드</small>
+  <aside id="sidebar" class="d-flex flex-column bg-white border-end vh-100 position-sticky top-0">
+
+    <!-- 현재 접속한 관리자 프로필 -->
+    <div class="profile p-3 border-bottom border-secondary">
+      <h1 class="logo fs-5 mb-3">
+        <a href="/admin_dashboard" class="text-decoration-none">
+          <span class="text-primary">STUDY FLOW
+          <small class="d-block text-secondary fs-6">관리자 모드</small>
         </a>
       </h1>
-      <div class="admin-info" th:if="${!session.isEmpty()}">
-        <p th:text="${session.logined_admin.id}">관리자 아이디</p>
-        <div class="name">
+
+      <div class="admin-info small mb-2" th:if="${session.logined_admin != null}">
+        <p class="mb-0 fw-bold" th:text="${session.logined_admin.id}">아이디</p>
+        <div class="name d-flex gap-2 text-secondary">
           <span th:text="${session.logined_admin.name}">이름</span>
-          <span th:text="${session.logined_admin.role}">권한(직급)</span>
+          <span th:text="${session.logined_admin.role}">직급</span>
         </div>
       </div>
-      <ul class="profile-util">
+
+      <ul class="profile-util list-unstyled d-flex gap-3 mb-0">
+        <!-- 정보 수정 -->
         <li>
-          <!-- 정보수정 -->
-          <a href=""><i class="fa-solid fa-gear"></i></a>
+          <a href="#" class=>
+            <i class="fa-solid fa-gear"></i>
+          </a>
         </li>
+        <!-- 사이드바 접기 -->
         <li>
-          <!-- 사이드바 숨기기 -->
-          <button id="toggle-sidebar-button" type="button"><i class="fa-solid fa-bars"></i></button>
+          <button id="toggle-sidebar-button" type="button" class="btn btn-link p-0 border-0">
+            <i class="fa-solid fa-bars"></i>
+          </button>
         </li>
       </ul>
     </div>
 
     <!-- 사이드바 메뉴 -->
-    <nav>
-      <ul class="main-menu">
-        <li>
-          <a href="/admin_dashboard">
+    <nav class="flex-grow-1 mt-3">
+      <ul class="main-menu list-unstyled px-2">
+        <li class="mb-2">
+          <a href="/admin_dashboard" class="nav-link align-items-center">
+            <i class="fa-solid fa-house me-3"></i>
             <span class="menu-text">운영현황</span>
-            <span class="menu-icon"><i class="fa-solid fa-house"></i></span>
           </a>
         </li>
-        <li>
-          <ul class="sub-menu">
-            <li>
-              <a href="/admin/management/reservation/list">
+
+        <li class="border-top border-secondary pt-3 mt-3">
+          <ul class="sub-menu list-unstyled">
+            <li class="mb-2">
+              <a href="/admin/management/reservation/list" class="nav-link">
+                <i class="fa-solid fa-user-group me-3"></i>
                 <span class="menu-text">예약자 관리</span>
-                <span class="menu-icon"><i class="fa-solid fa-user-group"></i></span>
               </a>
             </li>
-            <li>
-              <a href="/admin/management/inquiry/list">
-                <span class="menu-text">문의 관리</span>
-                <span class="menu-icon"><i class="fa-solid fa-circle-question"></i></span>
-              </a>
+            <li class="mb-2">
+              <a href="/admin/management/inquiry/list" class="nav-link">
+              <i class="fa-solid fa-circle-question me-3"></i>
+              <span class="menu-text">문의 관리</span>
+            </a>
             </li>
-            <li>
-              <a href="/admin/management/interest/list">
+            <li class="mb-2">
+              <a href="/admin/management/interest/list" class="nav-link">
+                <i class="fa-solid fa-icons me-3"></i>
                 <span class="menu-text">관심 분야 관리</span>
-                <span class="menu-icon"><i class="fa-solid fa-icons"></i></span>
               </a>
             </li>
-            <li>
-              <a href="/admin/management/blacklist/list">
+            <li class="mb-2">
+              <a href="/admin/management/blacklist/list" class="nav-link">
+                <i class="fa-solid fa-user-slash me-3"></i>
                 <span class="menu-text">블랙리스트</span>
-                <span class="menu-icon"><i class="fa-solid fa-user-slash"></i></span>
               </a>
             </li>
           </ul>
         </li>
-        <!-- ROLE이 SUPER인 관리자만 -->
-        <li>
-          <ul class="sub-menu">
-            <li>
-              <a href="/admin/management/operator/list">
-                <span class="menu-text">운영자 관리</span>
-                <span class="menu-icon"><i class="fa-brands fa-black-tie"></i></span>
-              </a>
-            </li>
+
+        <li class="border-top border-secondary pt-3 mt-3">
+          <ul class="sub-menu list-unstyled">
+            <li class="mb-2"><a href="/admin/management/operator/list" class="nav-link"><i class="fa-brands fa-black-tie me-3"></i> <span class="menu-text">운영자 관리</span></a></li>
           </ul>
         </li>
+
         <!-- <li th:if="${session.logined_admin.role == 'SUPER'}">
-          <ul class="sub-menu">
-            <li>
-              <a href="/admin/management/operator/list">운영자 관리</a>
-            </li>
-          </ul>
-        </li> -->
+              <ul class="sub-menu">
+                <li>
+                  <a href="/admin/management/operator/list">운영자 관리</a>
+                </li>
+              </ul>
+            </li> -->
       </ul>
     </nav>
-  </div>
+  </aside>
 </html>

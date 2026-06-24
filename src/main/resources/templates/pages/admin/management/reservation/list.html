@@ -19,77 +19,71 @@
         <div
           th:replace="~{layout/admin/fragments/global/search_form :: SearchForm(~{:: #filters})}"
         >
+
           <div id="filters">
-            <!-- 탭 메뉴 -->
-            <div class="tab-menu">
-              <h4>예약 상태</h4>
-              <label th:each="option : ${searchOptions.reserveStates}" th:for="${option.value}">
-                <input name="reserveState"
-                       th:checked="${pager.reserveState != null and #lists.contains(pager.reserveState, option.value)}"
-                       th:id="${option.value}"
-                       th:value="${option.value}" type="radio" />
-                <span th:text="${option.label}"></span>
-              </label>
+            <div class="mb-4 filter">
+              <h6 class="fw-bold mb-2 option-title text-nowrap">예약 상태</h6>
+              <div class="d-flex gap-3">
+                <div class="form-check" th:each="option : ${searchOptions.reserveStates}">
+                  <input class="form-check-input" name="reserveState"
+                         th:checked="${pager.reserveState != null and #lists.contains(pager.reserveState, option.value)}"
+                         th:id="${option.value}" th:value="${option.value}"
+                         type="radio">
+                  <label class="form-check-label" th:for="${option.value}" th:text="${option.label}"></label>
+                </div>
+              </div>
             </div>
 
-            <div class="filter region-group">
-              <h4 class="option-title">지역</h4>
-              <label th:each="option : ${searchOptions.regions}" th:for="${option.value}">
-                <input name="region"
-                       th:checked="${pager.region != null and #lists.contains(pager.region, option.value)}"
-                       th:id="${option.value}"
-                       th:value="${option.value}"
-                       type="checkbox" />
-                <span th:text="${option.label}"></span>
-              </label>
+            <div class="mb-4 filter">
+              <h6 class="fw-bold mb-2 option-title text-nowrap">지역</h6>
+              <div class="d-flex flex-wrap gap-3">
+                <div class="form-check" th:each="option : ${searchOptions.regions}">
+                  <input class="form-check-input" name="region"
+                         th:checked="${pager.region != null and #lists.contains(pager.region, option.value)}"
+                         th:id="${'reg_'+option.value}" th:value="${option.value}"
+                         type="checkbox">
+                  <label class="form-check-label" th:for="${'reg_'+option.value}" th:text="${option.label}"></label>
+                </div>
+              </div>
             </div>
 
-            <div class="filter inflow-group">
-              <h4 class="option-title">유입경로</h4>
-              <label th:each="option : ${searchOptions.inflows}" th:for="${option.value}">
-                <input name="inflow"
-                       th:checked="${pager.inflow != null and #lists.contains(pager.inflow, option.value)}"
-                       th:id="${option.value}"
-                       th:value="${option.value}"
-                       type="checkbox"
-                />
-                <span th:text="${option.label}"></span>
-              </label>
+            <div class="mb-4 filter">
+              <h6 class="fw-bold mb-2 option-title text-nowrap">유입경로</h6>
+              <div class="d-flex flex-wrap gap-3">
+                <div class="form-check" th:each="option : ${searchOptions.inflows}">
+                  <input class="form-check-input" name="inflow"
+                         th:checked="${pager.inflow != null and #lists.contains(pager.inflow, option.value)}"
+                         th:id="${'inf_'+option.value}" th:value="${option.value}"
+                         type="checkbox">
+                  <label class="form-check-label" th:for="${'inf_'+option.value}" th:text="${option.label}"></label>
+                </div>
+              </div>
             </div>
 
-            <!-- 예약 날짜별 -->
-            <div class="filter date-group">
-              <h4 class="option-title">예약일자</h4>
-              <label>
-                <span>
-                  시작일
-                </span>
-                <input name="startDate" th:value="${pager.startDate}" type="date" />
-              </label>
-              <label>
-                <span>종료일</span>
-                <input name="endDate" th:value="${pager.endDate}" type="date" />
-              </label>
-            </div>
-
-            <!-- 검색어 -->
-            <div class="filter text-group">
-              <h4>상세 검색</h4>
-              <select name="search">
-                <option th:each="option : ${searchOptions.reservationSearch}"
-                        th:selected="${pager.search == option.value}"
-                        th:text="${option.label}"
-                        th:value="${option.value}"></option>
-              </select>
-              <input
-                autocomplete="off"
-                name="keyword"
-                placeholder="검색어를 입력하세요."
-                th:value="${pager.keyword}"
-                type="text"
-              />
+            <div class="row g-3 align-items-end">
+              <div class="col-md-4 filter">
+                <h6 class="fw-bold mb-2 option-title text-nowrap">예약일자</h6>
+                <div class="input-group">
+                  <input class="form-control" name="startDate" th:value="${pager.startDate}" type="date">
+                  <span class="input-group-text">~</span>
+                  <input class="form-control" name="endDate" th:value="${pager.endDate}" type="date">
+                </div>
+              </div>
+              <div class="col-md-5 filter">
+                <h6 class="fw-bold mb-2 option-title text-nowrap">상세 검색</h6>
+                <div class="input-group">
+                  <select class="form-select" name="search" style="max-width: 120px;">
+                    <option th:each="option : ${searchOptions.reservationSearch}"
+                            th:selected="${pager.search == option.value}" th:text="${option.label}"
+                            th:value="${option.value}"></option>
+                  </select>
+                  <input class="form-control" name="keyword" placeholder="검색어를 입력하세요."
+                         th:value="${pager.keyword}" type="text">
+                </div>
+              </div>
             </div>
           </div>
+
         </div>
 
         <div th:if="${reservations.isEmpty()}">
@@ -125,7 +119,7 @@
       </div>
 
       <div
-        th:replace="~{/layout/admin/fragments/reserve_detail :: Modal}"
+        th:replace="~{/layout/admin/fragments/reservation/reserve_detail :: Modal}"
       ></div>
     </section>
   </body>

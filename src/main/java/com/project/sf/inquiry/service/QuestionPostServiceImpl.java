@@ -1,8 +1,8 @@
 package com.project.sf.inquiry.service;
 
 import com.project.sf.common.pager.Pager;
-import com.project.sf.inquiry.QuestionPost;
 import com.project.sf.inquiry.dao.QuestionPostDao;
+import com.project.sf.inquiry.model.QuestionPost;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

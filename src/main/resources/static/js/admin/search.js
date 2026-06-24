@@ -66,7 +66,7 @@ const handleRenderSelectedFilterOptions = () => {
   if (activeFilters.length > 0) {
     selectedFilter.innerHTML = activeFilters.map(filter =>
       `<li>
-        <span class="badge" data-type="${filter.type}" data-target-id="${filter.targetId || ''}">
+        <span class="badge text-white text-bg-info fw-light" data-type="${filter.type}" data-target-id="${filter.targetId || ''}">
           ${filter.text} <i class="fa-solid fa-xmark"></i>
         </span>
       </li>`,

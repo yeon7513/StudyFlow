@@ -4,53 +4,41 @@
   th:fragment="Header"
   xmlns:th="http://www.thymeleaf.org"
 >
-  <header>
-    <ul class="bread-crumb">
-      <li>
-        <a href="/admin_dashboard">
-          <i class="fa-solid fa-house"></i>
-        </a>
-      </li>
+  <header class="navbar navbar-expand-lg navbar-light bg-white border-bottom px-4 py-3 position-sticky top-0">
 
-      <!--
-        타임리프 반복의 상태변수 -> 변수명+Stat
-        참고 : https://jddng.tistory.com/233
-      -->
-      <th:block th:if="${breadCrumbs != null}">
-        <li th:each="menu, menuStat : ${breadCrumbs}">
-          <i class="fa-solid fa-chevron-right"></i>
-          <a
-            th:href="${menu.path}"
-            th:if="${menu.path != null}"
-            th:text="${menu.label}"
-          >
-            브레드크럼명
+    <nav aria-label="breadcrumb">
+      <ol class="breadcrumb mb-0 align-items-center">
+        <li class="breadcrumb-item">
+          <a class="text-decoration-none text-secondary" href="/admin_dashboard">
+            <i class="fa-solid fa-house"></i>
           </a>
-
-          <!-- 마지막 브레드크럼일 경우, 링크 X -->
-          <span
-            th:class="${menuStat.last} ? 'active-page' : ''"
-            th:if="${menu.path == null or menu.path == ''}"
-            th:text="${menu.label}"
-          >
-            현재 보고 있는 페이지
-          </span>
         </li>
-      </th:block>
-    </ul>
-    <ul class="utils">
-      <li>
-        <a class="btn" href="/static">
-          <span class="util-text">사용자 모드 전환</span>
-          <span class="util-icon"><i class="fa-solid fa-arrow-right-arrow-left"></i></span>
-        </a>
-      </li>
-      <li>
-        <a class="btn cancel" href="/admin/auth/logout">
-          <span class="util-text">로그아웃</span>
-          <span class="util-icon"><i class="fa-solid fa-right-from-bracket"></i></span>
-        </a>
-      </li>
-    </ul>
+
+        <!--
+          타임리프 반복의 상태변수 -> 변수명+Stat
+          참고 : https://jddng.tistory.com/233
+        -->
+        <th:block th:if="${breadCrumbs != null}">
+          <li class="breadcrumb-item d-flex align-items-center" th:each="menu, menuStat : ${breadCrumbs}">
+            <a class="text-decoration-none text-body-secondary fw-semibold" th:href="${menu.path}"
+               th:if="${menu.path != null}" th:text="${menu.label}">메뉴</a>
+
+            <!-- 마지막 브레드크럼일 경우 링크 X -->
+
+            <span class="text-body fw-bold"
+                  th:if="${menu.path == null or menu.path == ''}" th:text="${menu.label}">현재 페이지</span>
+          </li>
+        </th:block>
+      </ol>
+    </nav>
+
+    <div class="ms-auto d-flex gap-3">
+      <a class="btn btn-outline-secondary btn-sm" href="/">
+        <i class="fa-solid fa-arrow-right-arrow-left me-2"></i>사용자 모드 전환
+      </a>
+      <a class="btn btn-outline-danger btn-sm" href="/admin/auth/logout">
+        <i class="fa-solid fa-right-from-bracket me-2"></i>로그아웃
+      </a>
+    </div>
   </header>
 </html>

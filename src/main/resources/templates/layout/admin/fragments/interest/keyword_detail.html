@@ -1,0 +1,52 @@
+<!doctype html>
+<html
+  lang="ko"
+  th:fragment="KeywordDetail"
+  xmlns:th="http://www.thymeleaf.org"
+>
+  <div class="keyword-detail">
+    <!-- 키워드 기본 정보 -->
+    <div class="keyword-info">
+      <div class="keyword-info-title">
+        <h3>
+          <span class="category-name" th:text="|[${keyword.categoryName}]|">카테고리명</span>
+          <span th:text="${keyword.name}">키워드명</span>
+        </h3>
+      </div>
+
+      <ul class="keyword-info-meta">
+        <li>
+          <span>등록 관리자</span>
+          <span th:text="${keyword.adminId}"></span>
+        </li>
+        <li>
+          <span>키워드 등록일</span>
+          <span th:text="${keyword.createdAt}"></span>
+        </li>
+        <li>
+          <span>키워드 수정일</span>
+          <span th:text="${keyword.updatedAt != null ? keyword.updatedAt : '-'}"></span>
+        </li>
+      </ul>
+
+      <div class="keyword-info-description">
+        <p th:text="${keyword.description}">키워드 상세 설명</p>
+      </div>
+
+      <button class="change-modify btn" type="button">수정</button>
+    </div>
+
+    <!-- 키워드 통계 (관심 분야로 선택한 사용자 수, 선택 비율) -->
+    <div class="keyword-stat">
+      <div class="keyword-stat-card stat-count">
+        <h3>키워드 선택 수</h3>
+        <p th:text="|${stats.selectionCount}명|"></p>
+      </div>
+      <div class="keyword-stat-card stat-ratio">
+        <h3>카테고리 내 점유율</h3>
+        <p th:text="|${stats.selectionRatio}%|"></p>
+        <span th:text="|[${keyword.categoryName}] 전체: ${stats.totalKeywordInCategory}개|"></span>
+      </div>
+    </div>
+  </div>
+</html>

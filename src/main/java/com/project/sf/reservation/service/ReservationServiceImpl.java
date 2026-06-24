@@ -3,6 +3,7 @@ package com.project.sf.reservation.service;
 import com.project.sf.common.enums.reservation.CanceledReasonEnum;
 import com.project.sf.common.enums.reservation.InflowEnum;
 import com.project.sf.common.enums.reservation.RegionEnum;
+import com.project.sf.common.enums.reservation.StudyLevelEnum;
 import com.project.sf.common.pager.AdminReservationSearch;
 import com.project.sf.reservation.dao.ReservationDao;
 import com.project.sf.reservation.model.Reservation;
@@ -27,7 +28,15 @@ public class ReservationServiceImpl implements ReservationService {
     params.put("email", email);
     params.put("password", password);
 
-    return reservationDao.findReservationDetail(params);
+    Reservation reservation = reservationDao.findReservationDetail(params);
+
+    if (reservation != null) {
+      for (SelectedKeyword keyword : reservation.getSelectedKeywords()) {
+        keyword.setStudyLevel(StudyLevelEnum.changeValueToLabel(keyword.getStudyLevel()));
+      }
+    }
+
+    return reservation;
   }
 
   // 전체 사전예약 데이터 조회 (관리자용) -> 서비스 옮길 것!!

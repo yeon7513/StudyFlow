@@ -1,50 +1,51 @@
 <!doctype html>
 <html
   lang="ko"
-  xmlns:th="http://www.thymeleaf.org"
   xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
-  layout:decorate="~{/layout/common/layout}"
 >
   <head>
     <title layout:fragment="title">스터디 플로우 - 관리자 로그인</title>
+    <link href="/css/common/common.css" rel="stylesheet" />
+    <!-- 부트스트랩 라이브러리 -->
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/css/bootstrap.min.css" rel="stylesheet" />
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.8/dist/js/bootstrap.bundle.min.js"></script>
     <script defer src="/js/admin/login.js"></script>
   </head>
   <body>
-    <section layout:fragment="container">
-      <h2>admin - login.html</h2>
-      <p>관리자 로그인 페이지</p>
+    <section class="container d-flex justify-content-center align-items-center min-vh-100">
 
-      <div class="form-wrap">
-        <form id="login-form" method="post">
-          <div class="input-group">
-            <input
-              id="id"
-              class="text-field"
-              type="text"
-              name="id"
-              placeholder="아이디 입력"
-              autocomplete="no-id"
-              required
-            />
-            <label for="id" class="text-label">아이디</label>
+      <div class="col-12 col-md-6 col-lg-4">
+        <div class="card p-4 border-0 shadow rounded-4">
+
+          <div class="text-center mb-3">
+            <h1 class="mb-2">
+              <a class="text-decoration-none fw-bold text-primary" href="/">STUDY FLOW</a>
+            </h1>
+            <p class="fs-4 fw-semibold text-dark">관리자 로그인</p>
+            <hr class="w-25 mx-auto border-2 border-primary mt-4">
           </div>
-          <div class="input-group">
-            <input
-              id="pw"
-              class="text-field"
-              type="password"
-              name="pw"
-              placeholder="비밀번호 입력"
-              autocomplete="off"
-              required
-            />
-            <label for="pw" class="text-label">비밀번호</label>
-          </div>
-          <div>
-            <button type="submit" class="btn">관리자 로그인</button>
-          </div>
-        </form>
+
+          <form id="login-form" method="post" th:action="@{/admin/login}">
+            <div class="mb-3">
+              <label class="form-label" for="id">아이디</label>
+              <input class="form-control" id="id" name="id" required type="text" />
+            </div>
+            <div class="mb-4">
+              <label class="form-label" for="pw">비밀번호</label>
+              <input class="form-control" id="pw" name="pw" required type="password" />
+            </div>
+
+            <div class="d-grid gap-2">
+              <button class="btn btn-primary fw-bold" type="submit">로그인</button>
+              <a class="btn btn-light border fw-bold text-secondary" href="/">
+                메인 페이지로 돌아가기
+              </a>
+            </div>
+          </form>
+
+        </div>
       </div>
+
     </section>
   </body>
 </html>

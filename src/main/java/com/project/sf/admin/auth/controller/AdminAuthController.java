@@ -1,8 +1,8 @@
 package com.project.sf.admin.auth.controller;
 
-import com.project.sf.admin.auth.model.Admin;
 import com.project.sf.admin.auth.model.AdminLogin;
 import com.project.sf.admin.auth.service.AdminAuthService;
+import com.project.sf.admin.operator.model.Admin;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;

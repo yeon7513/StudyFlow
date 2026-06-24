@@ -1,101 +1,56 @@
-// 모달 연결
-const modal = document.getElementById("modal");
-const cancelModalButton = document.getElementById("cancel-modal");
+// 모달 띄우기 (스프링에 모달에 들어갈 프래그먼트를 요청)
+const handleLoadVerifyModalContent = (action, no) => {
+  fetch('/inquiry/verify', {
+    method: "GET",
+  })
+  .then((res) => res.text())
+  .then((result) => {
+    const modalContent = document.getElementById('modal-content');
+    modalContent.innerHTML = result;
 
-const postNo = document.getElementById("postNo");
-const postAction = document.getElementById("postAction");
-const title = document.querySelector("#modal .title > h3");
+    const postNo = modalContent.querySelector("#post-no");
+    postNo.value = no;
 
-const handleShowModal = (action) => {
-  postAction.value = action;
+    const postAction = modalContent.querySelector("#post-action");
+    postAction.value = action;
 
-  if (action === "edit") {
-    title.textContent = "게시글 수정";
-  } else {
-    title.textContent = "게시글 삭제";
-  }
+    // 모달 열기
+    const modalEl = document.getElementById('common-modal');
+    const bsModal = bootstrap.Modal.getOrCreateInstance(modalEl);
+    bsModal.show();
 
-  // input 초기화
-  handleClearError();
-  passwordField.value = "";
-  passwordField.focus();
+    // input 초기화 및 포커스
+    const postPwInput = modalContent.querySelector("#password");
+    postPwInput.value = "";
+    postPwInput.focus();
+  })
+}
 
-  modal.style.display = "block";
-};
+const modifyButton = document.getElementById("modify");
+const deleteButton = document.getElementById("delete");
 
-// 모달 닫기
-const handleHideModal = () => {
-  modal.style.display = "none";
-};
-
-modal.addEventListener("click", handleHideModal);
-cancelModalButton.addEventListener("click", handleHideModal);
-
-// -----------------------------------------------------
-
-// 이벤트 버블링 해제
-const modalForm = modal.querySelector("form");
-
-modalForm.addEventListener("click", (e) => {
-  e.stopPropagation();
+modifyButton?.addEventListener("click", () => {
+  const postNo = modifyButton.dataset.postNo;
+  handleLoadVerifyModalContent("modify", postNo);
+});
+deleteButton?.addEventListener("click", () => {
+  const postNo = deleteButton.dataset.postNo;
+  handleLoadVerifyModalContent("delete", postNo);
 });
 
 // -----------------------------------------------------
 
-// input 유효성 검사
-const passwordField = modalForm.querySelector("#password");
-
-// 에러 시 스타일 & 메시지 적용
-const handleShowError = (message) => {
-  passwordField.classList.add("error-password");
-
-  let errorText = document.getElementById("error-message");
-
-  if (!errorText) {
-    errorText = document.createElement("p");
-    errorText.id = "error-message";
-    passwordField.parentNode.insertBefore(errorText, passwordField.nextSibling);
-  }
-
-  errorText.textContent = message;
+// 비밀번호 불일치 표시
+const handleShowError = (inputElement) => {
+  inputElement.classList.add("is-invalid");
+  inputElement.value = "";
+  inputElement.focus();
 };
 
-// 에러 스타일 & 메시지 삭제
-const handleClearError = () => {
-  passwordField.classList.remove("error-password");
-
-  const errorText = document.getElementById("error-message");
-
-  if (errorText) {
-    errorText.remove();
-  }
+// 에러 초기화
+const handleClearError = (inputElement) => {
+  inputElement.classList.remove("is-invalid");
 };
-
-passwordField.addEventListener("input", handleClearError);
-
-// -----------------------------------------------------
-
-// 게시글 수정용 모달
-const modifyButton = document.getElementById("modify");
-
-const handleModifyPost = () => {
-  handleShowModal("modify");
-};
-
-if (modifyButton) {
-  modifyButton.addEventListener("click", handleModifyPost);
-}
-
-// -----------------------------------------------------
-
-// 게시글 삭제용 모달
-const deleteButton = document.getElementById("delete");
-
-const handleDeletePost = () => {
-  handleShowModal("delete");
-};
-
-deleteButton.addEventListener("click", handleDeletePost);
 
 // -----------------------------------------------------
 
@@ -107,45 +62,49 @@ const handleSubmitVerify = (e) => {
 
   const no = form.postNo.value;
   const postPw = form.postPw.value.trim();
-  const action = form.action.value;
-
-  if (!postPw) {
-    handleShowError("비밀번호를 입력해주세요.");
-    passwordField.focus();
-    return;
-  }
+  const action = form.postAction.value;
 
   const formData = new FormData();
 
   formData.append("no", no);
   formData.append("postPw", postPw);
 
-  try {
-    fetch("/qna/verify", {
-      method: "POST",
-      body: formData,
-    })
-      .then((res) => res.text())
-      .then((result) => {
-        if (result === "true") {
-          // 수정
-          if (action === "modify") {
-            handleHideModal();
-            location.replace(`/qna/modify/${no}`);
+  fetch("/inquiry/verify", {
+    method: "POST",
+    body: formData,
+  })
+  .then((res) => res.text())
+  .then((result) => {
+    if (result === "true") {
+      // 부트스트랩 모달 가져오기
+      const modalEl = document.getElementById('common-modal');
+      const bsModal = bootstrap.Modal.getInstance(modalEl);
 
-            // 삭제
-          } else if (action === "delete") {
-            if (confirm("정말 이 게시글을 삭제하시겠습니까?")) {
-              location.replace(`/qna/delete/${no}`);
-            }
-          }
-        } else {
-          handleShowError("비밀번호가 일치하지 않습니다.");
-          passwordField.value = "";
-          passwordField.focus();
+      if (bsModal) {
+        bsModal.hide();
+      }
+
+      // 수정
+      if (action === "modify") {
+        location.replace(`/inquiry/modify/${no}`);
+
+        // 삭제
+      } else if (action === "delete") {
+        if (confirm("정말 이 게시글을 삭제하시겠습니까?")) {
+          location.replace(`/inquiry/delete/${no}`);
         }
-      });
-  } catch (error) {}
+      }
+    } else {
+      handleShowError(form.postPw);
+      form.postPw.addEventListener("input", () => handleClearError(form.postPw));
+    }
+  });
 };
 
-modalForm.addEventListener("submit", handleSubmitVerify);
+// 모달 안의 내용은 동적으로 생성되기 때문에 이벤트를 위임
+document.addEventListener("submit", (e) => {
+  if (e.target.id === "password-verify-form") {
+    e.preventDefault();
+    handleSubmitVerify(e);
+  }
+});

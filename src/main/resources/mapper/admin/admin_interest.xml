@@ -5,16 +5,149 @@
 
 <mapper namespace="adminInterest">
 
+    <!-- 전체 카테고리 -->
     <select id="loadCategories" resultType="AdminInterestCategory">
         SELECT *
         FROM INTEREST_CATEGORY
     </select>
 
+    <!-- 전체 키워드 -->
     <select id="loadKeywords" resultType="AdminInterestKeyword">
         SELECT IC.name AS category_name, IK.*
         FROM INTEREST_KEYWORD AS IK
         JOIN INTEREST_CATEGORY AS IC
         ON IK.CATE_NO = IC.NO
+        ORDER BY IK.cate_no, IK.no, IK.name
     </select>
 
+    <!-- 빈 카테고리 수 -->
+    <select id="countEmptyCategory" resultType="Integer">
+        SELECT count(*)
+        FROM INTEREST_KEYWORD AS IK
+        RIGHT JOIN INTEREST_CATEGORY AS IC
+        ON IK.CATE_NO = IC.NO
+        WHERE IK.CATE_NO IS null
+    </select>
+
+    <!-- 활성 키워드 수 -->
+    <select id="countActiveKeyword" resultType="Integer">
+        SELECT count(*)
+        FROM INTEREST_KEYWORD
+        WHERE IS_ACTIVE = 1
+    </select>
+
+    <!-- 비활성 키워드 수 -->
+    <select id="countInactiveKeyword" resultType="Integer">
+        SELECT count(*)
+        FROM INTEREST_KEYWORD
+        WHERE IS_ACTIVE = 0
+    </select>
+
+    <!-- 키워드 상세 정보 -->
+    <select id="loadKeywordDetail" resultType="AdminInterestKeyword">
+        SELECT IC.name AS category_name, IK.*
+        FROM INTEREST_KEYWORD AS IK
+        JOIN INTEREST_CATEGORY AS IC
+        ON IK.CATE_NO = IC.NO
+        WHERE IK.NO = #{no}
+    </select>
+
+    <!-- 키워드 수정 시 사용할 카테고리 번호와 카테고리명 (드롭다운) -->
+    <select id="loadCategoryOptions" resultType="AdminInterestCategory">
+        SELECT no, name
+        FROM INTEREST_CATEGORY
+        WHERE is_active = 1
+    </select>
+
+    <!--
+        키워드 상세 조회 시 띄울 각 키워드별 통계
+        통계만 따로 뺀 이유? -> 수정 시 내용을 채울 때는 이 쿼리가 필요 없음.
+    -->
+    <select id="loadKeywordStatByNo" resultType="AdminInterestKeywordStats">
+        SELECT
+        IFNULL(kwd_stats.KWD_COUNT, 0) AS selection_count,
+        round(IFNULL(kwd_stats.KWD_COUNT, 0) * 100.0 / NULLIF(cate_stats.CATE_COUNT, 0), 1) AS selection_ratio,
+        ifnull(total_kwd_stats.TOTAL_KWD_COUNT, 0) AS total_keyword_in_category
+        FROM INTEREST_KEYWORD AS IK
+        LEFT JOIN (
+        SELECT SK.KWD_NO, count(*) AS kwd_count
+        FROM SELECTED_KEYWORD AS SK
+        WHERE SK.KWD_NO = #{no}
+        GROUP BY SK.KWD_NO
+        ) AS kwd_stats
+        ON IK.NO = kwd_stats.KWD_NO
+        LEFT JOIN (
+        SELECT IK.CATE_NO, COUNT(*) AS cate_count
+        FROM SELECTED_KEYWORD SK
+        JOIN INTEREST_KEYWORD IK ON SK.KWD_NO = IK.NO
+        WHERE IK.CATE_NO = (SELECT CATE_NO FROM INTEREST_KEYWORD WHERE NO = #{no})
+        GROUP BY IK.CATE_NO
+        ) AS cate_stats
+        ON IK.CATE_NO = cate_stats.CATE_NO
+        LEFT JOIN (
+        SELECT cate_no, count(*) AS total_kwd_count
+        FROM INTEREST_KEYWORD
+        WHERE cate_no = (SELECT cate_no FROM INTEREST_KEYWORD WHERE NO = #{no})
+        GROUP BY cate_no
+        ) AS total_kwd_stats ON IK.CATE_NO = total_kwd_stats.CATE_NO
+        WHERE IK.NO = #{no}
+    </select>
+
+    <!-- 카테고리명 수정 -->
+    <update id="updateCategoryName">
+        UPDATE INTEREST_CATEGORY
+        SET NAME = #{name},
+        updated_at = #{updatedAt}
+        WHERE NO = #{no}
+    </update>
+
+    <!-- 카테고리 활성 상태 변경 -->
+    <update id="updateCategoryState">
+        UPDATE INTEREST_CATEGORY
+        SET is_active = #{isActive},
+        updated_at = #{updatedAt}
+        WHERE NO = #{no}
+    </update>
+
+    <!-- 키워드 활성 상태 변경 -->
+    <update id="updateKeywordState">
+        UPDATE INTEREST_KEYWORD
+        SET is_active = #{isActive},
+        updated_at = #{updatedAt}
+        WHERE NO = #{no}
+    </update>
+
+    <!-- 키워드 정보 변경 -->
+    <update id="updateKeywordInfo">
+        UPDATE INTEREST_KEYWORD
+        <set>
+            <if test="cateNo != null">
+                cate_no = #{cateNo},
+            </if>
+            <if test="name != null">
+                name = #{name},
+            </if>
+            <if test="description != null">
+                description = #{description},
+            </if>
+            updated_at = #{updatedAt}
+        </set>
+        WHERE NO = #{no}
+    </update>
+
+    <!-- 카테고리 등록 -->
+    <insert id="registerCategory">
+        <selectKey keyProperty="no" resultType="Long" order="BEFORE">
+            SELECT MAX(NO) + 10 FROM INTEREST_CATEGORY
+        </selectKey>
+
+        INSERT INTO INTEREST_CATEGORY (NO, NAME, ADMIN_ID, IS_ACTIVE, CREATED_AT)
+        VALUES (#{no}, #{name}, #{adminId}, 0, now())
+    </insert>
+
+    <!-- 키워드 등록 -->
+    <insert id="registerKeyword">
+        INSERT INTO INTEREST_KEYWORD (CATE_NO, ADMIN_ID, NAME, DESCRIPTION, IS_ACTIVE, CREATED_AT)
+        VALUES (#{cateNo}, #{adminId}, #{name}, #{description}, 0, now())
+    </insert>
 </mapper>
