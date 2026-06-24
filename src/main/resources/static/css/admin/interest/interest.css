@@ -2,8 +2,8 @@
 @import "../../common/variables.css";
 @import "../../common/toggle_switch.css";
 @import "../admin_search_form.css";
-@import "./category_panel.css";
-@import "./keyword_panel.css";
+@import "category_panel.css";
+@import "keyword_panel.css";
 
 #interest button[id*='register'] {
   margin-bottom: 16px;

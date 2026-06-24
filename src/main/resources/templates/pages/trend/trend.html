@@ -7,14 +7,14 @@
 >
   <head>
     <title layout:fragment="title">스터디 플로우 - 트렌드</title>
-    <link href="/css/trend/trend.css" rel="stylesheet" />
-    <script src="/js/trend/trend.js"></script>
+    <link rel="stylesheet" th:href="@{/css/trend/trend.css}" />
+    <script th:src="@{/js/trend/trend.js}"></script>
   </head>
   <body>
     <section layout:fragment="container">
       <!-- 배너 -->
       <th:block
-        th:replace="~{layout/common/fragments/Banner :: Banner(
+        th:replace="~{layout/common/fragments/banner :: Banner(
           'trend',
 					'TREND REPORT', 
 					'지금 가장 뜨거운 학습 키워드', 
@@ -107,7 +107,7 @@
 
               <div class="text-center mt-4">
                 <a class="btn btn-primary btn-lg px-5 fw-bold rounded-pill shadow"
-                   href="/reservation/enter_inforamtion">
+                   href="/reservation/enter_information">
                   혜택 받고 사전예약하기 <i class="fa-solid fa-arrow-right-long"></i>
                 </a>
               </div>

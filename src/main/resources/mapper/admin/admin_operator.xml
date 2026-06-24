@@ -5,8 +5,25 @@
 
 <mapper namespace="adminOperator">
 
+    <!-- 전체 관리자 수 -->
+    <select id="totalAdminCount" resultType="Integer">
+        SELECT count(*)
+        FROM ADMINS
+    </select>
+
+    <!-- 전체 관리자 목록 -->
     <select id="loadAdmins" resultType="Admin">
-        SELECT * FROM ADMINS
+        SELECT *
+        FROM ADMINS
+        ORDER BY role, created_at DESC
+        LIMIT #{offset}, #{perPage}
+    </select>
+
+    <!-- 관리자 상세 정보 조회 -->
+    <select id="loadAdminDetailById" resultType="Admin">
+        SELECT *
+        FROM ADMINS
+        WHERE id = #{id}
     </select>
 
 </mapper>

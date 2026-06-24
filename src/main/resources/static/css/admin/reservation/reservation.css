@@ -1,7 +1,7 @@
 @charset "UTF-8";
 @import "../../common/variables.css";
 @import "../admin_search_form.css";
-@import "./reservation_detail_modal.css";
+@import "reservation_detail_modal.css";
 
 .reservations {
   display: grid;

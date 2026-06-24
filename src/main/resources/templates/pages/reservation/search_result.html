@@ -13,7 +13,7 @@
       <!-- 배너 -->
       <th:block th:if="${result != null}">
         <th:block
-          th:replace="~{layout/common/fragments/Banner :: Banner(
+          th:replace="~{layout/common/fragments/banner :: Banner(
           'search-success',
 					'Perfect Match', 
 					'나와 딱 맞는 스터디를 만날 준비 완료', 
@@ -24,7 +24,7 @@
       </th:block>
       <th:block th:if="${result == null}">
         <th:block
-          th:replace="~{layout/common/fragments/Banner :: Banner(
+          th:replace="~{layout/common/fragments/banner :: Banner(
           'search-fail',
 					'New Connection', 
 					'아직 맞춤형 스터디 매칭을 신청하지 않으셨네요!', 
@@ -52,7 +52,8 @@
                 <a class="btn btn-outline-secondary btn-lg px-5 py-3 fw-bold rounded-pill" href="/reservation">
                   <i class="bi bi-arrow-counterclockwise me-1"></i>다시 검색
                 </a>
-                <a class="btn btn-primary btn-lg px-5 py-3 fw-bold rounded-pill shadow" href="/reservation/reserve">
+                <a class="btn btn-primary btn-lg px-5 py-3 fw-bold rounded-pill shadow"
+                   href="/reservation/enter_information">
                   사전 예약하기 <i class="bi bi-arrow-right-short"></i>
                 </a>
               </div>

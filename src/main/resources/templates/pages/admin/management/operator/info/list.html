@@ -1,0 +1,94 @@
+<!doctype html>
+<html
+  lang="ko"
+  layout:decorate="~{/layout/admin/dashboard}"
+  th:with="breadCrumbs=${ { {label: '운영자 관리', path: '/admin/management/operator/list'}, {label: '운영자 정보', path: null} } }"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  xmlns:th="http://www.thymeleaf.org"
+>
+  <section layout:fragment="container">
+    <!-- 탭 메뉴 -->
+    <div th:replace="~{layout/admin/fragments/operator/tab_menu :: TabMenu(activeTab='list')}"></div>
+
+    <!-- 검색 필터 섹션 -->
+    <div
+      th:replace="~{layout/admin/fragments/global/search_form :: SearchForm(~{:: #filters})}"
+    >
+      <div id="filters">
+      </div>
+    </div>
+
+    <!-- 실제 목록 렌더링 -->
+    <div class="card shadow-sm" style="border: 1px solid #ebebeb; border-radius: 4px;">
+      <div class="card-body p-0">
+        <div class="table-responsive">
+          <table class="table table-hover text-center align-middle mb-0">
+            <thead style="background-color: #f8f9fa;">
+              <tr>
+                <th class="py-3 fw-bold border-bottom" scope="col">아이디</th>
+                <th class="py-3 fw-bold border-bottom" scope="col">이름</th>
+                <th class="py-3 fw-bold border-bottom" scope="col">권한</th>
+                <th class="py-3 fw-bold border-bottom" scope="col">상태</th>
+                <th class="py-3 fw-bold border-bottom" scope="col">등록일</th>
+                <th class="py-3 fw-bold border-bottom" scope="col">수정일</th>
+                <th class="py-3 fw-bold border-bottom" scope="col">관리</th>
+              </tr>
+            </thead>
+            <tbody>
+              <tr th:if="${admins.isEmpty()}">
+                <td class="text-center py-5 text-secondary border-bottom" colspan="7">등록된 운영자 계정이 없습니다.</td>
+              </tr>
+
+              <tr th:each="admin : ${admins}">
+                <td class="py-3 border-bottom" th:text="${admin.id}">아이디</td>
+                <td class="py-3 border-bottom" th:text="${admin.name}">이름</td>
+                <td class="py-3 border-bottom" th:text="${admin.role}">권한</td>
+
+                <td class="py-3 border-bottom">
+                  <span class="badge bg-success fs-6 fw-normal" th:if="${admin.active == true}">활성</span>
+                  <span class="badge bg-secondary fs-6 fw-normal" th:if="${admin.isActive == false}">비활성</span>
+                </td>
+
+                <td class="py-3 border-bottom" th:text="${admin.createdAt}">생성일</td>
+                <td class="py-3 border-bottom" th:text="${admin.updatedAt != null ? admin.updatedAt : '-'}">
+                  수정일
+                </td>
+
+                <td class="py-3 border-bottom">
+                  <button aria-expanded="false" class="btn btn-sm btn-outline-primary"
+                          data-bs-toggle="collapse" th:data-bs-target="|#collapse_${admin.id}|"
+                          type="button">수정
+                  </button>
+                </td>
+              </tr>
+              <tr>
+                <td class="p-0 border-0" colspan="7">
+                  <div class="accordion-collapse collapse" th:data-bs-parent="|#accordion_${admin.id}|"
+                       th:id="|collapse_${admin.id}|">
+                    <div
+                      th:replace="~{layout/admin/fragments/operator/modify_fragment :: modifyForm(detail=${admin})}"></div>
+                  </div>
+                </td>
+              </tr>
+            </tbody>
+
+            <!-- 페이지네이션 -->
+            <tfoot>
+              <tr>
+                <td class="py-4" colspan="7">
+                  <div
+                    th:replace="~{layout/common/fragments/pagination :: Pagination(${pager})}"
+                  ></div>
+                </td>
+              </tr>
+            </tfoot>
+          </table>
+        </div>
+      </div>
+    </div>
+
+    <div class="d-flex justify-content-center mt-3">
+    </div>
+
+  </section>
+</html>

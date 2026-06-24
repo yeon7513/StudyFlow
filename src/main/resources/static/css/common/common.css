@@ -1,6 +1,6 @@
 @charset "UTF-8";
-@import "./variables.css";
-@import "./font.css";
+@import "variables.css";
+@import "font.css";
 
 * {
   padding: 0;

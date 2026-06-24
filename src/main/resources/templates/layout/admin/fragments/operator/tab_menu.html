@@ -1,0 +1,26 @@
+<!doctype html>
+<html
+  lang="ko"
+  th:fragment="TabMenu(activeTab)"
+  xmlns:th="http://www.thymeleaf.org"
+>
+  <div class="mb-4" id="operator-tab">
+    <ul class="nav nav-pills">
+      <li class="nav-item">
+        <a class="nav-link text-secondary"
+           th:classappend="${activeTab == 'list'} ? 'active text-white' : ''"
+           th:href="@{/admin/management/operator/list}">운영자 정보</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link text-secondary"
+           th:classappend="${activeTab == 'register'} ? 'active text-white' : ''"
+           th:href="@{/admin/management/operator/register}">운영자 계정 생성</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link text-secondary"
+           th:classappend="${activeTab == 'permission'} ? 'active text-white' : ''"
+           th:href="@{/admin/management/operator/permission}">운영자 권한 관리</a>
+      </li>
+    </ul>
+  </div>
+</html>
