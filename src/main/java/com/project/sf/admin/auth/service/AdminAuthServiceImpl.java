@@ -14,6 +14,7 @@ public class AdminAuthServiceImpl implements AdminAuthService {
 
   @Override
   public Admin login(AdminLogin adminLogin) {
+
     return adminDao.login(adminLogin);
   }
 

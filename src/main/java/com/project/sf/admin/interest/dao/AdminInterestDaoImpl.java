@@ -80,4 +80,9 @@ public class AdminInterestDaoImpl implements AdminInterestDao {
   public void registerCategory(AdminInterestCategory category) {
     sql.insert("adminInterest.registerCategory", category);
   }
+
+  @Override
+  public void registerKeyword(AdminInterestKeyword keyword) {
+    sql.insert("adminInterest.registerKeyword", keyword);
+  }
 }

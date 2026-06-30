@@ -63,6 +63,15 @@ const newReserveChartInstance = new Chart(newReserveChart, {
         },
       },
     },
+    scales: {
+      y: {
+        beginAtZero: true,
+        min: 0,
+        ticks: {
+          stepSize: 1,
+        },
+      },
+    },
   },
   plugins: [noDataPlugin],
 })
@@ -187,6 +196,15 @@ new Chart(regionChart, {
   },
   options: {
     indexAxis: "y",
+    scales: {
+      x: {
+        beginAtZero: true,
+        min: 0,
+        ticks: {
+          stepSize: 1,
+        },
+      },
+    },
     plugins: {
       tooltip: {
         callbacks: {

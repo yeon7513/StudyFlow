@@ -5,7 +5,9 @@ import com.project.sf.admin.interest.model.AdminInterestKeyword;
 import com.project.sf.admin.interest.model.AdminInterestKeywordStats;
 import com.project.sf.admin.interest.model.AdminInterestWidget;
 import com.project.sf.admin.interest.service.AdminInterestService;
+import com.project.sf.admin.operator.model.Admin;
 import com.project.sf.common.model.UpdateSuccess;
+import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -53,6 +55,10 @@ public class AdminInterestController {
     List<AdminInterestKeyword> keywords = adminInterestService.loadKeywords();
 
     model.addAttribute("keywords", keywords);
+
+    // 모달에서 사용
+    List<AdminInterestCategory> categoryOptions = adminInterestService.loadCategoryOptions();
+    model.addAttribute("categoryOptions", categoryOptions);
 
     return "layout/admin/fragments/interest/keyword_panel :: KeywordPanel";
   }
@@ -113,22 +119,32 @@ public class AdminInterestController {
     return adminInterestService.updateKeywordInfo(no, keyword);
   }
 
-  // 카테고리 등록 모달 렌더링
-  @GetMapping("/category/register")
-  String registerCategoryModal() {
-    return "layout/admin/fragments/interest/category_register :: Modal";
-  }
-
   // 카테고리 등록
   @PostMapping("/category/register")
-  String registerCategory(Model model, AdminInterestCategory category) {
+  String registerCategory(HttpSession session, AdminInterestCategory category) {
+
+    // 세션에서 관리자 객체 꺼내기
+    Admin admin = (Admin) session.getAttribute("logined_admin");
+
+    category.setAdminId(admin.getId());
+
     adminInterestService.registerCategory(category);
 
-    List<AdminInterestCategory> categories = adminInterestService.loadCategories();
+    return "redirect:/admin/management/interest/list";
+  }
 
-    model.addAttribute("categories", categories);
+  // 키워드 등록
+  @PostMapping("/keyword/register")
+  String registerKeyword(HttpSession session, AdminInterestKeyword keyword) {
 
-    return "layout/admin/fragments/interest/category_panel :: CategoryPanel";
+    // 세션에서 관리자 객체 꺼내기
+    Admin admin = (Admin) session.getAttribute("logined_admin");
+
+    keyword.setAdminId(admin.getId());
+
+    adminInterestService.registerKeyword(keyword);
+
+    return "redirect:/admin/management/interest/list";
   }
 
 }

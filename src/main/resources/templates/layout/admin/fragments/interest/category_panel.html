@@ -4,52 +4,87 @@
   th:fragment="CategoryPanel"
   xmlns:th="http://www.thymeleaf.org"
 >
-  <!--  <th:block th:replace="~{layout/admin/fragments/global/search_form :: SearchForm(~{:: #filters})}">-->
-  <!--    <div id="filters">-->
-  <!--      <div>-->
-  <!--        카테고리 검색 필터 섹션-->
-  <!--      </div>-->
-  <!--    </div>-->
-  <!--  </th:block>-->
+  <button
+    class="btn btn-primary mb-4"
+    data-bs-target="#categoryModal"
+    data-bs-toggle="modal"
+    type="button">
+    새 카테고리 등록
+  </button>
 
-  <button class="btn" id="register-category" type="button">새 카테고리 등록</button>
+  <div class="table-responsive">
+    <table class="table table-hover align-middle">
+      <thead class="table-light">
+        <tr>
+          <th>No.</th>
+          <th>카테고리명</th>
+          <th>등록 관리자</th>
+          <th>활성 상태</th>
+          <th>등록일</th>
+          <th>수정일</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr class="panel-item" th:each="category : ${categories}">
+          <td th:text="${category.no}"></td>
+          <td class="category-name"
+              style="cursor:pointer;"
+              th:data-category-name="${category.name}"
+              th:data-category-no="${category.no}">
+            [[${category.name}]] <i class="fa-regular fa-pen-to-square ms-2 text-primary"></i>
+          </td>
+          <td th:text="${category.adminId}"></td>
+          <td>
+            <div class="form-check form-switch">
+              <input class="form-check-input" name="categoryState" role="switch"
+                     th:checked="${category.isActive}"
+                     th:data-category-no="${category.no}"
+                     th:id="|switch${category.no}|"
+                     type="checkbox">
+              <label class="form-check-label" th:for="|switch${category.no}|"
+                     th:text="${category.isActive ? '활성' : '비활성'}"></label>
+            </div>
+          </td>
+          <td th:text="${category.createdAt}"></td>
+          <td class="updated-at" th:text="${category.updatedAt ?: '-'}"></td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
 
-  <ul class="panel-content" id="category-panel">
-    <li class="panel-header">
-      <div>No.</div>
-      <div>카테고리명</div>
-      <div>등록 관리자</div>
-      <div>활성 상태</div>
-      <div>등록일</div>
-      <div>수정일</div>
-    </li>
-    <li class="panel-item" th:each="category : ${categories}">
-      <div th:text="${category.no}">카테고리 고유 번호</div>
-      <div class="category-name" th:data-category-name="${category.name}" th:data-category-no="${category.no}">
-        [[${category.name}]] <i class="fa-regular fa-pen-to-square"></i>
+  <!-- 새 카테고리 등록 모달 -->
+  <div aria-hidden="true" aria-labelledby="categoryModalLabel" class="modal fade" id="categoryModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content border-0 shadow rounded-4">
+        <div class="modal-header border-0 pb-0">
+          <h5 class="modal-title fw-bold">카테고리 등록</h5>
+          <button class="btn-close" data-bs-dismiss="modal" type="button"></button>
+        </div>
+
+        <div class="modal-body">
+          <form id="register-category-form" method="post" th:action="@{/admin/management/interest/category/register}">
+            <div class="mb-3">
+              <label class="form-label text-secondary">카테고리명</label>
+              <input class="form-control" name="name" placeholder="카테고리명을 입력하세요" required type="text" />
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label text-secondary">활성 상태</label>
+              <div class="form-check form-switch fs-5">
+                <input checked class="form-check-input" id="isActiveSwitch" name="active" type="checkbox">
+                <label class="form-check-label" for="isActiveSwitch">활성</label>
+              </div>
+            </div>
+
+            <div class="modal-footer border-0 pt-0">
+              <button class="btn btn-secondary" data-bs-dismiss="modal" type="button">취소</button>
+              <button class="btn btn-primary" id="register-category" type="submit">등록</button>
+            </div>
+          </form>
+        </div>
+
       </div>
-      <div th:text="${category.adminId}">카테고리를 등록한 관리자</div>
+    </div>
+  </div>
 
-      <div class="switch-wrapper">
-        <input
-          class="switch"
-          name="categoryState"
-          th:checked="${category.isActive}"
-          th:data-category-no="${category.no}"
-          th:id="|${category.no}_switch|"
-          type="checkbox">
-        <label th:for="|${category.no}_switch|">
-          <span class="switch-x-toggletext">
-            <span class="switch-x-unchecked"><span class="switch-x-hiddenlabel">Unchecked: </span>비활성</span>
-            <span class="switch-x-checked"><span class="switch-x-hiddenlabel">Checked: </span>활성</span>
-          </span>
-        </label>
-      </div>
-
-      <div th:text="${category.createdAt}">카테고리 생성일</div>
-      <div class="updated-at" th:text="${category.updatedAt != null ? category.updatedAt : '-' }">카테고리 수정일</div>
-    </li>
-  </ul>
-
-  <th:block th:replace="~{layout/admin/fragments/interest/register_category :: Modal}"></th:block>
 </html>

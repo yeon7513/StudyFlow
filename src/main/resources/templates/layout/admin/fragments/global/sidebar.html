@@ -17,10 +17,12 @@
 
       <div class="admin-info small mb-2" th:if="${session.logined_admin != null}">
         <p class="mb-0 fw-bold" th:text="${session.logined_admin.id}">아이디</p>
-        <div class="name d-flex gap-2 text-secondary">
-          <span th:text="${session.logined_admin.name}">이름</span>
-          <span th:text="${session.logined_admin.role}">직급</span>
-        </div>
+          <p th:text="${session.logined_admin.name}">이름</p>
+          <th:block th:each="role : ${session.logined_admin.rolesWithLabel}">
+            <span class="badge fw-normal fs-6"
+                  th:classappend="${role == '최고 관리자'} ? 'bg-danger' : 'bg-primary'"
+                  th:text="${role}">권한</span>
+          </th:block>
       </div>
 
       <ul class="profile-util list-unstyled d-flex gap-3 mb-0">
@@ -51,25 +53,29 @@
 
         <li class="border-top border-secondary pt-3 mt-3">
           <ul class="sub-menu list-unstyled">
-            <li class="mb-2">
+            <li class="mb-2"
+                th:if="${(session.logined_admin.role.contains('ROLE_RESERVE') or session.logined_admin.role.contains('ROLE_SUPER'))}">
               <a href="/admin/management/reservation/list" class="nav-link">
                 <i class="fa-solid fa-user-group me-3"></i>
                 <span class="menu-text">예약자 관리</span>
               </a>
             </li>
-            <li class="mb-2">
+            <li class="mb-2"
+                th:if="${(session.logined_admin.role.contains('ROLE_INQUIRY') or session.logined_admin.role.contains('ROLE_SUPER'))}">
               <a href="/admin/management/inquiry/list" class="nav-link">
               <i class="fa-solid fa-circle-question me-3"></i>
               <span class="menu-text">문의 관리</span>
             </a>
             </li>
-            <li class="mb-2">
+            <li class="mb-2"
+                th:if="${(session.logined_admin.role.contains('ROLE_INTEREST') or session.logined_admin.role.contains('ROLE_SUPER'))}">
               <a href="/admin/management/interest/list" class="nav-link">
                 <i class="fa-solid fa-icons me-3"></i>
                 <span class="menu-text">관심 분야 관리</span>
               </a>
             </li>
-            <li class="mb-2">
+            <li class="mb-2"
+                th:if="${(session.logined_admin.role.contains('ROLE_BLACKLIST') or session.logined_admin.role.contains('ROLE_SUPER'))}">
               <a href="/admin/management/blacklist/list" class="nav-link">
                 <i class="fa-solid fa-user-slash me-3"></i>
                 <span class="menu-text">블랙리스트</span>
@@ -78,19 +84,18 @@
           </ul>
         </li>
 
-        <li class="border-top border-secondary pt-3 mt-3">
-          <ul class="sub-menu list-unstyled">
-            <li class="mb-2"><a href="/admin/management/operator/list" class="nav-link"><i class="fa-brands fa-black-tie me-3"></i> <span class="menu-text">운영자 관리</span></a></li>
-          </ul>
-        </li>
-
-        <!-- <li th:if="${session.logined_admin.role == 'SUPER'}">
+        <li th:if="${session.logined_admin.role.contains('ROLE_SUPER')}" class="border-top border-secondary pt-3 mt-3">
               <ul class="sub-menu">
-                <li>
-                  <a href="/admin/management/operator/list">운영자 관리</a>
+                <li class="mb-2">
+                  <a href="/admin/management/operator/list" class="nav-link">
+                    <i class="fa-brands fa-black-tie me-3"></i>
+                    <span class="menu-text">
+                      운영자 관리
+                    </span>
+                  </a>
                 </li>
               </ul>
-            </li> -->
+        </li>
       </ul>
     </nav>
   </aside>

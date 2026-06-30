@@ -9,4 +9,10 @@ public interface AdminOperatorDao {
   List<Admin> loadAdmins(Pager pager);
 
   Admin loadAdminDetailById(String id);
+
+  int modifyAdmin(Admin admin);
+
+  int checkId(String id);
+
+  void registerAdminAccount(Admin admin);
 }

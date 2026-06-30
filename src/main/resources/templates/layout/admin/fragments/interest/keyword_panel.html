@@ -4,16 +4,14 @@
   th:fragment="KeywordPanel"
   xmlns:th="http://www.thymeleaf.org"
 >
-  <!--  <th:block th:replace="~{layout/admin/fragments/global/search_form :: SearchForm(~{:: #filters})}">-->
-  <!--    <div id="filters">-->
-  <!--      <div>-->
-  <!--        키워드 검색 필터 섹션-->
-  <!--      </div>-->
-  <!--    </div>-->
-  <!--  </th:block>-->
 
-
-  <button class="btn" id="register-keyword" type="button">새 키워드 등록</button>
+  <button
+    class="btn btn-primary mb-4"
+    data-bs-target="#keywordModal"
+    data-bs-toggle="modal"
+    type="button">
+    새 키워드 등록
+  </button>
 
   <ul class="panel-content" id="keyword-panel">
     <li class="panel-header">
@@ -62,4 +60,52 @@
       <div class="keyword-expand-box"></div>
     </li>
   </ul>
+
+  <!-- 새 키워드 등록 모달 -->
+  <div aria-hidden="true" aria-labelledby="keywordModalLabel" class="modal fade" id="keywordModal" tabindex="-1">
+    <div class="modal-dialog modal-dialog-centered">
+      <div class="modal-content border-0 shadow rounded-4">
+        <div class="modal-header border-0 pb-0">
+          <h5 class="modal-title fw-bold">키워드 등록</h5>
+          <button class="btn-close" data-bs-dismiss="modal" type="button"></button>
+        </div>
+
+        <div class="modal-body">
+          <form method="post" th:action="@{/admin/management/interest/keyword/register}">
+            <div class="mb-3">
+              <select name="cateNo">
+                <option th:each="option : ${categoryOptions}" th:text="${option.name}" th:value="${option.no}"></option>
+              </select>
+
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label text-secondary">키워드명</label>
+              <input class="form-control" name="name" placeholder="키워드를 입력하세요" required type="text" />
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label text-secondary">상세 설명</label>
+              <textarea class="form-control" name="description" placeholder="상세 설명을 입력하세요"></textarea>
+            </div>
+
+            <div class="mb-3">
+              <label class="form-label text-secondary">활성 상태</label>
+              <div class="form-check form-switch fs-5">
+                <input checked class="form-check-input" id="isActiveSwitch" name="active" type="checkbox">
+                <label class="form-check-label" for="isActiveSwitch">활성</label>
+              </div>
+            </div>
+
+            <div class="modal-footer border-0 pt-0">
+              <button class="btn btn-secondary" data-bs-dismiss="modal" type="button">취소</button>
+              <button class="btn btn-primary" id="register-keyword" type="submit">등록</button>
+            </div>
+          </form>
+        </div>
+
+      </div>
+    </div>
+  </div>
+
 </html>

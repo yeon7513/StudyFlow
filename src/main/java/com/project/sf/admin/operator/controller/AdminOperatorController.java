@@ -2,13 +2,13 @@ package com.project.sf.admin.operator.controller;
 
 import com.project.sf.admin.operator.model.Admin;
 import com.project.sf.admin.operator.service.AdminOperatorService;
+import com.project.sf.common.enums.operator.AdminRoleEnum;
+import com.project.sf.common.model.UpdateSuccess;
 import com.project.sf.common.pager.Pager;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
@@ -36,31 +36,44 @@ public class AdminOperatorController {
 
     model.addAttribute("admins", admins);
 
-    return "pages/admin/management/operator/info/list";
+    // 화면에 렌더링할 권한들 (ENUM으로 넘겨줌)
+    model.addAttribute("roleOptions", AdminRoleEnum.values());
+
+    return "pages/admin/management/operator/list";
   }
 
-  // 운영자 정보 수정 페이지
-  @GetMapping("/modify/{id}")
-  String modify(@PathVariable String id, Model model) {
-
-    Admin detail = adminOperatorService.loadAdminDetailById(id);
-
-    model.addAttribute("detail", detail);
-
-    return "pages/admin/management/operator/info/modify";
+  // 운영자 정보 수정
+  @ResponseBody
+  @PostMapping("/modify/{id}")
+  UpdateSuccess modify(@PathVariable String id, Admin admin) {
+    admin.setId(id);
+    return adminOperatorService.modifyAdmin(admin);
   }
-
 
   // 운영자 계정 생성 페이지
   @GetMapping("/register")
-  String register() {
-    return "pages/admin/management/operator/register/register";
+  String register(Model model) {
+
+    // 권한 선택 체크박스 렌더링
+    model.addAttribute("roleOptions", AdminRoleEnum.values());
+
+    return "pages/admin/management/operator/register";
   }
 
-  // 운영자 권한 관리 페이지
-  // authority 로 쓸까? 했지만 인터셉터와 헷갈릴 것 같아서 permission으로 통일
-  @GetMapping("/permission")
-  String permission() {
-    return "pages/admin/management/operator/permission/permission";
+  // 운영자 아이디 검증 로직
+  @ResponseBody
+  @GetMapping("/check_id/{id}")
+  boolean checkId(@PathVariable String id) {
+    return adminOperatorService.checkId(id);
   }
+
+  // 운영자 계정 생성
+  @PostMapping("/register")
+  String registerAdminAccount(Admin admin) {
+
+    adminOperatorService.registerAdminAccount(admin);
+
+    return "redirect:/admin/management/operator/list";
+  }
+
 }

@@ -3,6 +3,7 @@ package com.project.sf.admin.auth.controller;
 import com.project.sf.admin.auth.model.AdminLogin;
 import com.project.sf.admin.auth.service.AdminAuthService;
 import com.project.sf.admin.operator.model.Admin;
+import com.project.sf.common.enums.operator.AdminRoleEnum;
 import jakarta.servlet.http.HttpSession;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -33,10 +34,20 @@ public class AdminAuthController {
   @PostMapping("/login")
   boolean login(AdminLogin adminLogin, HttpSession session) {
 
-    Admin logined = adminAuthService.login(adminLogin);
+    Admin loginedAdmin = adminAuthService.login(adminLogin);
 
-    if (logined != null) {
-      session.setAttribute("logined_admin", logined);
+    // 관리자일 경우
+    if (loginedAdmin != null) {
+
+      // 단, 비활성이면 통과 X
+      if (!loginedAdmin.isActive()) {
+        return false;
+      }
+
+      // 권한을 한글로 변경 후
+      loginedAdmin.setRolesWithLabel(AdminRoleEnum.changeValueToLabel(loginedAdmin.getRole()));
+      // 세션에 저장
+      session.setAttribute("logined_admin", loginedAdmin);
 
       return true;
     }

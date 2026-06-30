@@ -17,10 +17,23 @@
       <h2>관심 분야 관리</h2>
       <div th:replace="~{layout/admin/fragments/interest/widget :: Widget}"></div>
 
-      <div id="tab-menu">
-        <button class="tab-button active-tab" data-url="category" type="button">카테고리</button>
-        <button class="tab-button" data-url="keyword" type="button">키워드</button>
+      <div class="my-4">
+        <ul class="nav nav-pills">
+          <li class="nav-item">
+            <button class="nav-link active tab-button"
+                    data-url="category"
+                    type="button">카테고리
+            </button>
+          </li>
+          <li class="nav-item">
+            <button class="nav-link tab-button"
+                    data-url="keyword"
+                    type="button">키워드
+            </button>
+          </li>
+        </ul>
       </div>
+
       <article id="tab-panel">
         <th:block th:replace="~{layout/admin/fragments/interest/category_panel :: CategoryPanel}"></th:block>
       </article>

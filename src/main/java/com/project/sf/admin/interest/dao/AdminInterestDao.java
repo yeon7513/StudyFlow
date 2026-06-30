@@ -33,4 +33,6 @@ public interface AdminInterestDao {
   int updateKeywordInfo(AdminInterestKeyword keyword);
 
   void registerCategory(AdminInterestCategory category);
+
+  void registerKeyword(AdminInterestKeyword keyword);
 }

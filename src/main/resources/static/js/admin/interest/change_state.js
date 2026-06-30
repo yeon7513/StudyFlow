@@ -12,8 +12,12 @@ const handleChangeState = (target, targetNo, url) => {
   .then(result => {
     if (result.success) {
       target.checked = newState;
+      const panelItem = target.closest(".panel-item");
 
-      const updatedAtEl = target.closest(".panel-item").querySelector(".updated-at");
+      const checkboxLabel = panelItem.querySelector(".form-check-label");
+      checkboxLabel.textContent = newState ? '활성' : '비활성';
+
+      const updatedAtEl = panelItem.querySelector(".updated-at");
       updatedAtEl.textContent = result.updatedAt;
 
     } else {

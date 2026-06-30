@@ -30,4 +30,6 @@ public interface AdminInterestService {
   UpdateSuccess updateKeywordInfo(Long no, AdminInterestKeyword keyword);
 
   void registerCategory(AdminInterestCategory category);
+
+  void registerKeyword(AdminInterestKeyword keyword);
 }

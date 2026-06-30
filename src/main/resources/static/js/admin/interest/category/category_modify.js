@@ -18,25 +18,27 @@ const handleClickEditCategoryName = (target, categoryName, categoryNo) => {
 
   // 폼 생성
   const form = document.createElement('form');
-  form.classList.add('category-edit-form');
+  form.className = 'category-edit-form input-group input-group-sm';
   form.dataset.categoryNo = categoryNo;
 
   // 인풋 생성
   const input = document.createElement('input');
   input.type = 'text';
   input.value = categoryName;
-  input.name = 'name'
-  input.classList.add('category-name-input');
+  input.name = 'name';
+  input.className = 'form-control';
 
-  // 버튼
+  // 버튼 - 서브밋
   const submitButton = document.createElement('button');
   submitButton.type = 'submit';
-  submitButton.innerHTML = "<i class=\"fa-solid fa-check\"></i>";
+  submitButton.className = 'btn btn-outline-primary';
+  submitButton.innerHTML = '<i class="fa-solid fa-check"></i>';
 
+  // 버튼 - 취소
   const cancelButton = document.createElement('button');
   cancelButton.type = 'button';
-  cancelButton.classList.add('cancel-edit-button');
-  cancelButton.innerHTML = "<i class=\"fa-solid fa-xmark\"></i>";
+  cancelButton.className = 'btn btn-outline-secondary';
+  cancelButton.innerHTML = '<i class="fa-solid fa-xmark"></i>';
 
   // form 이벤트 버블링 해제 & 서브밋 핸들러 등록
   form.addEventListener('click', (e) => e.stopPropagation());
@@ -82,7 +84,7 @@ const handleSubmitEditedCategoryName = (e) => {
       const parentEl = form.parentElement;
       parentEl.dataset.categoryName = newCategoryName;
       parentEl.dataset.categoryNo = categoryNo;
-      parentEl.innerHTML = `${newCategoryName} <i class="fa-regular fa-pen-to-square"></i>`;
+      parentEl.innerHTML = `${newCategoryName} <i class="fa-regular fa-pen-to-square ms-2 text-primary"></i>`;
       parentEl.addEventListener('click', (e) => handleClickEditCategoryName(e, newCategoryName, categoryNo));
 
       const updatedAtEl = parentEl.closest(".panel-item").querySelector(".updated-at");
@@ -105,7 +107,7 @@ const handleSubmitEditedCategoryName = (e) => {
 const handleCancelEditCategoryName = (form) => {
   const parentEl = form.parentElement;
   const originCategoryName = parentEl.dataset.categoryName;
-  parentEl.innerHTML = `${originCategoryName} <i class="fa-regular fa-pen-to-square"></i>`;
+  parentEl.innerHTML = `${originCategoryName} <i class="fa-regular fa-pen-to-square ms-2 text-primary"></i>`;
 }
 
 // -------------------------------------------------------------------

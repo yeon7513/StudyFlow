@@ -9,7 +9,4 @@ document.addEventListener("DOMContentLoaded", () => {
     sessionStorage.removeItem("user-info");
   }
 
-
-  // 모달 열기/닫기
-  
 });

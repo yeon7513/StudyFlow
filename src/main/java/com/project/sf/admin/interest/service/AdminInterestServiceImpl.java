@@ -152,6 +152,11 @@ public class AdminInterestServiceImpl implements AdminInterestService {
     adminInterestDao.registerCategory(category);
   }
 
+  @Override
+  public void registerKeyword(AdminInterestKeyword keyword) {
+    adminInterestDao.registerKeyword(keyword);
+  }
+
   // 위젯용 -> 컨트롤러는 알 필요 X
   private int countEmptyCategory() {
     return adminInterestDao.countEmptyCategory();

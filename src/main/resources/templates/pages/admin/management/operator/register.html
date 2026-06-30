@@ -1,0 +1,88 @@
+<!doctype html>
+<html
+  lang="ko"
+  layout:decorate="~{/layout/admin/dashboard}"
+  th:with="breadCrumbs=${ { {label: '운영자 관리', path: '/admin/management/operator/list'}, {label: '운영자 계정 생성', path: null} } }"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  xmlns:th="http://www.thymeleaf.org"
+>
+  <head>
+    <script defer src="/js/admin/operator/register.js"></script>
+  </head>
+  <body>
+    <section layout:fragment="container">
+      <div th:replace="~{layout/admin/fragments/operator/tab_menu :: TabMenu(activeTab='register')}"></div>
+      <div class="p-4 bg-white" style="border-radius: 4px;">
+        <h5 class="fw-bold mb-4 text-dark">신규 운영자 계정 등록</h5>
+
+        <form id="register-form" method="post" onsubmit="return handleSubmitRegister()"
+              th:action="@{/admin/management/operator/register}">
+          <div class="mb-3 row align-items-center">
+            <label class="col-sm-3 col-md-2 fw-bold form-label mb-0" for="regId">아이디</label>
+            <div class="col-sm-9 col-md-6">
+              <div class="input-group">
+                <input class="form-control" id="regId" name="id" placeholder="영문, 숫자 조합으로 입력하세요." required type="text">
+                <button class="btn btn-outline-secondary" id="check-id" type="button">
+                  중복 확인
+                </button>
+              </div>
+              <div class="form-text mt-1 d-none" id="id-check-result"></div>
+            </div>
+          </div>
+
+          <div class="mb-3 row align-items-center">
+            <label class="col-sm-3 col-md-2 fw-bold form-label mb-0" for="regName">이름</label>
+            <div class="col-sm-9 col-md-6">
+              <input class="form-control" id="regName" name="name" placeholder="운영자 실명을 입력하세요." required type="text">
+            </div>
+          </div>
+
+          <div class="mb-3 row align-items-center">
+            <label class="col-sm-3 col-md-2 fw-bold form-label mb-0" for="regPassword">초기 비밀번호</label>
+            <div class="col-sm-9 col-md-6">
+              <input class="form-control" id="regPassword" name="pw" placeholder="초기 비밀번호를 설정하세요." required
+                     type="password">
+            </div>
+          </div>
+
+          <div class="mb-3 row align-items-center">
+            <label class="col-sm-3 col-md-2 fw-bold form-label mb-0">접근 권한</label>
+            <div class="col-sm-9 col-md-10 d-flex gap-3 flex-wrap role-group">
+
+              <div class="form-check" th:each="roleOption : ${roleOptions}">
+                <input class="form-check-input"
+                       name="roles"
+                       th:classappend="${roleOption.name() == 'SUPER' ? 'super-check' : 'sub-check'}"
+                       th:id="'reg_' + ${roleOption.name()}"
+                       th:value="${roleOption.value}"
+                       type="checkbox">
+                <label class="form-check-label"
+                       th:classappend="${roleOption.name() == 'SUPER'} ? 'text-danger fw-bold' : ''"
+                       th:for="'reg_' + ${roleOption.name()}"
+                       th:text="${roleOption.label}">
+                  권한이름
+                </label>
+              </div>
+
+            </div>
+          </div>
+
+          <div class="mb-4 row align-items-center">
+            <label class="col-sm-3 col-md-2 fw-bold form-label mb-0" for="regActive">계정 상태</label>
+            <div class="col-sm-9 col-md-6">
+              <div class="form-check form-switch fs-5">
+                <input checked class="form-check-input" id="regActive" name="active" type="checkbox">
+                <label class="form-check-label fs-6 text-secondary" for="regActive">활성화 시 즉시 로그인이 가능합니다.</label>
+              </div>
+            </div>
+          </div>
+
+          <div class="text-center border-top pt-4">
+            <button class="btn btn-outline-secondary me-2" id="cancel-register" type="button">초기화</button>
+            <button class="btn btn-primary px-4" type="submit">등록하기</button>
+          </div>
+        </form>
+      </div>
+    </section>
+  </body>
+</html>

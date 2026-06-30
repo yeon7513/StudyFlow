@@ -110,14 +110,6 @@
   align-items: center;
 }
 
-#sidebar .admin-info .name > span:first-child::after {
-  content: "";
-  display: inline-block;
-  margin: 0 8px;
-  width: 2px;
-  height: 14px;
-  background-color: #d9d9d9;
-}
 
 #sidebar .profile-util {
   padding-bottom: 24px;

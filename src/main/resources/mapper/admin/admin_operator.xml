@@ -26,4 +26,32 @@
         WHERE id = #{id}
     </select>
 
+    <!-- 관리자 권한 & 활성 상태 변경 -->
+    <update id="modifyAdmin">
+        UPDATE ADMINS
+        <set>
+            <if test="role != null">
+                role = #{role},
+            </if>
+            <if test="isActive != null">
+                is_active = #{isActive},
+            </if>
+            updated_at = #{updatedAt}
+        </set>
+        WHERE id = #{id}
+    </update>
+
+    <!-- 사용 가능한 아이디인지 검증 -->
+    <select id="checkId" resultType="Integer">
+        SELECT count(*)
+        FROM ADMINS
+        WHERE id = #{id}
+    </select>
+
+    <!-- 관리자 계정 등록 -->
+    <insert id="registerAdminAccount">
+        INSERT INTO ADMINS (id, pw, name, role, is_active, created_at)
+        VALUES (#{id}, #{pw}, #{name}, #{role}, #{isActive}, now())
+    </insert>
+
 </mapper>

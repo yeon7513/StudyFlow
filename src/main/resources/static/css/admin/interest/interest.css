@@ -5,16 +5,11 @@
 @import "category_panel.css";
 @import "keyword_panel.css";
 
-#interest button[id*='register'] {
-  margin-bottom: 16px;
-}
-
 #interest #widget {
   display: flex;
   gap: 24px;
   margin-top: 24px;
 }
-
 
 #interest #widget .interest-widget-content {
   flex: 1;
@@ -22,28 +17,6 @@
   background-color: #fff;
 }
 
-#interest #tab-menu {
-  display: flex;
-  align-items: center;
-  margin-top: 24px;
-  background-color: #fff;
-  border-bottom: 2px solid var(--primary-color);
-}
-
-#interest #tab-menu .tab-button {
-  padding: 16px 0;
-  width: 50%;
-  transition: 0.3s;
-}
-
-#interest #tab-menu .tab-button:hover {
-  opacity: 0.8;
-}
-
-#interest #tab-menu .tab-button.active-tab {
-  background-color: var(--primary-color);
-  color: #fff;
-}
 
 #interest #tab-panel {
   padding: 24px;

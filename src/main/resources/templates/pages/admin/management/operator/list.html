@@ -1,0 +1,104 @@
+<!doctype html>
+<html
+  lang="ko"
+  layout:decorate="~{/layout/admin/dashboard}"
+  th:with="breadCrumbs=${ { {label: '운영자 관리', path: '/admin/management/operator/list'}, {label: '운영자 정보', path: null} } }"
+  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout"
+  xmlns:th="http://www.thymeleaf.org"
+>
+  <head>
+    <script defer src="/js/admin/operator/list.js"></script>
+  </head>
+  <body>
+    <section layout:fragment="container">
+      <!-- 탭 메뉴 -->
+      <div th:replace="~{layout/admin/fragments/operator/tab_menu :: TabMenu(activeTab='list')}"></div>
+
+      <!-- 실제 목록 렌더링 -->
+      <div class="card shadow-sm" style="border: 1px solid #ebebeb; border-radius: 4px;">
+        <div class="card-body p-0">
+
+          <div class="row m-0 py-3 bg-light border-bottom text-center fw-bold align-items-center">
+            <div class="col-2">아이디</div>
+            <div class="col-2">이름</div>
+            <div class="col-2">권한</div>
+            <div class="col-1">상태</div>
+            <div class="col-2">등록일</div>
+            <div class="col-2">수정일</div>
+            <div class="col-1">관리</div>
+          </div>
+
+          <div class="accordion accordion-flush" id="admin-accordion">
+
+            <div class="py-5 text-center text-secondary border-bottom" th:if="${admins.isEmpty()}">
+              등록된 운영자 계정이 없습니다.
+            </div>
+
+            <th:block th:each="admin : ${admins}">
+              <div class="accordion-item border-0 border-bottom">
+
+                <!-- 목록 리스트 -->
+                <div class="row m-0 py-3 text-center align-items-center">
+                  <div class="col-2" th:text="${admin.id}">아이디</div>
+                  <div class="col-2" th:text="${admin.name}">이름</div>
+
+                  <div class="col-2">
+                    <div class="d-flex flex-wrap justify-content-center gap-1"
+                         th:classappend="|roles_${admin.id}|">
+
+                      <th:block th:each="role : ${admin.rolesWithLabel}" th:if="${!admin.rolesWithLabel.isEmpty()}">
+                        <span
+                          class="badge fw-normal"
+                          th:classappend="${role == '최고 관리자'} ? 'bg-danger' : (${role == '권한 없음'} ? 'bg-secondary' : 'bg-primary')"
+                          th:if="${role != null and role != ''}"
+                          th:text="${role}">권한</span>
+                      </th:block>
+
+                    </div>
+                  </div>
+
+                  <div class="col-1" th:classappend="|state_${admin.id}|">
+                    <span class="badge bg-success fs-6 fw-normal" th:if="${admin.active == true}">활성</span>
+                    <span class="badge bg-secondary fs-6 fw-normal" th:if="${admin.active == false}">비활성</span>
+                  </div>
+
+                  <div class="col-2" th:text="${admin.createdAt}">생성일</div>
+                  <div class="col-2" th:classappend="|updated_at_${admin.id}|"
+                       th:text="${admin.updatedAt != null ? admin.updatedAt : '-'}">수정일
+                  </div>
+
+                  <div class="col-1">
+                    <button aria-expanded="false" class="btn btn-sm btn-outline-primary"
+                            data-bs-toggle="collapse"
+                            th:data-bs-target="'#modify-' + ${admin.id}"
+                            type="button">수정
+                    </button>
+                  </div>
+                </div>
+
+                <!-- 수정 폼 -->
+                <div class="accordion-collapse collapse"
+                     data-bs-parent="#admin-accordion"
+                     th:id="'modify-' + ${admin.id}">
+                  <div class="accordion-body p-0 bg-light border-top">
+                    <div th:replace="~{layout/admin/fragments/operator/modify :: modifyForm(detail=${admin})}"></div>
+                  </div>
+                </div>
+
+              </div>
+            </th:block>
+          </div>
+
+          <div class="py-4 d-flex justify-content-center">
+            <div th:replace="~{layout/common/fragments/pagination :: Pagination(${pager})}"></div>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="d-flex justify-content-center mt-3">
+      </div>
+
+    </section>
+  </body>
+</html>

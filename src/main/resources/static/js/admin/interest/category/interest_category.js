@@ -30,26 +30,4 @@ tabPanel.addEventListener('click', (e) => {
   }
 })
 
-const openRegisterCategoryModalButton = document.getElementById('register-category');
-const modal = document.getElementById("modal");
-const cancelModalButton = document.getElementById("cancel-modal");
 
-const handleShowModal = () => {
-  modal.style.display = "block";
-
-  const body = modal.closest("body");
-  body.style.overflow = "hidden";
-};
-
-// 모달 닫기
-const handleHideModal = () => {
-  modal.style.display = "none";
-
-  const body = modal.closest("body");
-  body.style.overflow = "auto";
-};
-
-modal.addEventListener("click", handleHideModal);
-cancelModalButton.addEventListener("click", handleHideModal);
-
-openRegisterCategoryModalButton.addEventListener('click', handleShowModal);
